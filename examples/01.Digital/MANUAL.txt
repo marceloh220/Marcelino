@@ -35,21 +35,21 @@
    
    And anyway, even if this feature is not needed, the programmer will gain two more digital pin.
    These pins will be called 20 and 21 pins and the digital method can be used in both
-					  __ __
-              RST	-|	U  |-	A5/D19/SCL
-            RX/D0	-|	   |-	A4/D18/SDA
-            TX/D1	-|	   |-	A3/D17
-		  D2/INT0	-|	   |-	A2/D16
-     D3/INT1/OC2B	-|	   |-	A1/D15
-		D4/T0/XCK	-|	   |-	A0/D14
-			  VCC	-|	   |-	GND
-			  GND	-|	   |-	Aref
-	   --> X1/D20	-|	   |-	AVCC
-	   --> X2/D21	-|	   |-	D13/SCK
-       D5/T1/OC0B	-|	   |-	D12/MISO
-     D6/AINP/OC0A	-|	   |-	D11/OC2A/MOSI
-		  D7/AINN	-|	   |-	D10/OC1B/SS
-		  D8/CAPT	-|_____|-	D9/OC1A
+			  ____ ____
+              	    RST	-|    U    |- A5/D19/SCL
+            	  RX/D0	-|	   |- A4/D18/SDA
+            	  TX/D1	-|	   |- A3/D17
+		D2/INT0	-|	   |- A2/D16
+     	   D3/INT1/OC2B	-|	   |- A1/D15
+	      D4/T0/XCK	-|	   |- A0/D14
+	  	    VCC	-|	   |- GND
+		    GND	-|	   |- Aref
+	     --> X1/D20	-|	   |- AVCC
+	     --> X2/D21	-|	   |- D13/SCK
+             D5/T1/OC0B	-|	   |- D12/MISO
+           D6/AINP/OC0A	-|	   |- D11/OC2A/MOSI
+	        D7/AINN	-|	   |- D10/OC1B/SS
+		D8/CAPT	-|_________|- D9/OC1A
    
    Alternate Function of pins:
    
