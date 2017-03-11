@@ -5,10 +5,13 @@
 	https://github.com/marceloh220/Marcelino
 	
 	Hi, i'm a brazilian engineer student.
-	This text are completely in english, a bad english, sorry about that, but still is english.
+	This text are completely in english, a bad english, sorry about that,
+	but still is english.
 	
-	Why that? Most of the material for technology students is in English, and that language becomes a global language.
-	Therefore, this material can reach a larger audience being written so, again sorry for bad English.
+	Why that? Most of the material for technology students is in English,
+	and that language becomes a global language.
+	Therefore, this material can reach a larger audience being written so,
+	again sorry for bad English.
 	
 	The sketches following in this example are a way to show the features of this core.
 	These examples came with an MIT license and no warranty of any kind is offered.
