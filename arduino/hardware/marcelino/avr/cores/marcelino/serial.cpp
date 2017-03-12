@@ -1,3 +1,19 @@
+ /*
+  Copyright (c) 2017 Marcelo Henrique Moraes
+
+  This library is free software; you can redistribute it and/or
+  modify it under the terms of the GNU Lesser General Public
+  License as published by the Free Software Foundation; either
+  version 3.0 of the License, or (at your option) any later version.
+
+  This library is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+  Lesser General Public License for more details.
+
+ */
+
+
 #include "serial.h"
 
 Serial::Serial(uint16_t rate) {
@@ -14,6 +30,7 @@ void Serial::mode(uint8_t _mode) {
 		if(_mode) {
 			XCLK_DDR|=(1<<XCLK_PIN);
 			test_mode = 1;
+		}
 }
 
 void Serial::bits(uint8_t bit) {
