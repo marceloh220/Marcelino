@@ -23,8 +23,6 @@
   Boston, MA  02111-1307  USA
 */
 
-//I only put it in a class to make charm
-
 #include "defines.h"
 
 #ifdef __cplusplus
