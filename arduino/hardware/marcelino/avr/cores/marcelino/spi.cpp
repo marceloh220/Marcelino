@@ -16,23 +16,10 @@
 
 #include "spi.h"
 
-Spi::Spi(uint8_t mode, uint8_t scale) {
-	
-	prescale(scale);
-	
-	if(mode) {
-		DDR_SPI |= (1<<DD_MOSI)|(1<<DD_SCK);
-		DDR_SPI &= ~(1<<DD_MISO);
-		SPCR |= (1<<SPE)|(1<<MSTR);
-	}
-	else {
-		DDR_SPI |= (1<<DD_MISO);
-		DDR_SPI &= ~((1<<DD_MOSI)|(1<<DD_SCK)|(1<<DD_SCK));
-		SPCR |= (1<<SPE);
-	}
-}
+VoidFuncPtr SPIArray = none;
 
-void Spi::prescale(uint8_t scale) {
+//private
+void SPI::prescale(uint8_t scale) {
 	
 	SPCR &= ~(3<<SPR0);
 	SPSR &= ~(1<<SPI2X);
@@ -66,46 +53,80 @@ void Spi::prescale(uint8_t scale) {
 			break;
 	}
 	
-	
 }
 
-void Spi::order(uint8_t mode) {
+//public
+
+SPI::SPI(uint8_t mode, uint8_t scale) {
+	
+	prescale(scale);
+	
+	if(mode) {
+		DDR_SPI |= (1<<DD_MOSI)|(1<<DD_SCK);
+		DDR_SPI &= ~(1<<DD_MISO);
+		SPCR |= (1<<SPE)|(1<<MSTR);
+	}
+	else {
+		DDR_SPI |= (1<<DD_MISO);
+		DDR_SPI &= ~((1<<DD_MOSI)|(1<<DD_SCK)|(1<<DD_SCK));
+		SPCR |= (1<<SPE);
+	}
+}
+
+void SPI::order(uint8_t mode) {
 	if(mode)
 		SPCR |= (1<<DORD);
 	else
 		SPCR &= ~(1<<DORD);
 }
 
-uint8_t Spi::send(uint8_t data) {
+uint8_t SPI::send(uint8_t data) {
 	SPDR = data;
 	while(!(SPSR & (1<<SPIF)));
 	return SPDR;
 }
 
-uint8_t Spi::recive() {
+uint8_t SPI::recive() {
 	while(!(SPSR & (1<<SPIF)));
 	return SPDR;	
 }
 
-uint8_t Spi::transcive(uint8_t data) {
+uint8_t SPI::transcive(uint8_t data) {
 	SPDR = data;
 	while(!(SPSR & (1<<SPIF)));
 	return SPDR;
 }
 
-size_t Spi::write(uint8_t d) {
+size_t SPI::write(uint8_t d) {
 	send(d);
 	return 1;
 }
 
-size_t Spi::write(const char *s) {
+size_t SPI::write(const char *s) {
 	while(*s!='\0')
 		send(*s++);
 	return 1;
 }
 
-size_t Spi::write(const uint8_t *s, size_t l) {
+size_t SPI::write(const uint8_t *s, size_t l) {
 	while(l--)
 		send(*s++);
 	return 1;
+}
+
+void SPI::attach(VoidFuncPtr funct) {
+	SPIArray = funct;
+	SPCR |= (1<<SPIE);
+	sei();
+}
+
+void SPI::detach() {
+	SPIArray = none;
+	SPCR &= ~(1<<SPIE);
+}
+
+ISR(SPI_STC_vect) {
+	sregSAVE = SREG;
+	SPIArray();
+	SREG = sregSAVE;
 }
