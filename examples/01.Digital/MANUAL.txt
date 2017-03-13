@@ -1,4 +1,4 @@
-                                                                                                                           
+
    Marcelo H Moraes
    marceloh220@hotmail.com
    
@@ -35,21 +35,21 @@
    
    And anyway, even if this feature is not needed, the programmer will gain two more digital pin.
    These pins will be called 20 and 21 pins and the digital method can be used in both
-			  ____ ____
-              	    RST	-|    U    |- A5/D19/SCL
-            	  RX/D0	-|	   |- A4/D18/SDA
-            	  TX/D1	-|	   |- A3/D17
-		D2/INT0	-|	   |- A2/D16
-     	   D3/INT1/OC2B	-|	   |- A1/D15
-	      D4/T0/XCK	-|	   |- A0/D14
-	  	    VCC	-|	   |- GND
-		    GND	-|	   |- Aref
-	     --> X1/D20	-|	   |- AVCC
-	     --> X2/D21	-|	   |- D13/SCK
-             D5/T1/OC0B	-|	   |- D12/MISO
-           D6/AINP/OC0A	-|	   |- D11/OC2A/MOSI
-	        D7/AINN	-|	   |- D10/OC1B/SS
-		D8/CAPT	-|_________|- D9/OC1A
+					  __ __
+              RST	-|	U  |-	A5/D19/SCL
+            RX/D0	-|	   |-	A4/D18/SDA
+            TX/D1	-|	   |-	A3/D17
+		  D2/INT0	-|	   |-	A2/D16
+     D3/INT1/OC2B	-|	   |-	A1/D15
+		D4/T0/XCK	-|	   |-	A0/D14
+			  VCC	-|	   |-	GND
+			  GND	-|	   |-	Aref
+	   --> X1/D20	-|	   |-	AVCC
+	   --> X2/D21	-|	   |-	D13/SCK
+       D5/T1/OC0B	-|	   |-	D12/MISO
+     D6/AINP/OC0A	-|	   |-	D11/OC2A/MOSI
+		  D7/AINN	-|	   |-	D10/OC1B/SS
+		  D8/CAPT	-|_____|-	D9/OC1A
    
    Alternate Function of pins:
    
@@ -85,6 +85,26 @@
    D0 to D21:	Digital pins
    A0 to A5:	Analog A/D Converter pins
    
+   TO Direct access in the ports
+     
+   This direct access method can be used when fast access
+   to microcontroller registers is required.
+   This method of access has no overhead delays.
+  
+   port(*port, data);			//Put the data in the select port
+   byte a = port(*port);		//Get the port data
+   
+   set(*port, bit);				//Set bit in the port
+   clear(*port, bit);			//Clear bit in the port
+   toggle(port, bit);			//Toggle bit in the port
+   
+   ifset(*port, bit);			//Return true if bit is set
+   ifclear(*port, bit);			//Return true if bit is clear
+
+   The ports are a ponter and need be passed the address of the port:
+   
+   port(&PORTD, 0xFF);			//Set all pins in PORTD, Digital pin 0 to Digital pin 7
+   
   
    Delay module provide methods to handle delays of system.
    This provides the methods:
@@ -92,5 +112,3 @@
    ms(long); 		//Delay in milliseconds
    us(long); 		//Delay in microseconds
    
-   
-                                                                                                                                 /

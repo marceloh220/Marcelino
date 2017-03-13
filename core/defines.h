@@ -90,7 +90,6 @@
 
 #define ASYNCHRON	0
 #define SYNCHRON	1
-#define SPI			3
 
 #define EVEN		2
 #define ODD			3
