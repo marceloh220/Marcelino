@@ -19,14 +19,34 @@
 
 #include "defines.h"
 
+#define sbi(_sfr,_bit)		(_sfr|=(1<<_bit))
+#define cbi(_sfr,_bit)		(_sfr&=~(1<<_bit))
+#define tbi(_sfr,_bit)		(_sfr^=(1<<_bit))
+
+#define is_set(_sfr,_bit)	(_sfr&(1<<_bit))
+#define is_clear(_sfr,_bit)	(!(_sfr&(1<<_bit)))
+
+#define bv(_bit)			(1<<_bit)
+
 class Digital {
 public:
 	void mode(uint8_t _pin, uint8_t _mode);
 	void write(uint8_t _pin, uint8_t _state);
 	uint8_t read(uint8_t _pin);
+	
+	inline void input(uint8_t _bit) { mode(_bit, INPUT); }
+	inline void output(uint8_t _bit) { mode(_bit, OUTPUT); }
+	inline void pullup(uint8_t _bit) { mode(_bit, PULLUP); }
+		
+	inline void set(uint8_t _bit) {	write(_bit, HIGH); }
+	inline void clear(uint8_t _bit) { write(_bit, LOW); }
+	inline void toggle(uint8_t _bit) { write(_bit, TOGGLE); }
+	inline uint8_t ifset(uint8_t _bit) { return read(_bit); }
+	inline uint8_t ifclear(uint8_t _bit) { return !read(_bit); }
+	
 	inline void port(volatile uint8_t* _port, uint8_t _data) { *_port = _data; }
 	inline uint8_t port(volatile uint8_t* _port) { return *_port;	}
-	inline void set(volatile uint8_t* _port, uint8_t _bit) {	*_port|=(1<<_bit); }
+	inline void set(volatile uint8_t* _port, uint8_t _bit) { *_port|=(1<<_bit); }
 	inline void clear(volatile uint8_t* _port, uint8_t _bit) { *_port&=~(1<<_bit); }
 	inline void toggle(volatile uint8_t* _port, uint8_t _bit) { *_port^=(1<<_bit); }
 	inline uint8_t ifset(volatile uint8_t* _port, uint8_t _bit) { return *_port&(1<<_bit); }

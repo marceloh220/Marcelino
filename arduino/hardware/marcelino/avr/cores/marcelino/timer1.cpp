@@ -188,6 +188,26 @@ void Timer1::frequency(uint32_t freq) {
 		ICR1 = F_CPU / (factor * def_prescale * freq) - 1;
 }
 
+void Timer1::period(uint32_t micros) {
+  uint8_t scale;
+  uint32_t cycles = microsecondsToClockCycles(micros);
+  if(cycles < 65536)
+	scale = 1;
+  else if((cycles /= 8) < 65536)
+	scale = 2;
+  else if((cycles /= 8) < 65536)
+	scale = 3;
+  else if((cycles /= 8) < 65536)
+	scale = 4;
+  else {
+	cycles /= 8;
+	scale = 5;
+  }
+  TCCR1B &= ~7;
+  TCNT1 = 65535 - cycles;
+  TCCR1B |= scale;
+}
+
 void Timer1::attach(uint8_t interrupt, VoidFuncPtr funct) {
 	if(interrupt == CAPT)
 		return;

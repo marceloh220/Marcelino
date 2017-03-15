@@ -18,7 +18,7 @@
 #define DS3231_h
 
 #include "defines.h"
-#include "wire.h"
+#include "twi.h"
 #include "cmath.h"
 
 #define A1IE		0
@@ -36,7 +36,7 @@
 #define	EN32kHz		3
 #define OSF			7
 
-class DS3231 : private Wire, private Math {
+class DS3231 : private TWI, private Math {
 private:
 	uint8_t pos = 0;
 	const char* _week[8] = 		{
