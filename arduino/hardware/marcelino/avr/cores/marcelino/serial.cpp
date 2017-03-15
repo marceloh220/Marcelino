@@ -60,7 +60,7 @@ void Serial::parity(uint8_t _mode) {
 		UCSR0C |= (_mode<<UPM00);
 }
 
-void Serial::bound(uint16_t rate) {
+void Serial::baud(uint16_t rate) {
 	if(test_mode) {
 		UBRR0H = (uint8_t)(F_CPU/2/rate-1)>>8;
 		UBRR0L = (uint8_t)(F_CPU/2/rate-1);

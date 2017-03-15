@@ -24,14 +24,14 @@ class Serial : public Print {
 private:
 	uint8_t test_mode;
 public:
-	Serial(uint16_t baund = 9600);
+	Serial(uint16_t baud = 9600);
 	
 	//Tto config serial
 	void mode(uint8_t _mode);
 	void bits(uint8_t bit);
 	void stop(uint8_t bit);
 	void parity(uint8_t _mode);
-	void bound(uint16_t rate);
+	void baud(uint16_t rate);
 	
 	//virtual functions
 	//that functions can be used to write in serial hardware
