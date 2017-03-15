@@ -1,5 +1,5 @@
 
-	The Manual of Serial Module
+	The Manual of SPI Module
 	
 	This module is compatible with:
 									Atmega48A/Atmega48PA,

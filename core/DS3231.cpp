@@ -58,22 +58,22 @@ DS3231::DS3231() {
 }
 
 uint8_t DS3231::get(uint8_t address) {
-	Wire::start();
-	Wire::send(ADDR_W);
-	Wire::send(address);
-	Wire::start();
-	Wire::send(ADDR_R);
-	uint8_t data = Wire::read(NACK);
-	Wire::stop();
+	TWI::start();
+	TWI::send(ADDR_W);
+	TWI::send(address);
+	TWI::start();
+	TWI::send(ADDR_R);
+	uint8_t data = TWI::recive(NACK);
+	TWI::stop();
 	return data;
 }
 
 void DS3231::put(uint8_t data, uint8_t address) {
-	Wire::start();
-	Wire::send(ADDR_W);
-	Wire::send(address);
-	Wire::send(data);
-	Wire::stop();	
+	TWI::start();
+	TWI::send(ADDR_W);
+	TWI::send(address);
+	TWI::send(data);
+	TWI::stop();	
 }
 
 //public

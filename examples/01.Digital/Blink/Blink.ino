@@ -19,7 +19,7 @@ void setup() {
 }
 
 void loop() {
-	
+
 	digital.write(13,TOGGLE);	//Change status of pin digital 13
 	delay.ms(500);				    //Wait 500 milliseconds to next toggle
 	

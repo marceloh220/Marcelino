@@ -33,6 +33,7 @@
 #define INPUT 		0
 #define OUTPUT		1
 #define PULLUP		2
+#define INPUT_PULLUP 2
 
 #define LOW 		0
 #define CLEAR		0
@@ -207,6 +208,10 @@ extern const uint8_t digital_PCMASK[3] PROGMEM;
 #define clockMS			(F_CPU/1000000L)
 #define clock2ms(c)		(c / clockMS)
 #define ms2clock(m)		(m * clockMS)
+
+#define clockMC			(F_CPU/1000L)
+#define clock2mc(c)		(c / clockMC)
+#define mc2clock(m)		(m * clockMC)
 
 void none();
 void setup();

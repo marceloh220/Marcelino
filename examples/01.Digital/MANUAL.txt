@@ -21,7 +21,23 @@
    TOGGLE to change the pin state
   
    read(pin);			//Read state of pin
-   Return HIGH or LOW, depending on the state of the pin. 
+   Return HIGH or LOW, depending on the state of the pin.
+   
+   
+   Shortcuts for methods:
+   And for those who do not like to write too much, like me,
+   the Digital module has aliases for these methods.
+   
+   input(pin);			//The pin is like input
+   output(pin);			//The pin is like output
+   pullup(pin);			//The pin is like INPUT with internal pullup resistor
+   
+   set(pin);			//Set the pin
+   clear(pin);			//Clear the pin
+   toggle(pin);			//Toggle the pin
+   
+   ifset(pin)			//Test if pin is set
+   ifclear(pin)			//Test if pin is clear
   
    Note:
    
@@ -101,9 +117,20 @@
    ifset(*port, bit);			//Return true if bit is set
    ifclear(*port, bit);			//Return true if bit is clear
 
-   The ports are a ponter and need be passed the address of the port:
+   The ports are a pointer and need be passed the address of the port:
    
    port(&PORTD, 0xFF);			//Set all pins in PORTD, Digital pin 0 to Digital pin 7
+   
+   Macros defineds:
+   
+	sbi(sfr, bit)				//Set the Bit In register
+	cbi(sfr, bit)				//Clear the Bit In register
+	tbi(sfr, bit)				//Toggle the Bit In register
+
+	is_set(sfr, bit)			//Test if bit is set in register
+	is_clear(sfr, bit)			//Test if bit is clear in register
+
+	bv(bit)						//Bit shift to convert in a mask byte value
    
   
    Delay module provide methods to handle delays of system.
