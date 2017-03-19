@@ -37,6 +37,7 @@
 
 #include "pulse.h"
 #include "cmath.h"
+#include "register.h"
 #include "shift.h"
 #include "IHM595.h"
 #include "bits16.h"

@@ -16,6 +16,8 @@
 
 #include "timer2.h"
 
+uint8_t timer2_TCNT2;
+
 VoidFuncPtr T2Array[3] = {none,none,none};
 
 Timer2::Timer2() {
@@ -137,6 +139,44 @@ void Timer2::frequency(uint32_t freq) {
 		OCR2A = F_CPU / (factor * def_prescale * freq) - 1;
 }
 
+void Timer2::period(uint32_t micros) {
+  uint8_t scale;
+  uint32_t cycles = microsecondsToClockCycles(micros);
+  if(!micros) {
+	timer2_TCNT2 = 0;
+	return;
+  }
+  if(cycles < 256)
+	scale = 1;
+  else if((cycles / 8) < 256) {
+	scale = 2;
+	cycles /= 8;
+  }
+  else if((cycles / 32) < 256) {
+	scale = 3;
+	cycles /= 32;
+  }
+  else if((cycles / 64) < 256) {
+	scale = 4;
+	cycles /= 64;
+  }
+  else if((cycles / 128) < 256) {
+	scale = 5;
+	cycles /= 128;
+  }
+  else if((cycles / 256) < 256) {
+	scale = 6;
+	cycles /= 256;
+  }
+  else {
+	cycles /= 1024;
+	scale = 7;
+  }
+  TCCR2B &= ~7;
+  timer2_TCNT2 = 255 - cycles;
+  TCCR2B |= scale;
+}
+
 void Timer2::attach(uint8_t interrupt, VoidFuncPtr funct) {
 	T2Array[interrupt] = funct;
 	TIMSK2 |= (1<<interrupt);
@@ -150,6 +190,7 @@ void Timer2::detach(uint8_t interrupt) {
 
 ISR(TIMER2_OVF_vect) {
 	sregSAVE = SREG;
+	TCNT2 = timer2_TCNT2;
 	T2Array[0]();
 	SREG = sregSAVE;
 }

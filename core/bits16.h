@@ -39,15 +39,15 @@
 #define TEN 1
 #define UNIT 0
 
+const uint8_t PROGMEM bits16_segments[10] ={0xC0,0xF9,0xA4,0xB0,0x99,0x92,0x82,0xF8,0x80,0x90};
+
 class Bits16 : private Digital {
 private:
 	uint8_t _clock, _data;
 	uint16_t _ports;
-	const uint8_t segments[10] ={0xC0,0xF9,0xA4,0xB0,0x99,0x92,0x82,0xF8,0x80,0x90};
 	void send(uint16_t dado);
 public:
 	Bits16(uint8_t clock, uint8_t data);
-	void begin();
 	uint16_t out(uint8_t __port, uint8_t __state);
 	void print(uint16_t __number);
 	void dot(uint8_t __unit);

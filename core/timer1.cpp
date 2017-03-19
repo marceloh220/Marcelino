@@ -16,6 +16,8 @@
 
 #include "timer1.h"
 
+uint16_t timer1_TCNT1;
+
 VoidFuncPtr T1Array[4] = {none,none,none,none};
 
 Timer1::Timer1() {
@@ -191,6 +193,10 @@ void Timer1::frequency(uint32_t freq) {
 void Timer1::period(uint32_t micros) {
   uint8_t scale;
   uint32_t cycles = microsecondsToClockCycles(micros);
+  if(!micros) {
+	timer1_TCNT1 = 0;
+	return;
+  }
   if(cycles < 65536)
 	scale = 1;
   else if((cycles /= 8) < 65536)
@@ -204,7 +210,7 @@ void Timer1::period(uint32_t micros) {
 	scale = 5;
   }
   TCCR1B &= ~7;
-  TCNT1 = 65535 - cycles;
+  timer1_TCNT1 = 65535 - cycles;
   TCCR1B |= scale;
 }
 
@@ -238,6 +244,7 @@ void Timer1::detach(uint8_t interrupt) {
 
 ISR(TIMER1_OVF_vect) {
 	sregSAVE = SREG;
+	TCNT1 = timer1_TCNT1;
 	T1Array[0]();
 	SREG = sregSAVE;
 }

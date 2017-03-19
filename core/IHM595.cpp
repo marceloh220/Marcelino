@@ -21,6 +21,9 @@ IHM595::IHM595(uint8_t data, uint8_t clock, uint8_t enable) {
 	this->data = data;
 	this->clock = clock;
 	this->enable = enable;
+	this->_col = 0x0F;
+	this->_row = 0x02;
+	this->_mode();
 	this->init();
 }
 
@@ -46,6 +49,7 @@ void IHM595::init() {
 	_delay_us(2000);
 	cmd(0x01,1);
 	_delay_us(2000);
+	set(0,0);
 }
 
 //private:
@@ -77,6 +81,13 @@ void IHM595::cmd(uint8_t d, uint8_t c) {
     if (_background) _send|=(1<<0);
     else _send&=~(1<<0);
     send(_send);
+}
+
+void IHM595::_mode() {
+	_addressrow[0] = 0x00;
+	_addressrow[1] = 0x40;
+	_addressrow[2] = _col;
+	_addressrow[3] = _col + 0x40;
 }
 
 //public:
@@ -116,12 +127,15 @@ void IHM595::display(uint8_t state) {
 	else cmd(0x08,1);
 }
 void IHM595::set(uint8_t col, uint8_t row) {
-	uint8_t aux;
-    if(row) aux=0xC0;
-    else aux=0x80;
-    aux|=col;
+	size_t max_lines = sizeof(_addressrow) / sizeof(*_addressrow);
+	if(row >= max_lines)
+		row = max_lines-1;
+	if(row >= _col)
+		row = _col - 1;
+	uint8_t aux = 0x80 | (col + _addressrow[row]);
 	cmd(aux,1);
 	_delay_us(2000);
+
 }
 
 void IHM595::background(uint8_t state) {

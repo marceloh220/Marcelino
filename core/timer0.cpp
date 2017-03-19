@@ -16,6 +16,8 @@
 
 #include "timer0.h"
 
+uint8_t timer0_TCNT0;
+
 uint32_t _millis;
 
 VoidFuncPtr T0Array[3] = {none,none,none};
@@ -149,6 +151,30 @@ void Timer0::frequency(uint32_t freq) {
 		OCR0A = F_CPU / (factor * def_prescale * freq) - 1;
 }
 
+void Timer0::period(uint32_t micros) {
+  uint8_t scale;
+  uint32_t cycles = microsecondsToClockCycles(micros);
+  if(!micros) {
+	timer0_TCNT0 = 0;
+	return;
+  }
+  if(cycles < 256)
+	scale = 1;
+  else if((cycles /= 8) < 256)
+	scale = 2;
+  else if((cycles /= 8) < 256)
+	scale = 3;
+  else if((cycles /= 8) < 256)
+	scale = 4;
+  else {
+	cycles /= 8;
+	scale = 5;
+  }
+  TCCR0B &= ~7;
+  timer0_TCNT0 = 255 - cycles;
+  TCCR0B |= scale;
+}
+
 void Timer0::attach(uint8_t interrupt, VoidFuncPtr funct) {
 	T0Array[interrupt] = funct;
 	TIMSK0 |= (1<<interrupt);
@@ -163,6 +189,7 @@ void Timer0::detach(uint8_t interrupt) {
 
 ISR(TIMER0_OVF_vect) {
 	sregSAVE = SREG;
+	TCNT0 = timer0_TCNT0;
 	_millis++;
 	T0Array[0]();
 	SREG = sregSAVE;
