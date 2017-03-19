@@ -50,6 +50,7 @@ public:
 	
 	//control generator wave
 	void frequency(uint32_t freq);
+	void period(uint32_t micros);
 	
 	//interrupts of timer
 	void attach(uint8_t interrupt, VoidFuncPtr funct);

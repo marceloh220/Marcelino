@@ -204,6 +204,7 @@ extern const uint8_t digital_PCMASK[3] PROGMEM;
 #define get_PIN(P)		(volatile uint8_t *)pgm_read_byte(&digital_PIN[P])
 #define get_PCMASK(P)	(volatile uint8_t *)pgm_read_byte(&digital_PCMASK[P])
 
+#define pgm_get(sfr,P)	pgm_read_byte(&sfr[P])
 
 #define clockMS			(F_CPU/1000000L)
 #define clock2ms(c)		(c / clockMS)

@@ -16,9 +16,13 @@
 
 #include "bits16.h"
 
-Bits16::Bits16(uint8_t clock, uint8_t data) {
+Bits16::Bits16(uint8_t data, uint8_t clock) {
 	_clock = clock;
 	_data  = data;
+	Digital::write(_clock,LOW);
+	Digital::write(_data,LOW);
+	Digital::mode(_clock,OUTPUT);
+	Digital::mode(_data,OUTPUT);
 }
 
 void Bits16::send(uint16_t data) {
@@ -32,13 +36,6 @@ void Bits16::send(uint16_t data) {
 	}
 }
 
-void Bits16::begin() {
-	Digital::write(_clock,LOW);
-	Digital::write(_data,LOW);
-	Digital::mode(_clock,OUTPUT);
-	Digital::mode(_data,OUTPUT);
-}
-
 uint16_t Bits16::out(uint8_t port, uint8_t state) {
 	if(state)
 		_ports|=(1<<port);
@@ -50,8 +47,8 @@ uint16_t Bits16::out(uint8_t port, uint8_t state) {
 
 void Bits16::print(uint16_t number) {
 	uint16_t _send;
-	_send=segments[number/10]<<8;
-	_send|=segments[number%10];
+	_send=pgm_get(bits16_segments,number/10)<<8;
+	_send|=pgm_get(bits16_segments,number%10);
 	send(_send);
 	_ports=_send;
 }
