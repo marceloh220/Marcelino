@@ -19,35 +19,31 @@
 
 #include "defines.h"
 
-VoidFuncPtr wdtARRAY = none;
-
 class WDT {
-	
+private:
+	uint8_t _mode;
 public:
-	WDT(uint8_t timeout = 7) {
-		if(timeout>9)
-			timeout=7;
-		wdt_reset();
-		wdt_enable(timeout);
+	
+	WDT() {
+		enable();
+		_mode = RESET;
 	}
-	inline void clear() {  wdt_reset();}
-	inline void off() { wdt_disable();}
-	void on(uint8_t timeout = 7) {
-		if(timeout>9)
-			timeout=7;
-		WDTCSR &= ~(1<<WDIE);
-		wdt_reset();
-		wdt_enable(timeout);
-	}
-	void attach(VoidFuncPtr func) {
-		wdtARRAY = func;
-		WDTCSR |= (1<<WDIE);
-		sei();
-	}
-};
 
-ISR(WDT_vect) {
-	wdtARRAY();
-}
+	//to config
+	void config(uint8_t mode);
+	void timeout(uint8_t time);
+	
+	//to enable and disable
+	inline void enable() { WDTCSR |= (1<<WDE); }
+	inline void disable() { WDTCSR &= ~(1<<WDE); }
+	
+	//to reset wtd
+	inline void clear() {  wdt_reset(); }
+	inline void reset() {  wdt_reset(); }
+	
+	//to management the interrupt
+	void attach(VoidFuncPtr func);
+	void detach();
+};
 
 #endif

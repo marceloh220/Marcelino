@@ -86,6 +86,21 @@
 #define DEFAULT		1
 #define INTERNAL	3
 
+#define W_16MS		0
+#define W_32MS		1
+#define W_64MS		2
+#define W_128MS		3
+#define W_256MS		4
+#define W_512MS		5
+#define W_1S		6
+#define W_2S		7
+#define W_4S		8
+#define W_8S		9
+
+#define INTERRUPT	1
+#define RESET		2
+#define INT_RESET	3
+
 #define MSBF		0
 #define LSBF		1
 
