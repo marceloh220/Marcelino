@@ -19,30 +19,33 @@
 
 #include "defines.h"
 
-#define IDLE 		SLEEP_MODE_IDLE
-#define ADCNOISE 	SLEEP_MODE_ADC
-
-#define STANDBY		SLEEP_MODE_STANDBY
-#define STANDBYEXT	SLEEP_MODE_EXT_STANDBY
-
-#define POWERDOWN	SLEEP_MODE_PWR_DOWN
-#define POWERSAVE	SLEEP_MODE_PWR_SAVE
-
 class Sleep {
-
 public:
 	void sleep(uint8_t mode = IDLE) {
 		set_sleep_mode(mode);
 		cli();
 		sleep_enable();
+#if defined (__AVR_ATmega328__) || (__AVR_ATmega328P__)
 		sleep_bod_disable();
+#endif
         sei();
         sleep_cpu();
 	}
-	inline void wake() {
+	inline void wakeup() {
 		sleep_disable();
 	}
-	
+	void disable(uint8_t hardware) {
+		if(hardware == ALL)
+			PRR = 0xFF;
+		else
+			PRR |= (1<<hardware);
+	}
+	void enable(uint8_t hardware) {
+		if(hardware == ALL)
+			PRR = 0x00;
+		else
+			PRR &= ~(1<<hardware);
+	}
 };
 
 #endif

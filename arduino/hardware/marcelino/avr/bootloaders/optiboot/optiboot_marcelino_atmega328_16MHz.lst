@@ -1,5 +1,5 @@
 
-optiboot_atmega168.elf:     file format elf32-avr
+optiboot_marcelino_atmega328_16MHz.elf:     file format elf32-avr
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
@@ -120,7 +120,7 @@ Disassembly of section .text:
     3ed6:	98 2e       	mov	r9, r24
     3ed8:	70 d0       	rcall	.+224    	; 0x3fba <getch>
     3eda:	c1 15       	cp	r28, r1
-    3edc:	f8 e3       	ldi	r31, 0x38	; 56
+    3edc:	f0 e7       	ldi	r31, 0x70	; 112
     3ede:	df 07       	cpc	r29, r31
     3ee0:	38 f4       	brcc	.+14     	; 0x3ef0 <main+0xf0>
     3ee2:	fe 01       	movw	r30, r28
@@ -140,7 +140,7 @@ Disassembly of section .text:
     3efe:	9e 12       	cpse	r9, r30
     3f00:	fa cf       	rjmp	.-12     	; 0x3ef6 <main+0xf6>
     3f02:	c1 15       	cp	r28, r1
-    3f04:	f8 e3       	ldi	r31, 0x38	; 56
+    3f04:	f0 e7       	ldi	r31, 0x70	; 112
     3f06:	df 07       	cpc	r29, r31
     3f08:	18 f0       	brcs	.+6      	; 0x3f10 <main+0x110>
     3f0a:	fe 01       	movw	r30, r28
@@ -207,9 +207,9 @@ Disassembly of section .text:
     3f84:	26 d0       	rcall	.+76     	; 0x3fd2 <verifySpace>
     3f86:	8e e1       	ldi	r24, 0x1E	; 30
     3f88:	11 d0       	rcall	.+34     	; 0x3fac <putch>
-    3f8a:	84 e9       	ldi	r24, 0x94	; 148
+    3f8a:	85 e9       	ldi	r24, 0x95	; 149
     3f8c:	0f d0       	rcall	.+30     	; 0x3fac <putch>
-    3f8e:	86 e0       	ldi	r24, 0x06	; 6
+    3f8e:	8f e0       	ldi	r24, 0x0F	; 15
     3f90:	0d d0       	rcall	.+26     	; 0x3fac <putch>
     3f92:	09 c0       	rjmp	.+18     	; 0x3fa6 <main+0x1a6>
     3f94:	81 35       	cpi	r24, 0x51	; 81

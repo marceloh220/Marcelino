@@ -108,7 +108,7 @@ STK500-1 = $(STK500) -e -d$(MCU_TARGET) -pf -vf -if$(PROGRAM)_$(TARGET).hex \
 STK500-2 = $(STK500) -d$(MCU_TARGET) -ms -q -lCF -LCF -cUSB -I200kHz -s -wt
 
 OBJ        = $(PROGRAM).o
-OPTIMIZE = -Os -fno-inline-small-functions -fno-split-wide-types -mshort-calls
+OPTIMIZE = -Os -fno-inline-small-functions -fno-split-wide-types -fshort-enums
 
 DEFS       = 
 LIBS       =
@@ -418,6 +418,81 @@ luminet_isp: LFUSE = 62
 luminet_isp: EFUSE = FE
 luminet_isp: isp
 
+########################################################################
+#Marcelino Core
+
+#Marcelino ATmega168 16MHz
+Marcelino_atmega168_16: TARGET = Marcelino_atmega168_16
+Marcelino_atmega168_16: MCU_TARGET = atmega168
+Marcelino_atmega168_16: CFLAGS += '-DLED_START_FLASHES=3' '-DBAUD_RATE=115200'
+Marcelino_atmega168_16: AVR_FREQ = 16000000L 
+Marcelino_atmega168_16: $(PROGRAM)_marcelino_atmega168_16MHz.hex
+Marcelino_atmega168_16: $(PROGRAM)_marcelino_atmega168_16MHz.lst
+
+Marcelino_atmega168_16_isp: atmega168
+Marcelino_atmega168_16_isp: TARGET = atmega168
+# 2.7V brownout
+Marcelino_atmega168_16_isp: HFUSE = DD
+# Low power xtal (16MHz) 16KCK/14CK+65ms
+Marcelino_atmega168_16_isp: LFUSE = FF
+# 512 byte boot
+Marcelino_atmega168_16_isp: EFUSE = FB
+Marcelino_atmega168_16_isp: isp
+########################################################################
+#Marcelino ATmega168 8MHz
+Marcelino_atmega168_8: TARGET = Marcelino_atmega168_8
+Marcelino_atmega168_8: MCU_TARGET = atmega168
+Marcelino_atmega168_8: CFLAGS += '-DLED_START_FLASHES=3' '-DBAUD_RATE=115200'
+Marcelino_atmega168_8: AVR_FREQ = 8000000L 
+Marcelino_atmega168_8: $(PROGRAM)_marcelino_atmega168_8MHz.hex
+Marcelino_atmega168_8: $(PROGRAM)_marcelino_atmega168_8MHz.lst
+
+Marcelino_atmega168_8_isp: atmega168
+Marcelino_atmega168_8_isp: TARGET = atmega168
+# 2.7V brownout
+Marcelino_atmega168_8_isp: HFUSE = DD
+# Low power xtal (16MHz) 16KCK/14CK+65ms
+Marcelino_atmega168_8_isp: LFUSE = E2
+# 512 byte boot
+Marcelino_atmega168_8_isp: EFUSE = FB
+Marcelino_atmega168_8_isp: isp
+########################################################################
+#Marcelino ATmega328 16MHz
+Marcelino_atmega328_16: TARGET = Marcelino_atmega328_16
+Marcelino_atmega328_16: MCU_TARGET = atmega328p
+Marcelino_atmega328_16: CFLAGS += '-DLED_START_FLASHES=3' '-DBAUD_RATE=115200'
+Marcelino_atmega328_16: AVR_FREQ = 16000000L 
+Marcelino_atmega328_16: $(PROGRAM)_marcelino_atmega328_16MHz.hex
+Marcelino_atmega328_16: $(PROGRAM)_marcelino_atmega328_16MHz.lst
+
+Marcelino_atmega328_16_isp: atmega328p
+Marcelino_atmega328_16_isp: TARGET = atmega328p
+# 2.7V brownout
+Marcelino_atmega328_16_isp: HFUSE = DD
+# Low power xtal (16MHz) 16KCK/14CK+65ms
+Marcelino_atmega328_16_isp: LFUSE = FF
+# 512 byte boot
+Marcelino_atmega328_16_isp: EFUSE = FD
+Marcelino_atmega328_16_isp: isp
+########################################################################
+#Marcelino ATmega328 8MHz
+Marcelino_atmega328_8: TARGET = Marcelino_atmega328_8
+Marcelino_atmega328_8: MCU_TARGET = atmega328p
+Marcelino_atmega328_8: CFLAGS += '-DLED_START_FLASHES=3' '-DBAUD_RATE=115200'
+Marcelino_atmega328_8: AVR_FREQ = 8000000L 
+Marcelino_atmega328_8: $(PROGRAM)_marcelino_atmega328_8MHz.hex
+Marcelino_atmega328_8: $(PROGRAM)_marcelino_atmega328_8MHz.lst
+
+Marcelino_atmega328_8_isp: atmega328p
+Marcelino_atmega328_8_isp: TARGET = atmega328p
+# 2.7V brownout
+Marcelino_atmega328_8_isp: HFUSE = DD
+# Low power xtal (16MHz) 16KCK/14CK+65ms
+Marcelino_atmega328_8_isp: LFUSE = E2
+# 512 byte boot
+Marcelino_atmega328_8_isp: EFUSE = FD
+Marcelino_atmega328_8_isp: isp
+########################################################################
 #
 # Generic build instructions
 #

@@ -1,5 +1,5 @@
 
-optiboot_atmega168.elf:     file format elf32-avr
+optiboot_lilypad_resonator.elf:     file format elf32-avr
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
@@ -32,15 +32,15 @@ Disassembly of section .text:
     3e18:	80 93 c1 00 	sts	0x00C1, r24	; 0x8000c1 <__TEXT_REGION_LENGTH__+0x7e00c1>
     3e1c:	96 e0       	ldi	r25, 0x06	; 6
     3e1e:	90 93 c2 00 	sts	0x00C2, r25	; 0x8000c2 <__TEXT_REGION_LENGTH__+0x7e00c2>
-    3e22:	90 e1       	ldi	r25, 0x10	; 16
+    3e22:	98 e0       	ldi	r25, 0x08	; 8
     3e24:	90 93 c4 00 	sts	0x00C4, r25	; 0x8000c4 <__TEXT_REGION_LENGTH__+0x7e00c4>
     3e28:	80 93 60 00 	sts	0x0060, r24	; 0x800060 <__TEXT_REGION_LENGTH__+0x7e0060>
     3e2c:	8e e0       	ldi	r24, 0x0E	; 14
     3e2e:	80 93 60 00 	sts	0x0060, r24	; 0x800060 <__TEXT_REGION_LENGTH__+0x7e0060>
     3e32:	25 9a       	sbi	0x04, 5	; 4
     3e34:	86 e0       	ldi	r24, 0x06	; 6
-    3e36:	20 e3       	ldi	r18, 0x30	; 48
-    3e38:	3c ef       	ldi	r19, 0xFC	; 252
+    3e36:	28 e1       	ldi	r18, 0x18	; 24
+    3e38:	3e ef       	ldi	r19, 0xFE	; 254
     3e3a:	91 e0       	ldi	r25, 0x01	; 1
     3e3c:	30 93 85 00 	sts	0x0085, r19	; 0x800085 <__TEXT_REGION_LENGTH__+0x7e0085>
     3e40:	20 93 84 00 	sts	0x0084, r18	; 0x800084 <__TEXT_REGION_LENGTH__+0x7e0084>

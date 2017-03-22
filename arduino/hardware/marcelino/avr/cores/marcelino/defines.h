@@ -101,6 +101,22 @@
 #define RESET		2
 #define INT_RESET	3
 
+#define IDLE 		SLEEP_MODE_IDLE
+#define ADCNOISE 	SLEEP_MODE_ADC
+#define STANDBY		SLEEP_MODE_STANDBY
+#define STANDBYEXT	SLEEP_MODE_EXT_STANDBY
+#define POWERDOWN	SLEEP_MODE_PWR_DOWN
+#define POWERSAVE	SLEEP_MODE_PWR_SAVE
+
+#define ALL			8
+#define PRTWI		7
+#define PRTIMER2	6
+#define PRTIMER0	5
+#define PRTIMER1	3
+#define PRSPI		2
+#define PRUSART		1
+#define PRADC		0
+
 #define MSBF		0
 #define LSBF		1
 
