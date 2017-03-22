@@ -26,10 +26,16 @@
 	following the guidelines of the current use license for the core.
 
 
-	The extensible core Marcelino to Arduino Uno/Nano/Mini boards.
+	The extensible core Marcelino to Arduino Uno/Nano/Mini boards*.
 
 	Core Marcelino expands software configuration capabilities, giving the programmer easy 
 	tools to configure these Arduino boards.
 	Program the Arduino without software limitations,
 	and explorer the powerful hardware of ATmega328 microcontroller.
+	
+	*Any module is compatible with:
+					Atmega48A/Atmega48PA,
+					Atmega88A/Atmega88PA,
+					Atmega168A/Atmega168PA,
+					Atmega328/Atmega328P (Arduino Uno).
 	
