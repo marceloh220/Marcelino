@@ -30,8 +30,8 @@
 #include "serial.h"
 #include "spi.h"
 #include "twi.h"
-
 #include "cwdt.h"
+
 #include "csleep.h"
 #include "EEPROM.h"
 
