@@ -23,6 +23,7 @@ uint32_t _millis;
 VoidFuncPtr T0Array[3] = {none,none,none};
 
 Timer0::Timer0() {
+	PRR &= ~(1<<PRTIMER0);
 	def_prescale = 64;
 	TCCR0B = 3;
 	TIMSK0|=(1<<TOIE0);

@@ -16,7 +16,7 @@ void WDT::config(uint8_t mode) {
 	WDTCSR &= ~( (1<<WDE)|(1<<WDIE) );
 	if(mode==INTERRUPT)
 		WDTCSR |= (1<<WDIE);
-	else if(mode=RESET)
+	else if(mode==RESET)
 		WDTCSR |= (1<<WDE);
 	else
 		WDTCSR = (1<<WDE)|(1<<WDIE);

@@ -21,6 +21,7 @@ uint16_t timer1_TCNT1;
 VoidFuncPtr T1Array[4] = {none,none,none,none};
 
 Timer1::Timer1() {
+	PRR &= ~(1<<PRTIMER1);
 	TCCR1B = 3;
 	def_prescale = 64;
 }

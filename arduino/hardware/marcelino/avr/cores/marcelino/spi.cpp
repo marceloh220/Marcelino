@@ -59,6 +59,8 @@ void SPI::prescale(uint8_t scale) {
 
 SPI::SPI(uint8_t mode, uint8_t scale) {
 	
+	PRR &= ~(1<<PRSPI);
+	
 	prescale(scale);
 	
 	if(mode) {
@@ -71,6 +73,7 @@ SPI::SPI(uint8_t mode, uint8_t scale) {
 		DDR_SPI &= ~((1<<DD_MOSI)|(1<<DD_SCK)|(1<<DD_SCK));
 		SPCR |= (1<<SPE);
 	}
+	
 }
 
 void SPI::order(uint8_t mode) {

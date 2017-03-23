@@ -28,6 +28,7 @@ private:
 public:
 	//initialize
 	TWI(uint8_t mode = MASTER, uint8_t speed = FAST);
+	~TWI() { PRR |= (1<<PRTWI); }
 	
 	//to communication
 	inline void start() {

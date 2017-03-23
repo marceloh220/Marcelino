@@ -19,6 +19,7 @@
 VoidFuncPtr AnalogArray = none;
 
 Analog::Analog(uint8_t Vref) {
+	PRR &= ~(1<<PRADC);
 	_Vref = Vref&0x03;
 	_prescale = 6;
 }
