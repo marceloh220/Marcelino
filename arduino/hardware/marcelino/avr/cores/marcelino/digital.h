@@ -37,7 +37,7 @@ public:
 	inline void input(uint8_t _bit) { mode(_bit, INPUT); }
 	inline void output(uint8_t _bit) { mode(_bit, OUTPUT); }
 	inline void pullup(uint8_t _bit) { mode(_bit, PULLUP); }
-		
+
 	inline void set(uint8_t _bit) {	write(_bit, HIGH); }
 	inline void clear(uint8_t _bit) { write(_bit, LOW); }
 	inline void toggle(uint8_t _bit) { write(_bit, TOGGLE); }
