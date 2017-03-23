@@ -31,8 +31,8 @@
 #include "spi.h"
 #include "twi.h"
 #include "cwdt.h"
-
 #include "csleep.h"
+
 #include "EEPROM.h"
 
 #include "pulse.h"
@@ -43,5 +43,15 @@
 #include "bits16.h"
 #include "LiquidCrystal.h"
 #include "DS3231.h"
+
+class Marcelino {
+public:
+	Marcelino() {
+		ACSR|=(1<<ACD);
+		PRR = 255;
+	}
+};
+
+static Marcelino marcelino;
 
 #endif

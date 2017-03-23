@@ -123,7 +123,10 @@ void IHM595::cursor(uint8_t mode) {
 
 void IHM595::display(uint8_t state) {
 	clear();
-	if(state) cmd(0x0C,1);
+	if(state) {
+		cmd(0x0C,1);
+		init();
+	}
 	else cmd(0x08,1);
 }
 void IHM595::set(uint8_t col, uint8_t row) {

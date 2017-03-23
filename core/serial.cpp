@@ -17,6 +17,7 @@
 #include "serial.h"
 
 Serial::Serial(uint16_t rate) {
+	PRR &= ~(1<<PRUSART);
 	UBRR0H = (uint8_t)(F_CPU/16/rate-1)>>8;
 	UBRR0L = (uint8_t)(F_CPU/16/rate-1);
 	UCSR0B = (1<<RXEN0)|(1<<TXEN0);

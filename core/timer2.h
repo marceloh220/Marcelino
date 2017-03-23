@@ -26,6 +26,7 @@ private:
 	uint8_t def_top, def_mode;
 public:
 	Timer2();
+	~Timer2() { PRR |= (1<<PRTIMER2); }
 		
 	//configs of timer
 	void prescale(uint16_t scale);;

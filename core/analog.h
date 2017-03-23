@@ -24,6 +24,7 @@ private:
 	uint8_t _Vref, _prescale;
 public:
 	Analog(uint8_t Vref = DEFAULT);
+	~Analog() { PRR |= (1<<PRADC); }
 
 	//to config ADC
 	void aref(uint8_t ref);

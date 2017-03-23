@@ -47,7 +47,7 @@
   W_1S to WDT overflows in 1.024s
   W_2S to WDT overflows in 2.048s
   W_4S to WDT overflows in 4.096s
-  W_8MS to WDT overflows in 0.192s
+  W_8S to WDT overflows in 8.192s
   
   
   TO enable and disable

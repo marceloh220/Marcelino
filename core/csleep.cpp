@@ -13,18 +13,33 @@
  */
 
 
-#ifndef CSLEEP_H
-#define CSLEEP_H
+#include "csleep.h"
 
-#include "defines.h"
-
-class Sleep {
-public:
-	//to put in sleep
-	void sleep(uint8_t mode);
-	//to disable and enable sleep and hardware
-	void disable(uint8_t hardware);
-	void enable(uint8_t hardware);
-};
-
+void Sleep::sleep(uint8_t mode) {
+	set_sleep_mode(mode);
+	cli();
+	sleep_enable();
+#if defined (__AVR_ATmega328__) || (__AVR_ATmega328P__)
+	sleep_bod_disable();
 #endif
+    sei();
+    sleep_cpu();
+}
+
+void Sleep::disable(uint8_t hardware) {
+	if(hardware==SLEEP)
+		sleep_disable();
+	else if(hardware == ALL)
+		PRR = 0xFF;
+	else
+		PRR |= (1<<hardware);
+}
+
+void Sleep::enable(uint8_t hardware) {
+	if(hardware==SLEEP)
+		sleep_enable();
+	else if(hardware == ALL)
+		PRR = 0x00;
+	else
+		PRR &= ~(1<<hardware);	
+}

@@ -1,3 +1,14 @@
+/*
+ * Marcelo H Moraes
+ * marceloh220@hotmail.com
+ * 
+ * Using the Watchdog Timer (WDT) just to make simple timings.
+ * A simple sketch in Arduino using Marcelino cores.
+ * 
+ * For detail of the modules read the manual.
+ * 
+ */
+
 Digital digital;          //Active the Digital module
 Delay delay;              //Active the Delay module
 WDT wdt;                  //Active the WDT module

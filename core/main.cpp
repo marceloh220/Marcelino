@@ -8,7 +8,6 @@ void none() {
 }
 
 int main() {
-	ACSR|=(1<<ACD);
 	setup();
 	for(;;)
 		loop();

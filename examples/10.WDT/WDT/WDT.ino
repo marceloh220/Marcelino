@@ -1,3 +1,14 @@
+/*
+ * Marcelo H Moraes
+ * marceloh220@hotmail.com
+ * 
+ * Using the Watchdog Timer (WDT) to prevent freeze problems in microcontroller.
+ * A simple sketch in Arduino using Marcelino cores.
+ * 
+ * For detail of the modules read the manual.
+ * 
+ */
+
 Digital digital;          //Active the Digital module
 Delay   delay;            //Active the Delay module
 WDT     wdt;              //Active the WDT module
@@ -19,7 +30,7 @@ void loop() {
   wdt.clear();            //Clears WDT by stopping the reset
 
   if (digital.ifclear(8))
-    while (1);            //Simulation of a microcontroller hang-up problem
+    while (1);            //Simulation of a microcontroller freeze problem
 
   delay.ms(500);          //Delay to blink led
 

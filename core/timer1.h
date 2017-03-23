@@ -27,6 +27,7 @@ private:
 	void variable(uint8_t mode, uint8_t top);
 public:
 	Timer1();
+	~Timer1() { PRR |= (1<<PRTIMER1); }
 	
 	//configs of timer
 	void config(uint8_t mode, uint8_t mode2 = FAST, uint8_t top = CAPT);

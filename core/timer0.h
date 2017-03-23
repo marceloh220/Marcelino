@@ -26,6 +26,7 @@ private:
 	uint8_t def_top, def_mode;
 public:
 	Timer0();
+	~Timer0() { PRR |= (1<<PRTIMER0); }
 	uint32_t millis();
 	
 	//configs of timer

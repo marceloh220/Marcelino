@@ -27,6 +27,7 @@ void TWI::address(uint8_t _address) {
 
 //public
 TWI::TWI(uint8_t mode, uint8_t option) {
+	PRR &= ~(1<<PRTWI);
 	mode_twi = mode;
 	if(mode==MASTER) {
 #if F_CPU == 8000000UL
