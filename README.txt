@@ -13,6 +13,12 @@
 	Therefore, this material can reach a larger audience being written so,
 	again sorry for bad English.
 	
+	The three rules of Core Marcelino:
+	First rule: Make the things in easy way.
+	Second rule: But don't make the easy things.
+	Third rule: Don't waste time of the processor doing with software if you have a peripheral hardware to do that.
+	
+	
 	The sketches following in this example are a way to show the features of this core.
 	These examples came with an MIT license and no warranty of any kind is offered.
 	
