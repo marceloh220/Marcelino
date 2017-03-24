@@ -31,7 +31,7 @@
 	Core Marcelino expands software configuration capabilities, giving the programmer easy 
 	tools to configure these Arduino boards.
 	Program the Arduino without software limitations,
-	and explorer the powerful hardware of ATmega328 microcontroller.
+	and explorer the powerful hardware of AVR microcontroller.
 	
 	*Any module is compatible with:
 					Atmega48A/Atmega48PA,
