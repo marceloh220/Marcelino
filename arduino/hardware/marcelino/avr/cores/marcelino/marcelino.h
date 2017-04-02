@@ -19,7 +19,6 @@
 
 #include "defines.h"
 
-
 #include "digital.h"
 #include "analog.h"
 #include "delay.h"
@@ -32,17 +31,13 @@
 #include "twi.h"
 #include "cwdt.h"
 #include "csleep.h"
-
 #include "EEPROM.h"
 
-#include "pulse.h"
 #include "cmath.h"
 #include "register.h"
 #include "shift.h"
-#include "IHM595.h"
-#include "bits16.h"
-#include "LiquidCrystal.h"
-#include "DS3231.h"
+
+#include "pulse.h"
 
 class Marcelino {
 public:

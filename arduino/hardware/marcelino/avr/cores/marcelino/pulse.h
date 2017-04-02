@@ -35,7 +35,6 @@ uint32_t countPulseASM(volatile uint8_t *port, uint8_t bit, uint8_t stateMask, u
 
 class Pulse  {
 
-	
 public:
 	uint32_t in(uint8_t pin, uint8_t state, uint32_t timeout = 1000);
 	

@@ -35,12 +35,18 @@ public:
 	uint8_t read(uint8_t _pin);
 	
 	inline void input(uint8_t _bit) { mode(_bit, INPUT); }
+	void input(uint8_t bit, ...);
 	inline void output(uint8_t _bit) { mode(_bit, OUTPUT); }
+	void output(uint8_t bit, ...);
 	inline void pullup(uint8_t _bit) { mode(_bit, PULLUP); }
+	void pullup(uint8_t bit, ...);
 
-	inline void set(uint8_t _bit) {	write(_bit, HIGH); }
-	inline void clear(uint8_t _bit) { write(_bit, LOW); }
-	inline void toggle(uint8_t _bit) { write(_bit, TOGGLE); }
+	//inline void set(uint8_t _bit) {	write(_bit, HIGH); }
+	void set(uint8_t bit, ...);
+	//inline void clear(uint8_t _bit) { write(_bit, LOW); }
+	void clear(uint8_t bit, ...);
+	//inline void toggle(uint8_t _bit) { write(_bit, TOGGLE); }
+	void toggle(uint8_t bit, ...);
 	inline uint8_t ifset(uint8_t _bit) { return read(_bit); }
 	inline uint8_t ifclear(uint8_t _bit) { return !read(_bit); }
 	

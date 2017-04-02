@@ -12,6 +12,7 @@
   Lesser General Public License for more details.
 
  */
+ 
 
 #ifndef CMATH_H
 #define CMATH_H
@@ -32,22 +33,23 @@ public:
 
 	//Exponential
 	inline float pow(float x, float y) { return (float)::pow(x,y); }
+	float euler(float x);
 
-	//Squares
+	//Root functions
 	inline float sqrt(float x) { return (float)::sqrt(x);}
 	float sqrt(float x, float y);
-
+	
 	//Logarithms
 	inline float log(float x) { return (float)log10(x);}
-	float log(float x, float base);
+	float log(float base, float x);
 	inline float ln(float x) { return (float)::log(x);}
 
 	//Utils
 	inline float abs(float x) { return (float)fabs(x);}
 	inline float max(float x, float y) { return (float)fmax(x,y);}
 	inline float min(float x, float y) { return (float)fmin(x,y);}
-	inline float trunc(float x) { return (float)trunc(x);}
-	inline float round(float x) { return (float)round(x);}
+	inline float trunc(float x) { return (float)::trunc(x);}
+	inline float round(float x) { return (float)::round(x);}
 	long random(long big);
 	long random(long small, long big);
 
@@ -58,10 +60,13 @@ public:
 	inline float cm(float _inch) { return _inch*INCH_TO_CM;}
 	long tobcd(long _dec);
 	long todec(long _bcd);
-	inline float rms(float _vp) { return _vp*SQRT1_2;}
-	inline float vp(float _rms) { return _rms*SQRT2;}
 	long map(long x, long in_min, long in_max, long out_min, long out_max);
-
+	inline float omega(uint32_t freq) { return (float)TWO_PI*freq; }
+	
+	//Constants
+	inline float pi(){ return (float)PI; }
+	inline float euler(){ return (float)EULER; }
+	
 };
 
 #endif
