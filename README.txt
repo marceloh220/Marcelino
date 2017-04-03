@@ -54,3 +54,4 @@
 	In "F_CPU: 8MHz" the microcontroller work with internal oscillator on 8MHz speed,
 	in stand alone Arduino build this can be very usefull.
 	In "F_CPU: 16MHz", the microcontroller works with external crystal oscillator on the Arduino board.
+
