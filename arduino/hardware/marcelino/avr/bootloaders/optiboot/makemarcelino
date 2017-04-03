@@ -1,0 +1,8 @@
+#!/bin/bash
+make clean
+#
+#  buildable platforms of Marcelino cores
+make marcelino_328_8
+make marcelino_328_16
+make marcelino_168_8
+make marcelino_168_16
