@@ -24,27 +24,37 @@
    Return HIGH or LOW, depending on the state of the pin.
    
    
-   Shortcuts for methods:
-   And for those who do not like to write too much, like me,
-   the Digital module has aliases for these methods.
+   Methods to atomics access:
+   Configure and manipulate various digital pins in the same function.
    
-   input(pin);			//The pin is like input
-   output(pin);			//The pin is like output
-   pullup(pin);			//The pin is like INPUT with internal pullup resistor
+   input(n, pins...);		//Configures pins is like input
+   output(n, pins...);		//Configures pins is like output
+   pullup(n, pins...);		//Configures pins is like input INPUT with internal pullup resistor
    
-   set(pin);			//Set the pin
-   clear(pin);			//Clear the pin
-   toggle(pin);			//Toggle the pin
+   set(n, pins...);			//Set the pins
+   clear(n, pins...);		//Clear the pins
+   toggle(n, pins...);		//Toggle the pins
+   
+   "n" is the number of pins to configure in same instruction, example:
+   
+   /****************************************************************************************
+   Digital digital;					//Load digital module with name digital
+   
+   void setup() {
+	   digital.output(3,5,6,13);	//In same time configure 3 pins like output
+									//The digital pin 5, digital pin 6 and digital pin 13
+   }
+   ****************************************************************************************/
    
    ifset(pin)			//Test if pin is set
    ifclear(pin)			//Test if pin is clear
   
    Note:
    
-   In Marcelino Uno (16MHz), the microcontroller have your clock 
-   running with the crystal of 16MH built in Arduino Uno board.
+   In F_CPU 16MHZ, the microcontroller have your clock 
+   running with the crystal of 16MH built in Arduino's board.
    
-   In Marcelino Uno (8MHz), the microcontroller run with a internal clock in 8MHz.
+   In F_CPU 8MHz, the microcontroller run with a internal clock in 8MHz.
    The speed is half, but the timer2 can be used like asynchronous mode,
    using a external crystal on 32.768KHz can be implemented a RTC (Real Time Clock)
    using only the microcontroller.
@@ -65,7 +75,9 @@
        D5/T1/OC0B	-|	   |-	D12/MISO
      D6/AINP/OC0A	-|	   |-	D11/OC2A/MOSI
 		  D7/AINN	-|	   |-	D10/OC1B/SS
-		  D8/CAPT	-|_____|-	D9/OC1A
+		  D8/ICP	-|_____|-	D9/OC1A
+					  
+					  DIP-28
    
    Alternate Function of pins:
    
@@ -83,15 +95,17 @@
    OC0A:	Compare Match A Output and PWM Output of timer0
    AINP:	Analog Comparator Positive Input
    AINN:	Analog Comparator Negative Input
-   CAPT:	Timer/Counter 1 Capture Input
+   ICP:		Timer/Counter 1 Capture Input
    OC1A:	Compare Match A Output and PWM Output of timer1
    OC1B:	Compare Match B Output and PWM Output of timer1
    SS:		SPI Bus Master Slave select, this input is active in low state
    MOSI:	SPI Bus Master Output/Slave Input
    MISO:	SPI Bus Master Input/Slave Output
-   SCK:		SPI Bus Master clock Input
+   SCK:		SPI Bus Master clock OUTPUT
    SCL:		2-wire Serial Bus Clock Line
    SDA:		2-wire Serial Bus Data Input/Output Line
+   
+   X1//X2:	External Crystal ocillator.
    
    VCC:		Digital supply voltage
    GND:		Ground
