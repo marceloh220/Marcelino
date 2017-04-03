@@ -44,4 +44,13 @@
 					Atmega88A/Atmega88PA,
 					Atmega168A/Atmega168PA,
 					Atmega328/Atmega328P (Arduino Uno).
+					
+	The bootloaders are a optiboot implementation, source page in:
+	https://github.com/Optiboot/optiboot
 	
+	In Arduino IDE:
+	Marcelino 328 is the configuration to ATmega328 chips board.
+	Marcelino 168 is the configuration to ATmega168 chips board.
+	In "F_CPU: 8MHz" the microcontroller work with internal oscillator on 8MHz speed,
+	in stand alone Arduino build this can be very usefull.
+	In "F_CPU: 16MHz", the microcontroller works with external crystal oscillator on the Arduino board.
