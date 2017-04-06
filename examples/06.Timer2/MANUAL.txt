@@ -166,7 +166,20 @@
   This means a delay in interrupt actions that can be controlled.
  
   Or in CTC mode, this comparators can be used to generate signal with variable frequency.
- 
+
+  
+  attach(interrupt, mode, funct);	//Attach a function in a interrupt on timer in asynchronous or synchronous mode
+
+  The interrupt can be any else same anterior method
+  
+  The mode can be:
+  OSCILLATOR to use a external crystal in pinx XTAL1 and XTAL2 instead of a external crystal of the Arduino Board.
+  EXTERNAL to use a external oscillator pulse in pin XTAL1 instead of a external crystal.
+
+  To use this feature the microcontroller need be configured with
+  internal oscillator of 8MHz using the bootloader and fuses configured
+  of Marcelino F_CPU: 8MHz
+
   
   detach(interrupt, funct);	//Detach a function of an interrupt on timer
   
