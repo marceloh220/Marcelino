@@ -13,8 +13,11 @@
 
  */
 
-
 #include "cmath.h"
+
+float Math::euler(float x) {
+	return (float)::pow(EULER,x);
+}
 
 float Math::sqrt(float x, float y) {
 	return (float)::pow(x,1/y);

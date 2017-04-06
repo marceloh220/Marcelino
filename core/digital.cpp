@@ -130,3 +130,51 @@ uint8_t Digital::read(uint8_t pin) {
 		
 	return (*port) & bit;
 }
+
+void Digital::output( byte bits, ... ) {
+    va_list aux;
+	va_start(aux, bits);
+	for (int i = 0; i<bits; i++)
+		mode(va_arg(aux,int),OUTPUT);
+	va_end(aux);
+}
+
+void Digital::input( byte bits, ... ) {
+    va_list aux;
+	va_start(aux, bits);
+	for (int i = 0; i<bits; i++)
+		mode(va_arg(aux,int),INPUT);
+	va_end(aux);
+}
+
+void Digital::pullup( byte bits, ... ) {
+    va_list aux;
+	va_start(aux, bits);
+	for (int i = 0; i<bits; i++)
+		mode(va_arg(aux,int),PULLUP);
+	va_end(aux);
+}
+
+void Digital::set( byte bits, ... ) {
+    va_list aux;
+	va_start(aux, bits);
+	for (int i = 0; i<bits; i++)
+		write(va_arg(aux,int),HIGH);
+	va_end(aux);
+}
+
+void Digital::clear( byte bits, ... ) {
+    va_list aux;
+	va_start(aux, bits);
+	for (int i = 0; i<bits; i++)
+		write(va_arg(aux,int),LOW);
+	va_end(aux);
+}
+
+void Digital::toggle( byte bits, ... ) {
+    va_list aux;
+	va_start(aux, bits);
+	for (int i = 0; i<bits; i++)
+		write(va_arg(aux,int),TOGGLE);
+	va_end(aux);
+}

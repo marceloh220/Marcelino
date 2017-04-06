@@ -45,20 +45,28 @@ void Timer2::prescale(uint16_t scale) {
 		scale=6;
 	else if(scale==1024)
 		scale=7;
+	cli();
+	while(update());
 	TCCR2B |= scale;
+	sei();
 }
 
 void Timer2::config(uint8_t mode, uint8_t top) {
 	def_top = top;
 	def_mode = mode;
+	cli();
+	while(update());
 	TCCR2B &= ~(1<<WGM22);
 	TCCR2A &= ~3;
 	TCCR2A |= (mode&3);
 	if(top)
 		TCCR2B |= (1<<WGM22);
+	sei();
 }
 
 void Timer2::pinA(uint8_t mode) {
+	cli();
+	while(update());
 	TCCR2A &= ~(3<<COM2A0);
 	if(mode == CHANGE)
 		TCCR2A |= (1<<COM2A0);
@@ -66,9 +74,12 @@ void Timer2::pinA(uint8_t mode) {
 		TCCR2A |= (2<<COM2A0);
 	else if(mode == SET)
 		TCCR2A |= (3<<COM2A0);
+	sei();
 }
 
 void Timer2::pinB(uint8_t mode) {
+	cli();
+	while(update());
 	TCCR2A &= ~(3<<COM2B0);
 	if(mode == CHANGE)
 		TCCR2A |= (1<<COM2B0);
@@ -76,9 +87,12 @@ void Timer2::pinB(uint8_t mode) {
 		TCCR2A |= (2<<COM2B0);
 	else if(mode == SET)
 		TCCR2A |= (3<<COM2B0);
+	sei();
 }
 
 void Timer2::pwmA(uint8_t value) {
+	cli();
+	while(update());
 	if(value) {
 		TCCR2A &= ~(1<<COM2A0);
 		TCCR2A |= (1<<COM2A1);
@@ -86,9 +100,12 @@ void Timer2::pwmA(uint8_t value) {
 	else
 		TCCR2A &= ~(3<<COM2A0);		
 	OCR2A = value;
+	sei();
 }
 
 void Timer2::pwmA(uint8_t value, uint8_t mode) {
+	cli();
+	while(update());
 	if(value) {
 		if(mode)
 			TCCR2A |= (3<<COM2A0);
@@ -100,9 +117,12 @@ void Timer2::pwmA(uint8_t value, uint8_t mode) {
 	else
 		TCCR2A &= ~(3<<COM1A0);
 	OCR2A = value;
+	sei();
 }
 
 void Timer2::pwmB(uint8_t value) {
+	cli();
+	while(update());
 	if(value) {
 		TCCR2A &= ~(1<<COM2B0);
 		TCCR2A |= (1<<COM2B1);
@@ -110,10 +130,13 @@ void Timer2::pwmB(uint8_t value) {
 	else 
 		TCCR2A &= ~(3<<COM2B0);
 	OCR2B = value;
+	sei();
 }
 
 
 void Timer2::pwmB(uint8_t value, uint8_t mode) {
+	cli();
+	while(update());
 	if(value) {
 		if(mode)
 			TCCR2A |= (3<<COM2B0);
@@ -125,6 +148,7 @@ void Timer2::pwmB(uint8_t value, uint8_t mode) {
 	else
 		TCCR2A &= ~(3<<COM2B0);
 	OCR2B = value;
+	sei();
 }
 
 void Timer2::frequency(uint32_t freq) {
@@ -135,9 +159,11 @@ void Timer2::frequency(uint32_t freq) {
 		factor = 1;
 	else
 		factor = 2;
-	
+	cli();
+	while(update());
 	if(def_top == COMPA || def_mode == CTC)
 		OCR2A = F_CPU / (factor * def_prescale * freq) - 1;
+	sei();
 }
 
 void Timer2::period(uint32_t micros) {
@@ -173,9 +199,12 @@ void Timer2::period(uint32_t micros) {
 	cycles /= 1024;
 	scale = 7;
   }
+  cli();
+  while(update());
   TCCR2B &= ~7;
   timer2_TCNT2 = 255 - cycles;
   TCCR2B |= scale;
+  sei();
 }
 
 void Timer2::attach(uint8_t interrupt, VoidFuncPtr funct) {
@@ -184,9 +213,20 @@ void Timer2::attach(uint8_t interrupt, VoidFuncPtr funct) {
 	sei();
 }
 
+void Timer2::attach(uint8_t interrupt, uint8_t mode, VoidFuncPtr funct) {
+	if(mode == EXTERNAL)
+		ASSR |= (1<<EXCLK);
+	ASSR|=(1<<AS2);
+	T2Array[interrupt] = funct;
+	TIMSK2 |= (1<<interrupt);
+	sei();
+}
+
 void Timer2::detach(uint8_t interrupt) {
 	T2Array[interrupt] = none;
 	TIMSK2 &= ~(1<<interrupt);
+	if(!TIMSK2)
+		ASSR&=~((1<<EXCLK)|(1<<AS2));
 }
 
 ISR(TIMER2_OVF_vect) {
