@@ -2,11 +2,13 @@
 IHM595		KEYWORD1
 
 ######################
-init		KEYWORD2
+config		KEYWORD2
 clear		KEYWORD2
 home		KEYWORD2
 cursor		KEYWORD2
 display		KEYWORD2
+toleft		KEYWORD2
+toright		KEYWORD2
 set			KEYWORD2
 background	KEYWORD2
 

@@ -13,6 +13,8 @@ uint64_t mil;
 //(Data pin, Clock pin, Enable pin)
 IHM595 board(2, 3, 4);
 
+Timer0 timer;
+
 void setup() {
   board.config(20, 4);
   board.background(HIGH);
@@ -23,6 +25,6 @@ void setup() {
 
 void loop() {
   board.set(0, 1);
-  board.print(millis() / 1000);
+  board.print(timer.millis() / 1000);
   board.print("seconds");
 }

@@ -214,9 +214,8 @@ void Timer2::attach(uint8_t interrupt, VoidFuncPtr funct) {
 }
 
 void Timer2::attach(uint8_t interrupt, uint8_t mode, VoidFuncPtr funct) {
-	if(mode == EXTERNAL)
-		ASSR |= (1<<EXCLK);
-	ASSR|=(1<<AS2);
+	if(mode == ASYNCHRON)
+		ASSR|=(1<<AS2);
 	T2Array[interrupt] = funct;
 	TIMSK2 |= (1<<interrupt);
 	sei();
@@ -226,7 +225,7 @@ void Timer2::detach(uint8_t interrupt) {
 	T2Array[interrupt] = none;
 	TIMSK2 &= ~(1<<interrupt);
 	if(!TIMSK2)
-		ASSR&=~((1<<EXCLK)|(1<<AS2));
+		ASSR&=~(1<<AS2);
 }
 
 ISR(TIMER2_OVF_vect) {

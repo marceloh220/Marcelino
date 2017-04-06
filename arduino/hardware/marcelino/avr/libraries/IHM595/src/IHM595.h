@@ -26,13 +26,18 @@
 #include <digital.h>
 #include <Print.h>
 
+#define noCURSOR 		0x0C
+#define blinkCURSOR  	0x0D
+#define onCURSOR	    0x0E
+#define alternateCURSOR 0x0F
+
 class IHM595 : private Digital, public Print {
 private:
 	uint8_t _background;
 	uint8_t clock, data, enable;
 	uint8_t _row, _col;
 	uint8_t _addressrow[4];
-	void send(uint8_t d);
+	virtual void send(uint8_t d);
 	void cmd(uint8_t d, uint8_t c);
 	void _mode();
 public:
@@ -51,6 +56,8 @@ public:
 	void home();
 	void cursor(uint8_t mode);
 	void display(uint8_t state);
+	inline void toleft() { cmd(0x18,1); }
+	inline void toright() { cmd(0x1C,1); }
 	void set(uint8_t col, uint8_t lin);
 	void background(uint8_t state);
 };

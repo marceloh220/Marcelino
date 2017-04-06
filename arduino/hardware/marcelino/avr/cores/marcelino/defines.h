@@ -86,7 +86,6 @@
 #define EXTERNAL	0
 #define DEFAULT		1
 #define INTERNAL	3
-#define OSCILLATOR	4
 
 #define W_16MS		0
 #define W_32MS		1

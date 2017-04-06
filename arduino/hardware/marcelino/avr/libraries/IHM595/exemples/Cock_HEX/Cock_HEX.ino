@@ -15,8 +15,10 @@ uint64_t mil;
 //(Data pin, Clock pin, Enable pin)
 IHM595 board(2,3,4);
 
+Timer0 timer;
+
 void setup() {
-  board.background(HIGH);
+  board.background(ON);
   board.set(5,0);
   String a = "UPTime";
   board.print(a);
@@ -24,9 +26,9 @@ void setup() {
 
 void loop() {
     board.set(0,1);
-    if(millis()-mil>=1000) {
+    if(timer.millis()-mil>=1000) {
       s++;
-      mil=millis();
+      mil=timer.millis();
     }
     if(s>60) {
       s=0;

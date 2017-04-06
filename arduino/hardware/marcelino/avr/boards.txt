@@ -37,7 +37,7 @@ marcelino328.menu.speed.16MHz.build.f_cpu=16000000L
 ###########################ATmega328:8MHz###############################
 
 marcelino328.menu.speed.8MHz=8MHz
-marcelino328.menu.speed.8MHz.upload.speed=57600
+marcelino328.menu.speed.8MHz.upload.speed=115200
 marcelino328.menu.speed.8MHz.bootloader.tool=avrdude
 marcelino328.menu.speed.8MHz.bootloader.low_fuses=0xE2
 marcelino328.menu.speed.8MHz.bootloader.high_fuses=0xDE
@@ -83,7 +83,7 @@ marcelino168.menu.speed.16MHz.build.f_cpu=16000000L
 ###########################ATmega168:8MHz###############################
 
 marcelino168.menu.speed.8MHz=8MHz
-marcelino168.menu.speed.8MHz.upload.speed=57600
+marcelino168.menu.speed.8MHz.upload.speed=115200
 marcelino168.menu.speed.8MHz.bootloader.tool=avrdude
 marcelino168.menu.speed.8MHz.bootloader.low_fuses=0xE2
 marcelino168.menu.speed.8MHz.bootloader.high_fuses=0xDE
