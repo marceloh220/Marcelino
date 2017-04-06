@@ -86,6 +86,7 @@
 #define EXTERNAL	0
 #define DEFAULT		1
 #define INTERNAL	3
+#define OSCILLATOR	4
 
 #define W_16MS		0
 #define W_32MS		1
@@ -204,11 +205,6 @@
 #define SQRT2		1.41421356237309504880
 #define SQRT1_2		0.70710678118654752440
 #define SQRT3		1.73205080757
-
-#define noCURSOR 		0x0C
-#define blinkCURSOR  	0x0D
-#define onCURSOR	    0x0E
-#define alternateCURSOR 0x0F
 
 #ifdef PROGMEM
 #undef PROGMEM

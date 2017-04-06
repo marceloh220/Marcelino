@@ -24,6 +24,7 @@ class Timer2 {
 private:
 	uint16_t def_prescale;
 	uint8_t def_top, def_mode;
+	inline uint8_t update() { return ASSR&0x3F; }
 public:
 	Timer2();
 	~Timer2() { PRR |= (1<<PRTIMER2); }
@@ -54,6 +55,7 @@ public:
 	
 	//interrupts of timer
 	void attach(uint8_t interrupt, VoidFuncPtr funct);
+	void attach(uint8_t interrupt, uint8_t mode, VoidFuncPtr funct);
 	void detach(uint8_t interrupt);
 	
 };
