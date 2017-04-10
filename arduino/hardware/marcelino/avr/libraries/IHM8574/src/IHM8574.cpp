@@ -55,26 +55,27 @@ void IHM8574::send(uint8_t d) {
 void IHM8574::cmd(uint8_t d, uint8_t c) {
 	uint8_t _send;
     _send=d&0xF0;
-    if (c) _send&=~(1<<1);
-    else _send|=(1<<1);
-    if (_background) _send |= (1<<0);
-    else _send&=~(1<<0);
-    _send |= (1<<3);
+    if (c) _send&=~(1<<0);
+    else _send|=(1<<0);
+    if (_background) _send |= (1<<3);
+    else _send&=~(1<<3);
+    _send |= (1<<2);
+    send(_send);
+    _delay_us(1);
+    _send &= ~(1<<2);
     send(_send);
     _delay_us(37);
-    _send &= ~(1<<3);
-    send(_send);
-    _send |= (1<<3);
     _send=d<<4;
-    if (c) _send &= ~(1<<1);
-    else _send|=(1<<1);
-    if (_background) _send|=(1<<0);
-    else _send&=~(1<<0);
-    _send |= (1<<3);
+    if (c) _send &= ~(1<<0);
+    else _send|=(1<<0);
+    if (_background) _send|=(1<<3);
+    else _send&=~(1<<3);
+    _send |= (1<<2);
+    send(_send);
+    _delay_us(1);
+    _send &= ~(1<<2);
     send(_send);
     _delay_us(37);
-    _send &= ~(1<<3);
-    send(_send);
 }
 
 void IHM8574::_mode() {
