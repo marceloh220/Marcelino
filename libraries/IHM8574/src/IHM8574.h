@@ -60,6 +60,8 @@ public:
 	inline void toright() { cmd(0x1C,1); }
 	void set(uint8_t col, uint8_t lin);
 	void background(uint8_t state);
+	void create(uint8_t location, uint8_t charmap[]);
+	void create(uint8_t location, uint8_t charmap, uint8_t i);
 };
 
 #endif
