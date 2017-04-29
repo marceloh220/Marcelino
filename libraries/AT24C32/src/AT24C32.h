@@ -17,8 +17,8 @@
 #ifndef AT24C32_H
 #define AT32C32_H
 
-#include "defines.h"
-#include "twi.h"
+#include "Arduino.h"
+#include <twi.h>
 
 class AT24C32 : private TWI {
 private:

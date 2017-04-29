@@ -10,12 +10,12 @@
  */
 
 Delay delay;          //Module Delay instantiate
-TWI twi;              //Module Serial instantiate
+TWI twi;              //Module TWI instantiate
 
-//By default the SPI module initiate in MASTER mode FAST bit rate
+//By default the TWI module initiate in MASTER mode FAST bit rate
 //    SCL_frequency = 400KHz
 
-#define address 0xA0  //Device's address
+#define address 0x42  //Device's address
 
 byte data = 0;        //Data to be sent
 
@@ -27,7 +27,6 @@ void loop() {
   
   twi.start();              //Send a start condition
   twi.send(address);        //Send the device's address
-  twi.start();              //Repeat the start condition
   twi.send(data);           //Send the data to device
   twi.stop();               //Send a stop condition
   data++;                   //Increase the data to send

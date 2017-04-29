@@ -32,7 +32,7 @@
   When the module is initialized, the mode and speed need be configured.
   The TWI hardware dont accept changes of mode and speed when program is runing.
   
-  SPI spi(mode, option);		//Initialized the module passing mode and option configurations
+  TWI	twi(mode, option);		//Initialized the module passing mode and option configurations
   
   Mode accepted are:
   MASTER to master TWI.
