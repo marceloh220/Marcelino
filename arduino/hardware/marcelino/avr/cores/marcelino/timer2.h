@@ -55,6 +55,7 @@ public:
 	
 	//interrupts of timer
 	void attach(uint8_t interrupt, VoidFuncPtr funct);
+	void attach(uint8_t interrupt, uint8_t mode, VoidFuncPtr funct);
 	void detach(uint8_t interrupt);
 	
 };
