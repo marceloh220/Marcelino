@@ -55,6 +55,7 @@
 #define COMPA		1
 #define COMPB		2
 #define CAPT		3
+#define ANY			4
 
 #define ICR			3
 #define OCRA		1

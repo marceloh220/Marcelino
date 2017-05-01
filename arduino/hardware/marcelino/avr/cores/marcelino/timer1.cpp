@@ -243,6 +243,12 @@ void Timer1::detach(uint8_t interrupt) {
 	TIMSK1 &= ~(1<<interrupt);
 }
 
+uint8_t Timer1::attached(uint8_t interrupt) {
+	if(interrupt == CAPT)
+		interrupt=ICIE1;
+	return (TIMSK1&(1<<interrupt));
+}
+
 ISR(TIMER1_OVF_vect) {
 	sregSAVE = SREG;
 	TCNT1 = timer1_TCNT1;

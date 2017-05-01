@@ -63,7 +63,8 @@ public:
 	//test states
 	inline uint8_t rising() { return (TCCR1B & (1<<ICES1)); }
 	inline uint8_t falling() { return !(TCCR1B & (1<<ICES1)); }
-	
+	uint8_t attached(uint8_t interrupt = ANY);
+		
 };
 
 #endif
