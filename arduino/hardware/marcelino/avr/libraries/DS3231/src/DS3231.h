@@ -36,9 +36,18 @@
 #define	EN32kHz		3
 #define OSF			7
 
+#define	en_us		0
+#define pt_br		1
+
+#ifndef DS3231_language
+#define DS3231_language		en_us
+#endif
+
 class DS3231 : private TWI, private Math {
 private:
 	uint8_t pos = 0;
+
+#if DS3231_language == en_us
 	const char* _week[8] = 		{
 									"   ",
 									"sun",
@@ -64,13 +73,42 @@ private:
 									"nov",
 									"dec",
 								};
+#endif
+
+#if DS3231_language == en_br
+	const char* _week[8] = 		{
+									"   ",
+									"dom",
+									"seg",
+									"ter",
+									"qua",
+									"qui",
+									"sex",
+									"sab",
+								};
+	const char* _month[13] = 	{
+									"   ",
+									"jan",
+									"fev",
+									"mar",
+									"abr",
+									"mai",
+									"jun",
+									"jul",
+									"ago",
+									"set",
+									"out",
+									"nov",
+									"dez",
+								};
+#endif
 
 	uint8_t get(uint8_t address);
 	void put(uint8_t data, uint8_t address);
 public:
 	DS3231();
-	uint8_t sec(uint8_t data = 255);
-	uint8_t min(uint8_t data = 255);
+	uint8_t second(uint8_t data = 255);
+	uint8_t minute(uint8_t data = 255);
 	uint8_t hour(uint8_t data = 255);
 	uint8_t week(uint8_t data = 255);
 	uint8_t day(uint8_t data = 255);

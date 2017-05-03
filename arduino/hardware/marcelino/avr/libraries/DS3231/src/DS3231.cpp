@@ -77,13 +77,13 @@ void DS3231::put(uint8_t data, uint8_t address) {
 }
 
 //public
-uint8_t DS3231::sec(uint8_t data) {
+uint8_t DS3231::second(uint8_t data) {
 	if(data != 255)
 		put(Math::tobcd(data),SEC);
 	return Math::todec(get(SEC));
 }
 
-uint8_t DS3231::min(uint8_t data) {
+uint8_t DS3231::minute(uint8_t data) {
 	if(data != 255)
 		put(Math::tobcd(data),MIN);
 	return Math::todec(get(MIN));
