@@ -48,13 +48,14 @@
 #define RATE_8K		2
 #define RATE_32K	3
 
-DS3231::DS3231() {
+DS3231::DS3231(uint8_t language) {
 	uint8_t reg = get(CONTROL);
 	reg &= ~(1<<BBSQW);
 	put(reg,STATUS);
 	reg = get(STATUS);
 	reg &= ~(1<<EN32kHz);
 	put(reg,STATUS);
+	_language = language;
 }
 
 uint8_t DS3231::get(uint8_t address) {
@@ -130,11 +131,17 @@ float DS3231::temp() {
 }
 
 char* DS3231::weekSTR() {
-	return (char*)_week[week()];
+	if (_language==en_us)
+		return (char*)_weeken[week()];
+	else
+		return (char*)_weekpt[week()];
 }
 
 char* DS3231::monthSTR() {
-	return (char*)_month[month()];
+	if (_language==en_us)
+		return (char*)_monthen[month()];
+	else
+		return (char*)_monthpt[month()];
 }
 
 uint8_t DS3231::control(uint8_t data) {
