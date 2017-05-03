@@ -103,7 +103,7 @@ uint8_t DS3231::week(uint8_t data) {
 
 uint8_t DS3231::day(uint8_t data) {
 	if(data != 255)
-		put(DATE,Math::tobcd(data));
+		put(Math::tobcd(data),DATE);
 	return Math::todec(get(DATE));
 }
 
