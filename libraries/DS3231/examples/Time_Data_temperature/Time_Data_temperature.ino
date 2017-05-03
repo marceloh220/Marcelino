@@ -38,12 +38,12 @@ void loop() {
     serial.print('0');
   serial.print(aux);
   serial.print(':');
-  aux = clock.min();
+  aux = clock.minute();
   if(aux<10)
     serial.print('0');
   serial.print(aux);
   serial.print(':');
-  aux = clock.sec();
+  aux = clock.second();
   if(aux<10)
     serial.print('0');
   serial.println(aux);

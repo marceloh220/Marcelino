@@ -1,8 +1,53 @@
 ######################
-AT24C32	KEYWORD1
+DS3231	KEYWORD1
 
 ######################
-device	KEYWORD2
-read	KEYWORD2
-write	KEYWORD2
-update	KEYWORD2
+second	KEYWORD2
+minute	KEYWORD2
+hour	KEYWORD2
+week	KEYWORD2
+day		KEYWORD2
+month	KEYWORD2
+year	KEYWORD2
+temp	KEYWORD2
+
+weekSTR	 KEYWORD2
+monthSTR KEYWORD2
+
+control	KEYWORD2
+status	KEYWORD2
+busy	KEYWORD2
+stoped	KEYWORD2
+
+wave	KEYWORD2
+k32		KEYWORD2
+
+push	KEYWORD2
+pop		KEYWORD2
+ram		KEYWORD2
+sp		KEYWORD2
+
+#########################
+
+# Bits registers CONTROL
+A1IE	LITERAL1
+A2IE	LITERAL1
+INTCN	LITERAL1
+RS1		LITERAL1
+RS2		LITERAL1
+CONV	LITERAL1
+BBSQW	LITERAL1
+EOSC	LITERAL1
+
+# Bits registers STATUS
+A1F		LITERAL1
+A2F		LITERAL1
+BSY		LITERAL1
+EN32kHz	LITERAL1
+OSF		LITERAL1
+
+#########################
+
+#Languages
+en_us	LITERAL1
+pt_br	LITERAL1

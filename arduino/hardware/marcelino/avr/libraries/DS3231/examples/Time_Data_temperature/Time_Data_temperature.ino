@@ -10,7 +10,7 @@
  */
 
 #include <DS3231.h>
-DS3231    clock(en_us);
+DS3231    clock;
 
 Digital   digital;
 Delay     delay;
