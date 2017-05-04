@@ -98,7 +98,8 @@ private:
 	uint8_t get(uint8_t address);
 	void put(uint8_t data, uint8_t address);
 public:
-	DS3231(uint8_t language = en_us);
+	DS3231(uint8_t lng = en_us);
+	void language(uint8_t lng);
 	uint8_t second(uint8_t data = 255);
 	uint8_t minute(uint8_t data = 255);
 	uint8_t hour(uint8_t data = 255);

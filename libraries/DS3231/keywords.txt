@@ -45,9 +45,3 @@ A2F		LITERAL1
 BSY		LITERAL1
 EN32kHz	LITERAL1
 OSF		LITERAL1
-
-#########################
-
-#Languages
-en_us	LITERAL1
-pt_br	LITERAL1

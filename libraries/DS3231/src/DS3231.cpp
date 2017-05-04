@@ -48,14 +48,20 @@
 #define RATE_8K		2
 #define RATE_32K	3
 
-DS3231::DS3231(uint8_t language) {
+DS3231::DS3231(uint8_t lng) {
 	uint8_t reg = get(CONTROL);
 	reg &= ~(1<<BBSQW);
 	put(reg,STATUS);
 	reg = get(STATUS);
 	reg &= ~(1<<EN32kHz);
 	put(reg,STATUS);
-	_language = language;
+	language(lng);
+}
+
+void DS3231::language(uint8_t lng) { 
+		if(lng > pt_br)
+			lng = en_us;
+		_language = lng; 
 }
 
 uint8_t DS3231::get(uint8_t address) {
@@ -104,7 +110,7 @@ uint8_t DS3231::week(uint8_t data) {
 
 uint8_t DS3231::day(uint8_t data) {
 	if(data != 255)
-		put(DATE,Math::tobcd(data));
+		put(Math::tobcd(data),DATE);
 	return Math::todec(get(DATE));
 }
 
