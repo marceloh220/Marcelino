@@ -176,7 +176,7 @@ void Timer0::period(uint32_t micros) {
   TCCR0B |= scale;
 }
 
-void Timer0::attach(uint8_t interrupt, VoidFuncPtr funct) {
+void volatile Timer0::attach(uint8_t interrupt, void (*funct)(void)) {
 	T0Array[interrupt] = funct;
 	TIMSK0 |= (1<<interrupt);
 	sei();

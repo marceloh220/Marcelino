@@ -117,7 +117,7 @@ size_t SPI::write(const uint8_t *s, size_t l) {
 	return 1;
 }
 
-void SPI::attach(VoidFuncPtr funct) {
+void volatile SPI::attach(void (*funct)(void)) {
 	SPIArray = funct;
 	SPCR |= (1<<SPIE);
 	sei();

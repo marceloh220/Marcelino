@@ -56,8 +56,8 @@ public:
 	void period(uint32_t micros);
 	
 	//interrupts of timer
-	void attach(uint8_t interrupt, VoidFuncPtr funct);
-	void attach(uint8_t interrupt, uint8_t mode, VoidFuncPtr funct);
+	void volatile attach(uint8_t interrupt, void (*funct)(void));
+	void volatile attach(uint8_t interrupt, uint8_t mode, void (*funct)(void));
 	void detach(uint8_t interrupt);
 	
 	//test states

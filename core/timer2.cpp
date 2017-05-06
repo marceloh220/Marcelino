@@ -207,13 +207,13 @@ void Timer2::period(uint32_t micros) {
   sei();
 }
 
-void Timer2::attach(uint8_t interrupt, VoidFuncPtr funct) {
+void volatile Timer2::attach(uint8_t interrupt, void (*funct)(void)) {
 	T2Array[interrupt] = funct;
 	TIMSK2 |= (1<<interrupt);
 	sei();
 }
 
-void Timer2::attach(uint8_t interrupt, uint8_t mode, VoidFuncPtr funct) {
+void volatile Timer2::attach(uint8_t interrupt, uint8_t mode, void (*funct)(void)) {
 	if(mode == ASYNCHRON)
 		ASSR|=(1<<AS2);
 	T2Array[interrupt] = funct;

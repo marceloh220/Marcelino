@@ -28,7 +28,7 @@
 
 #define bv(_bit)			(1<<_bit)
 
-#define nop() (__asm__ __volatile__ ("nop"))
+#define nop() 				asm volatile ("nop")
 
 class Digital {
 public:

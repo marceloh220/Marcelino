@@ -36,8 +36,8 @@ public:
 	double temp();
 
 	//interrupt of comparator
-	void attach(uint8_t mode, VoidFuncPtr funct);
-	void attach(uint8_t mode, uint8_t reference, VoidFuncPtr funct);
+	void volatile attach(uint8_t mode, void (*funct)(void));
+	void volatile attach(uint8_t mode, uint8_t reference, void (*funct)(void));
 	void detach();
 	
 	//tests of comparator
