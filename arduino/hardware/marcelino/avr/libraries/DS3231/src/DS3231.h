@@ -36,41 +36,72 @@
 #define	EN32kHz		3
 #define OSF			7
 
+#define	en_us		1
+#define pt_br		2
+
+
 class DS3231 : private TWI, private Math {
 private:
-	uint8_t pos = 0;
-	const char* _week[8] = 		{
+	uint8_t pos = 0, _language;
+
+	const char* _weeken[8] = 		{
 									"   ",
-									"sun",
-									"mon",
-									"tue",
-									"wed",
-									"thu",
-									"fri",
-									"sat",
+									"SUN",
+									"MON",
+									"TUE",
+									"WED",
+									"THU",
+									"FRI",
+									"SAT",
 								};
-	const char* _month[13] = 	{
+	const char* _monthen[13] = 	{
 									"   ",
-									"jan",
-									"feb",
-									"mar",
-									"apr",
-									"may",
-									"jun",
-									"jul",
-									"aug",
-									"sep",
-									"oct",
-									"nov",
-									"dec",
+									"JAN",
+									"FEB",
+									"MAR",
+									"APR",
+									"MAY",
+									"JUN",
+									"JUL",
+									"AUG",
+									"SEP",
+									"OCT",
+									"NOV",
+									"DEC",
+								};
+	const char* _weekpt[8] = 		{
+									"   ",
+									"DOM",
+									"SEG",
+									"TER",
+									"QUA",
+									"QUI",
+									"SEX",
+									"SAB",
+								};
+	const char* _monthpt[13] = 	{
+									"   ",
+									"JAN",
+									"FEV",
+									"MAR",
+									"ABR",
+									"MAI",
+									"JUN",
+									"JUL",
+									"AGO",
+									"SET",
+									"OUT",
+									"NOV",
+									"DEZ",
 								};
 
 	uint8_t get(uint8_t address);
 	void put(uint8_t data, uint8_t address);
 public:
-	DS3231();
-	uint8_t sec(uint8_t data = 255);
-	uint8_t min(uint8_t data = 255);
+	DS3231(uint8_t lng = en_us);
+	void language(uint8_t lng);
+	uint8_t second(uint8_t data = 255);
+	uint8_t minute(uint8_t data = 255);
 	uint8_t hour(uint8_t data = 255);
 	uint8_t week(uint8_t data = 255);
 	uint8_t day(uint8_t data = 255);

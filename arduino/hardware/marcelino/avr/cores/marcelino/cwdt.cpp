@@ -22,8 +22,8 @@ void WDT::config(uint8_t mode) {
 		WDTCSR = (1<<WDE)|(1<<WDIE);
 }
 
-void WDT::attach(VoidFuncPtr func) {
-	wdtARRAY = func;
+void volatile WDT::attach(void (*funct)(void)) {
+	wdtARRAY = funct;
 	sei();
 }
 

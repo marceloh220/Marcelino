@@ -41,7 +41,7 @@ const uint8_t digital_PCMASK[3] PROGMEM = {
 	(uint16_t)&PCMSK2,
 };
 
-void External::attach(uint8_t pin, VoidFuncPtr funct) {
+void volatile External::attach(uint8_t pin, void (*funct)(void)) {
 	
 	uint8_t _sfr = get_sfr(pin);
 	
@@ -56,7 +56,7 @@ void External::attach(uint8_t pin, VoidFuncPtr funct) {
 }
 
 
-void External::attach(uint8_t interrupt, uint8_t mode, VoidFuncPtr funct) {
+void volatile External::attach(uint8_t interrupt, uint8_t mode, void (*funct)(void)) {
 	
 	uint8_t i = interrupt*2;
 	EICRA &= ~(3<<i);

@@ -215,7 +215,7 @@ void Timer1::period(uint32_t micros) {
   TCCR1B |= scale;
 }
 
-void Timer1::attach(uint8_t interrupt, VoidFuncPtr funct) {
+void volatile Timer1::attach(uint8_t interrupt, void (*funct)(void)) {
 	if(interrupt == CAPT)
 		return;
 	T1Array[interrupt] = funct;
@@ -223,7 +223,7 @@ void Timer1::attach(uint8_t interrupt, VoidFuncPtr funct) {
 	sei();
 }
 
-void Timer1::attach(uint8_t interrupt, uint8_t mode, VoidFuncPtr funct) {
+void volatile Timer1::attach(uint8_t interrupt, uint8_t mode, VoidFuncPtr funct) {
 	if(interrupt != CAPT)
 		return;
 	TCCR1B |= (1<<ICNC1);

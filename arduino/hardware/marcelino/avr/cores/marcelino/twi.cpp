@@ -61,7 +61,7 @@ uint8_t TWI::recive(uint8_t ack) {
     return TWDR;
 }
 
-void TWI::attach(VoidFuncPtr funct) {
+void volatile TWI::attach(void (*funct)(void)) {
 	TWIARRAY = funct;
 	TWCR |= (1<<TWIE);
 	sei();

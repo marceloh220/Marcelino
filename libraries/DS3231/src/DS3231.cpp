@@ -48,13 +48,20 @@
 #define RATE_8K		2
 #define RATE_32K	3
 
-DS3231::DS3231() {
+DS3231::DS3231(uint8_t lng) {
 	uint8_t reg = get(CONTROL);
 	reg &= ~(1<<BBSQW);
 	put(reg,STATUS);
 	reg = get(STATUS);
 	reg &= ~(1<<EN32kHz);
 	put(reg,STATUS);
+	language(lng);
+}
+
+void DS3231::language(uint8_t lng) { 
+		if(lng > pt_br)
+			lng = en_us;
+		_language = lng; 
 }
 
 uint8_t DS3231::get(uint8_t address) {
@@ -77,13 +84,13 @@ void DS3231::put(uint8_t data, uint8_t address) {
 }
 
 //public
-uint8_t DS3231::sec(uint8_t data) {
+uint8_t DS3231::second(uint8_t data) {
 	if(data != 255)
 		put(Math::tobcd(data),SEC);
 	return Math::todec(get(SEC));
 }
 
-uint8_t DS3231::min(uint8_t data) {
+uint8_t DS3231::minute(uint8_t data) {
 	if(data != 255)
 		put(Math::tobcd(data),MIN);
 	return Math::todec(get(MIN));
@@ -130,11 +137,17 @@ float DS3231::temp() {
 }
 
 char* DS3231::weekSTR() {
-	return (char*)_week[week()];
+	if (_language==en_us)
+		return (char*)_weeken[week()];
+	else
+		return (char*)_weekpt[week()];
 }
 
 char* DS3231::monthSTR() {
-	return (char*)_month[month()];
+	if (_language==en_us)
+		return (char*)_monthen[month()];
+	else
+		return (char*)_monthpt[month()];
 }
 
 uint8_t DS3231::control(uint8_t data) {

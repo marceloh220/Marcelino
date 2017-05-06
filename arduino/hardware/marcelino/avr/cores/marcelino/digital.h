@@ -28,6 +28,8 @@
 
 #define bv(_bit)			(1<<_bit)
 
+#define nop() 				asm volatile ("nop")
+
 class Digital {
 public:
 	void mode(uint8_t _pin, uint8_t _mode);

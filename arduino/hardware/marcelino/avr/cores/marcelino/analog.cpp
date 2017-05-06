@@ -76,7 +76,7 @@ double Analog::temp() {
 	 return ( ( read(8,INTERNAL) - 314.31 ) / 1.22);
 }
 
-void Analog::attach(uint8_t mode, VoidFuncPtr funct) {
+void volatile Analog::attach(uint8_t mode, void (*funct)(void)) {
 	AnalogArray = funct;
 	if(mode == FALLING)
 		ACSR = (1<<ACIE)|(1<<ACIS1);
@@ -85,7 +85,7 @@ void Analog::attach(uint8_t mode, VoidFuncPtr funct) {
 	sei();
 }
 
-void Analog::attach(uint8_t mode, uint8_t reference, VoidFuncPtr funct) {
+void volatile Analog::attach(uint8_t mode, uint8_t reference, void (*funct)(void)) {
 	AnalogArray = funct;
 	if(mode == FALLING)
 		ACSR = (1<<ACIE)|(1<<ACIS1);

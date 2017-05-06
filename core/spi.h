@@ -50,7 +50,7 @@ public:
 	using Print::write;
 	
 	//to attach or detach a function in interrupt SPI Serial Transfer Complete
-	void attach(VoidFuncPtr funct);
+	void volatile attach(void (*funct)(void));
 	void detach();
 	
 };
