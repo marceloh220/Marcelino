@@ -1,6 +1,6 @@
 #include "cwdt.h"
 
-VoidFuncPtr wdtARRAY = none;
+marcelino_PTRFunc wdtARRAY = none;
 
 void WDT::timeout(uint8_t time){
 	cli();
@@ -22,7 +22,7 @@ void WDT::config(uint8_t mode) {
 		WDTCSR = (1<<WDE)|(1<<WDIE);
 }
 
-void volatile WDT::attach(void (*funct)(void)) {
+void WDT::attach(void (*funct)(void)) {
 	wdtARRAY = funct;
 	sei();
 }

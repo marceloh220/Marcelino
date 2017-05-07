@@ -32,8 +32,8 @@
 
 #include "external.h"
 
-VoidFuncPtr INTArray[2] = {none,none};
-VoidFuncPtr PCINTArray[3] = {none,none,none};
+marcelino_PTRFunc INTArray[2] = {none,none};
+marcelino_PTRFunc PCINTArray[3] = {none,none,none};
 
 const uint8_t digital_PCMASK[3] PROGMEM = {
 	(uint16_t)&PCMSK0,
@@ -41,7 +41,7 @@ const uint8_t digital_PCMASK[3] PROGMEM = {
 	(uint16_t)&PCMSK2,
 };
 
-void volatile External::attach(uint8_t pin, void (*funct)(void)) {
+void External::attach(uint8_t pin, void (*funct)(void)) {
 	
 	uint8_t _sfr = get_sfr(pin);
 	
@@ -56,7 +56,7 @@ void volatile External::attach(uint8_t pin, void (*funct)(void)) {
 }
 
 
-void volatile External::attach(uint8_t interrupt, uint8_t mode, void (*funct)(void)) {
+void External::attach(uint8_t interrupt, uint8_t mode, void (*funct)(void)) {
 	
 	uint8_t i = interrupt*2;
 	EICRA &= ~(3<<i);

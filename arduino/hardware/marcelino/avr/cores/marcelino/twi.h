@@ -79,7 +79,7 @@ public:
 	inline uint8_t ifwrite() { return status()==0x60;}
 
 	//to interrupts
-	void volatile attach(void (*funct)(void));
+	void attach(void (*funct)(void));
 	void detach();
 };
 

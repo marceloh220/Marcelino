@@ -31,17 +31,23 @@
 #include <string.h>
 #include <math.h>
 
+#if defined ARDUINO_AVR_MARCELINO328|| defined ARDUINO_AVR_MARCELINO168
 #define INPUT 		0
 #define OUTPUT		1
-#define PULLUP		2
 #define INPUT_PULLUP 2
+#endif
+#define PULLUP		2
 
+#if defined ARDUINO_AVR_MARCELINO328|| defined ARDUINO_AVR_MARCELINO168
 #define LOW 		0
+#endif
 #define CLEAR		0
 #define OFF 		0
 #define DISABLE		0
 
+#if defined ARDUINO_AVR_MARCELINO328|| defined ARDUINO_AVR_MARCELINO168
 #define HIGH		1
+#endif
 #define SET			1
 #define ON			1
 #define ENABLE		1
@@ -55,7 +61,7 @@
 #define COMPA		1
 #define COMPB		2
 #define CAPT		3
-#define ANY			4
+#define COMP		4
 
 #define ICR			3
 #define OCRA		1
@@ -84,9 +90,11 @@
 #define RECOVERY	0
 #define SAVE		1
 
+#if defined ARDUINO_AVR_MARCELINO328|| defined ARDUINO_AVR_MARCELINO168
 #define EXTERNAL	0
 #define DEFAULT		1
 #define INTERNAL	3
+#endif
 
 #define W_16MS		0
 #define W_32MS		1
@@ -120,8 +128,10 @@
 #define PRUSART		1
 #define PRADC		0
 
+#if defined ARDUINO_AVR_MARCELINO328|| defined ARDUINO_AVR_MARCELINO168
 #define MSBF		0
 #define LSBF		1
+#endif
 
 #define ASYNCHRON	0
 #define SYNCHRON	1
@@ -145,12 +155,14 @@
 #define NACK		0
 #define ACK			1
 
+#if defined ARDUINO_AVR_MARCELINO328|| defined ARDUINO_AVR_MARCELINO168
 #define A0			0
 #define A1			1
 #define A2			2
 #define A3			3
 #define A4			4
 #define A5			5
+#endif
 
 #define T0			4
 #define T1			5
@@ -165,6 +177,7 @@
 #define OC2A		11
 #define OC2B		3
 
+#if defined ARDUINO_AVR_MARCELINO328|| defined ARDUINO_AVR_MARCELINO168
 #define D0			0
 #define D1			1
 #define D2			2
@@ -206,15 +219,30 @@
 #define SQRT1_2		0.70710678118654752440
 #define SQRT3		1.73205080757
 
+#define sbi(_sfr,_bit)		(_sfr|=(1<<_bit))
+#define cbi(_sfr,_bit)		(_sfr&=~(1<<_bit))
+#define tbi(_sfr,_bit)		(_sfr^=(1<<_bit))
+
+#define is_set(_sfr,_bit)	(_sfr&(1<<_bit))
+#define is_clear(_sfr,_bit)	(!(_sfr&(1<<_bit)))
+
+#define bv(_bit)			(1<<_bit)
+#define nop() 				asm volatile ("nop")
+
+#endif
+
 #ifdef PROGMEM
 #undef PROGMEM
 #define PROGMEM __attribute__((section(".progmem.data")))
 #endif
 
-typedef void (*VoidFuncPtr)();
 
+typedef void (*marcelino_PTRFunc)();
+
+#if defined ARDUINO_AVR_MARCELINO328|| defined ARDUINO_AVR_MARCELINO168
 typedef uint8_t byte;
 typedef uint16_t word;
+#endif
 typedef uint32_t dword;
 
 extern uint8_t sregSAVE;
@@ -244,7 +272,9 @@ extern const uint8_t digital_PCMASK[3] PROGMEM;
 #define mc2clock(m)		(m * clockMC)
 
 void none();
+#if defined ARDUINO_AVR_MARCELINO328|| defined ARDUINO_AVR_MARCELINO168
 void setup();
 void loop();
+#endif
 
 #endif

@@ -42,7 +42,7 @@ public:
 	inline void reset() {  wdt_reset(); }
 	
 	//to management the interrupt
-	void volatile attach(void (*funct)(void));
+	void attach(void (*funct)(void));
 	void detach();
 };
 

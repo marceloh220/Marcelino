@@ -18,7 +18,7 @@
 
 uint16_t timer1_TCNT1;
 
-VoidFuncPtr T1Array[4] = {none,none,none,none};
+marcelino_PTRFunc T1Array[4] = {none,none,none,none};
 
 Timer1::Timer1() {
 	PRR &= ~(1<<PRTIMER1);
@@ -235,7 +235,7 @@ void Timer1::attach(uint8_t interrupt, void (*funct)(void)) {
 	sei();
 }
 
-void Timer1::attach(uint8_t interrupt, uint8_t mode, VoidFuncPtr funct) {
+void Timer1::attach(uint8_t interrupt, uint8_t mode, void (*funct)(void)) {
 	if(interrupt != CAPT)
 		return;
 	TCCR1B |= (1<<ICNC1);
