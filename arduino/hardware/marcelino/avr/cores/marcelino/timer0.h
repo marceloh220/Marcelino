@@ -54,8 +54,11 @@ public:
 	void period(uint32_t micros);
 	
 	//interrupts of timer
-	void volatile attach(uint8_t interrupt, void (*funct)(void));
+	void attach(uint8_t interrupt, void (*funct)(void));
 	void detach(uint8_t interrupt);
+
+	//test interrupts attached
+	inline uint8_t attach() { return TIMSK0; }
 	
 };
 
