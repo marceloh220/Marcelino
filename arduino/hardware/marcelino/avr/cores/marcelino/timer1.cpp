@@ -18,7 +18,7 @@
 
 uint16_t timer1_TCNT1;
 
-marcelino_PTRFunc T1Array[4] = {none,none,none,none};
+void (*T1Array[4])(void) = {none,none,none,none};
 
 Timer1::Timer1() {
 	PRR &= ~(1<<PRTIMER1);

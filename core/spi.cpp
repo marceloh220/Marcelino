@@ -16,7 +16,7 @@
 
 #include "spi.h"
 
-marcelino_PTRFunc SPIArray = none;
+void (*SPIArray)(void) = none;
 
 //private
 void SPI::prescale(uint8_t scale) {

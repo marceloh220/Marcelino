@@ -25,8 +25,9 @@ private:
 public:
 	
 	WDT() {
-		enable();
-		_mode = RESET;
+		this->enable();
+		this->timeout(W_8S);
+		this->_mode = RESET;
 	}
 
 	//to config

@@ -16,42 +16,73 @@
 
 #include "analog.h"
 
-marcelino_PTRFunc AnalogArray[2] = {none,none};
+void (*AnalogArray[2])(void) = {none,none};
 
-Analog::Analog(uint8_t Vref) {
+Analog::Analog() {
 	PRR &= ~bv(PRADC);
-	this->_Vref = Vref&0x03;
+	this->_Vref = 1;
 	this->_prescale = 6;
 }
 
-void Analog::aref(uint8_t Vref) {
-	this->_Vref = Vref&0x03;	
+Analog::Analog(uint8_t Vref) {
+	PRR &= ~bv(PRADC);
+	this->reference(Vref);
+	this->_prescale = 6;
+}
+
+void Analog::reference(uint8_t Vref) {
+	switch(Vref) {
+		case EXTERNAL:
+			this->_Vref = 0;
+			break;
+		case DEFAULT:
+			this->_Vref = 1;
+			break;
+		case INTERNAL:
+			this->_Vref = 3;
+			break;
+		default:
+			this->_Vref = 1;
+			break;
+	}	
 }
 
 void Analog::prescale(uint8_t scale) {
-	if(scale==2)
-		scale=1;
-	else if(scale==4)
-		scale=2;
-	else if(scale==8)
-		scale=3;
-	else if(scale==16)
-		scale=4;
-	else if(scale==32)
-		scale=5;
-	else if(scale==64)
-		scale=6;
-	else if(scale==128)
-		scale=7;
-	this->_prescale = scale;
+	switch(scale) {
+		case 2:
+			this->_prescale=1;
+			break;
+		case 4:
+			this->_prescale=2;
+			break;
+		case 8:
+			this->_prescale=3;
+			break;
+		case 16:
+			this->_prescale=4;
+			break;
+		case 32:
+			this->_prescale=5;
+			break;
+		case 64:
+			this->_prescale=6;
+			break;
+		case 128:
+			this->_prescale=7;
+			break;
+		default:
+			this->_prescale=6;
+			break;
+	}
 }
 
 uint16_t Analog::read(uint8_t pin) {
 	if (pin > 5)
 		return 0;
 	DIDR0 |= bv(pin);
-	ADMUX = (this->_Vref<<REFS0)|pin;
-    ADCSRA = bv(ADEN)|bv(ADSC)|this->_prescale;
+	ADMUX = (_Vref<<REFS0)|pin;
+	_delay_ms(10);
+    ADCSRA = bv(ADEN)|bv(ADSC)|_prescale;
     while(ADCSRA & bv(ADSC));
     uint16_t _adc = ADC;
     DIDR0 &= ~bv(pin);
@@ -59,13 +90,25 @@ uint16_t Analog::read(uint8_t pin) {
 }
 
 uint16_t Analog::read(uint8_t pin, uint8_t ref) {
-	ref = ref&0x03;
-	if (pin > 5 && pin != 8)
-		return 0;
+	switch(ref) {
+		case EXTERNAL:
+			ref = 0;
+			break;
+		case DEFAULT:
+			ref = 1;
+			break;
+		case INTERNAL:
+			ref = 3;
+			break;
+		default:
+			ref = 1;
+			break;
+	}
 	DIDR0 |= bv(pin);
 	ADMUX = (ref<<REFS0)|pin;
-    ADCSRA = bv(ADEN)|bv(ADSC)|this->_prescale;
-    while(ADCSRA & bv(ADSC));
+	_delay_ms(10);
+    ADCSRA = bv(ADEN)|bv(ADSC)|_prescale;
+    while(ADCSRA & (1<<ADSC));
     uint16_t _adc = ADC;
     DIDR0 &= ~bv(pin);
     return _adc;
@@ -74,29 +117,39 @@ uint16_t Analog::read(uint8_t pin, uint8_t ref) {
 void Analog::read(uint8_t pin, void (*funct)(void)) {
 	if(ADCSRA & bv(ADSC))
 		return 0;
-	if (pin > 5)
-		return 0;
 	AnalogArray[1] = funct;
 	DIDR0 |= bv(pin);
 	ADMUX = (this->_Vref<<REFS0)|pin;
+	_delay_ms(10);
     ADCSRA = bv(ADEN)|bv(ADSC)|bv(ADIE)|this->_prescale;
 }
 
 void Analog::read(uint8_t pin, uint8_t ref, void (*funct)(void)) {
 	if(ADCSRA & bv(ADSC))
 		return 0;
-	if (pin > 5)
-		return 0;
+	switch(ref) {
+		case EXTERNAL:
+			ref = 0;
+			break;
+		case DEFAULT:
+			ref = 1;
+			break;
+		case INTERNAL:
+			ref = 3;
+			break;
+		default:
+			ref = 1;
+			break;
+	}
 	AnalogArray[1] = funct;
-	ref = ref&0x03;
 	DIDR0 |= bv(pin);
 	ADMUX = (ref<<REFS0)|pin;
+	_delay_ms(10);
     ADCSRA = bv(ADEN)|bv(ADSC)|bv(ADIE)|this->_prescale;
 }
 
-
 float Analog::temp() {
-	 return ( ( read(8,INTERNAL) - 314.31 ) / 1.22);
+	 return ( ( this->read(8,INTERNAL) - 314.31 ) / 1.22);
 }
 
 void Analog::attach(uint8_t mode, void (*funct)(void)) {
@@ -129,18 +182,6 @@ void Analog::detach(uint8_t interrupt) {
 		ADMUX = 0;
 		ADCSRA = 0;
 	}
-}
-
-uint8_t Analog::falling() {
-	 return ( ACSR &bv(ACIS1) ) && ( !( ACSR & bv(ACIS0) ) );
-}
-
-uint8_t Analog::rising() {
-	return ( ACSR &bv(ACIS1) ) && ( ACSR & bv(ACIS0) );
-}
-
-uint8_t Analog::change() {
-	return !( ACSR &bv(ACIS1) ) && ( ACSR & bv(ACIS0) );
 }
 
 ISR(ANALOG_COMP_vect) {

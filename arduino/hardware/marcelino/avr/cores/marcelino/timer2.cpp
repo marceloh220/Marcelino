@@ -18,7 +18,7 @@
 
 uint8_t timer2_TCNT2;
 
-marcelino_PTRFunc T2Array[3] = {none,none,none};
+void (*T2Array[3])(void) = {none,none,none};
 
 Timer2::Timer2() {
 	PRR &= ~(1<<PRTIMER2);

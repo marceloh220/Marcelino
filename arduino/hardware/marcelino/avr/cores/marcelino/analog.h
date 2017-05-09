@@ -23,11 +23,12 @@ class Analog {
 private:
 	uint8_t _Vref, _prescale;
 public:
-	Analog(uint8_t Vref = DEFAULT);
+	Analog();
+	Analog(uint8_t Vref);
 	~Analog() { PRR |= (1<<PRADC); }
 
 	//to config ADC
-	void aref(uint8_t ref);
+	void reference(uint8_t ref);
 	void prescale(uint8_t scale);
 
 	//to read analogics
@@ -35,7 +36,7 @@ public:
 	uint16_t read(uint8_t pin, uint8_t ref);
 	void read(uint8_t pin, void (*funct)(void));
 	void read(uint8_t pin, uint8_t ref, void (*funct)(void));
-	inline uint16_t read() { return ADC; }
+	inline uint16_t adc() { return ADC; }
 	inline uint8_t amux() { return ADMUX&0x0F; }
 	float temp();
 
@@ -45,9 +46,9 @@ public:
 	void detach(uint8_t interrupt);
 	
 	//tests of comparator
-	uint8_t falling();
-	uint8_t rising();
-	uint8_t change();
+	inline uint8_t Analog::falling() { return ( ACSR &bv(ACIS1) ) && ( !( ACSR & bv(ACIS0) ) ); }
+	inline uint8_t Analog::rising() { return ( ACSR &bv(ACIS1) ) && ( ACSR & bv(ACIS0) ); }
+	inline uint8_t Analog::change() { return !( ACSR &bv(ACIS1) ) && ( ACSR & bv(ACIS0) ); }
 
 };
 

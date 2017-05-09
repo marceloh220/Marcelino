@@ -236,9 +236,6 @@
 #define PROGMEM __attribute__((section(".progmem.data")))
 #endif
 
-
-typedef void (*marcelino_PTRFunc)();
-
 #if defined ARDUINO_AVR_MARCELINO328|| defined ARDUINO_AVR_MARCELINO168
 typedef uint8_t byte;
 typedef uint16_t word;

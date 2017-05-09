@@ -20,7 +20,7 @@ uint8_t timer0_TCNT0;
 
 uint32_t _millis;
 
-marcelino_PTRFunc T0Array[3] = {none,none,none};
+void (*T0Array[3])(void) = {none,none,none};
 
 Timer0::Timer0() {
 	PRR &= ~(1<<PRTIMER0);

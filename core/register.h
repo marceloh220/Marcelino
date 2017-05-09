@@ -21,17 +21,17 @@ class Register {
 private:
 	uint8_t _register;
 public:
-	Register(uint8_t value = 0) { _register = value; }
+	Register(uint8_t value = 0) { this->_register = value; }
 	
-	inline void set(uint8_t bit) { _register |= (1<<bit); }
-	inline void clear(uint8_t bit) { _register &= ~(1<<bit); }
-	inline void toggle(uint8_t bit) { _register ^= (1<<bit); }
+	inline void set(uint8_t bit) { this->_register |= (1<<bit); }
+	inline void clear(uint8_t bit) { this->_register &= ~(1<<bit); }
+	inline void toggle(uint8_t bit) { this->_register ^= (1<<bit); }
 	
-	inline uint8_t ifset(uint8_t bit) { return _register&(1<<bit); }
-	inline uint8_t ifclear(uint8_t bit) { return !(_register&(1<<bit)); }
+	inline uint8_t ifset(uint8_t bit) { return this->_register&(1<<bit); }
+	inline uint8_t ifclear(uint8_t bit) { return !(this->_register&(1<<bit)); }
 	
-	inline void reg(uint8_t value) { _register = value; }
-	inline uint8_t reg() {return _register; }
+	inline void reg(uint8_t value) { this->_register = value; }
+	inline uint8_t reg() {return this->_register; }
 
 	//operators
 	//void operator= (uint8_t &v1) { _register = v1; }

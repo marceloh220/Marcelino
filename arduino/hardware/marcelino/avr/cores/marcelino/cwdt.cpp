@@ -1,6 +1,6 @@
 #include "cwdt.h"
 
-marcelino_PTRFunc wdtARRAY = none;
+void (*wdtARRAY)(void) = none;
 
 void WDT::timeout(uint8_t time){
 	cli();
@@ -12,7 +12,7 @@ void WDT::timeout(uint8_t time){
 }
 
 void WDT::config(uint8_t mode) {
-	_mode = mode;
+	this->_mode = mode;
 	WDTCSR &= ~( (1<<WDE)|(1<<WDIE) );
 	if(mode==INTERRUPT)
 		WDTCSR |= (1<<WDIE);

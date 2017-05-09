@@ -32,8 +32,8 @@
 
 #include "external.h"
 
-marcelino_PTRFunc INTArray[2] = {none,none};
-marcelino_PTRFunc PCINTArray[3] = {none,none,none};
+void (*INTArray[2])(void) = {none,none};
+void (*PCINTArray[3])(void) = {none,none,none};
 
 const uint8_t digital_PCMASK[3] PROGMEM = {
 	(uint16_t)&PCMSK0,

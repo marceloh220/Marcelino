@@ -16,7 +16,7 @@
 
 #include "twi.h"
 
-marcelino_PTRFunc TWIARRAY = none;
+void (*TWIARRAY)(void) = none;
 uint8_t mode_twi;
 
 //privete
