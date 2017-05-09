@@ -23,12 +23,6 @@ class WDT {
 private:
 	uint8_t _mode;
 public:
-	
-	WDT() {
-		this->enable();
-		this->timeout(W_8S);
-		this->_mode = RESET;
-	}
 
 	//to config
 	void config(uint8_t mode);
