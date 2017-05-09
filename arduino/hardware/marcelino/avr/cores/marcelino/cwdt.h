@@ -24,14 +24,6 @@ private:
 	uint8_t _mode;
 public:
 	
-<<<<<<< HEAD
-	WDT() {
-		enable();
-		this->_mode = RESET;
-	}
-
-=======
->>>>>>> db48a6780dbca8e623b5bff9bd515e046d50f201
 	//to config
 	void config(uint8_t mode);
 	void timeout(uint8_t time);
