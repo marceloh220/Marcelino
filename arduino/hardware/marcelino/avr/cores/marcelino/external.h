@@ -23,8 +23,8 @@
 class External {
 
 public:
-	void attach(uint8_t _pin, VoidFuncPtr funct);
-	void attach(uint8_t interrupt, uint8_t mode, VoidFuncPtr funct);
+	void attach(uint8_t _pin, void (*funct)(void));
+	void attach(uint8_t interrupt, uint8_t mode, void (*funct)(void));
 	void detachPC(uint8_t interrupt);
 	void detachINT(uint8_t interrupt);
 	

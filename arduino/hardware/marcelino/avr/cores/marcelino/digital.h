@@ -19,17 +19,6 @@
 
 #include "defines.h"
 
-#define sbi(_sfr,_bit)		(_sfr|=(1<<_bit))
-#define cbi(_sfr,_bit)		(_sfr&=~(1<<_bit))
-#define tbi(_sfr,_bit)		(_sfr^=(1<<_bit))
-
-#define is_set(_sfr,_bit)	(_sfr&(1<<_bit))
-#define is_clear(_sfr,_bit)	(!(_sfr&(1<<_bit)))
-
-#define bv(_bit)			(1<<_bit)
-
-#define nop() (__asm__ __volatile__ ("nop"))
-
 class Digital {
 public:
 	void mode(uint8_t _pin, uint8_t _mode);

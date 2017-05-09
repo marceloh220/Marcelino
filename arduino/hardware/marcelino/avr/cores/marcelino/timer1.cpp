@@ -18,7 +18,7 @@
 
 uint16_t timer1_TCNT1;
 
-VoidFuncPtr T1Array[4] = {none,none,none,none};
+void (*T1Array[4])(void) = {none,none,none,none};
 
 Timer1::Timer1() {
 	PRR &= ~(1<<PRTIMER1);
@@ -215,15 +215,27 @@ void Timer1::period(uint32_t micros) {
   TCCR1B |= scale;
 }
 
-void Timer1::attach(uint8_t interrupt, VoidFuncPtr funct) {
-	if(interrupt == CAPT)
-		return;
-	T1Array[interrupt] = funct;
-	TIMSK1 |= (1<<interrupt);
+void Timer1::attach(uint8_t interrupt, void (*funct)(void)) {
+	switch(interrupt) {
+		case OVF:
+			T1Array[0] = funct;
+			TIMSK1 |= (1<<TOIE1);
+			break;
+		case COMPA:
+			T1Array[1] = funct;
+			TIMSK1 |= (1<<OCIE1A);
+			break;
+		case COMPB:
+			T1Array[2] = funct;
+			TIMSK1 |= (1<<OCIE1B);
+			break;
+		default:
+			break;
+	}
 	sei();
 }
 
-void Timer1::attach(uint8_t interrupt, uint8_t mode, VoidFuncPtr funct) {
+void Timer1::attach(uint8_t interrupt, uint8_t mode, void (*funct)(void)) {
 	if(interrupt != CAPT)
 		return;
 	TCCR1B |= (1<<ICNC1);
@@ -232,21 +244,31 @@ void Timer1::attach(uint8_t interrupt, uint8_t mode, VoidFuncPtr funct) {
 	else if(mode == RISING)
 		TCCR1B |= (1<<ICES1);
 	TIMSK1 |= (1<<ICIE1);
-	T1Array[CAPT] = funct;
+	T1Array[3] = funct;
 	sei();
 }
 
 void Timer1::detach(uint8_t interrupt) {
-	T1Array[interrupt] = none;
-	if(interrupt == CAPT)
-		interrupt=ICIE1;
-	TIMSK1 &= ~(1<<interrupt);
-}
-
-uint8_t Timer1::attached(uint8_t interrupt) {
-	if(interrupt == CAPT)
-		interrupt=ICIE1;
-	return (TIMSK1&(1<<interrupt));
+	switch(interrupt) {
+		case OVF:
+			T1Array[0] = none;
+			TIMSK1 &= ~(1<<TOIE1);
+			break;
+		case COMPA:
+			T1Array[1] = none;
+			TIMSK1 &= ~(1<<OCIE1A);
+			break;
+		case COMPB:
+			T1Array[2] = none;
+			TIMSK1 &= ~(1<<OCIE1B);
+			break;
+		case CAPT:
+			T1Array[3] = none;
+			TIMSK1 &= ~(1<<ICIE1);
+			TCCR1B &= ~(1<<ICES1);
+		default:
+			break;
+	}
 }
 
 ISR(TIMER1_OVF_vect) {

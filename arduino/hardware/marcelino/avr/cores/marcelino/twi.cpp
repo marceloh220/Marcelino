@@ -16,7 +16,7 @@
 
 #include "twi.h"
 
-VoidFuncPtr TWIARRAY = none;
+void (*TWIARRAY)(void) = none;
 uint8_t mode_twi;
 
 //privete
@@ -61,7 +61,7 @@ uint8_t TWI::recive(uint8_t ack) {
     return TWDR;
 }
 
-void TWI::attach(VoidFuncPtr funct) {
+void TWI::attach(void (*funct)(void)) {
 	TWIARRAY = funct;
 	TWCR |= (1<<TWIE);
 	sei();

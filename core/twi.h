@@ -79,7 +79,7 @@ public:
 	inline uint8_t ifwrite() { return status()==0x60;}
 
 	//to interrupts
-	void attach(VoidFuncPtr funct);
+	void attach(void (*funct)(void));
 	void detach();
 };
 

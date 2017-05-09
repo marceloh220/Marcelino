@@ -26,7 +26,7 @@ public:
 	
 	WDT() {
 		enable();
-		_mode = RESET;
+		this->_mode = RESET;
 	}
 
 	//to config
@@ -42,7 +42,7 @@ public:
 	inline void reset() {  wdt_reset(); }
 	
 	//to management the interrupt
-	void attach(VoidFuncPtr func);
+	void attach(void (*funct)(void));
 	void detach();
 };
 
