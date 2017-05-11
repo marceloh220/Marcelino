@@ -23,14 +23,19 @@ class WDT {
 private:
 	uint8_t _mode;
 public:
-	
+
 	//to config
 	void config(uint8_t mode);
 	void timeout(uint8_t time);
 	
 	//to enable and disable
-	inline void enable() { WDTCSR |= (1<<WDE); }
-	inline void disable() { WDTCSR &= ~(1<<WDE); }
+	inline void enable() { 
+		WDTCSR |= (1<<WDCE)|(1<<WDE);
+		WDTCSR |= (1<<WDE);
+	}
+	inline void disable() { 
+		wdt_disable();
+	}
 	
 	//to reset wtd
 	inline void clear() {  wdt_reset(); }
