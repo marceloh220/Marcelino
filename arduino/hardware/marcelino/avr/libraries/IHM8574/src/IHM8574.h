@@ -37,6 +37,7 @@ private:
 	uint8_t _address;
 	uint8_t _row, _col;
 	uint8_t _addressrow[4];
+	uint8_t _busy;
 	void send(uint8_t d);
 	void cmd(uint8_t d, uint8_t c);
 	void _mode();
@@ -62,6 +63,7 @@ public:
 	void background(uint8_t state);
 	void create(uint8_t location, uint8_t charmap[]);
 	void create(uint8_t location, uint8_t charmap, uint8_t i);
+	inline uint8_t busy() { return this->_busy; }
 };
 
 #endif

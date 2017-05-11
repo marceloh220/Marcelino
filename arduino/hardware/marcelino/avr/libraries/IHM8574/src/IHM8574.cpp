@@ -26,7 +26,7 @@ IHM8574::IHM8574(uint8_t address) {
 }
 
 void IHM8574::init() {
-	_delay_us(10000);
+	this->_busy = 1;
 	cmd(0x03,1);
 	_delay_us(4500);
 	cmd(0x03,1);
@@ -41,7 +41,7 @@ void IHM8574::init() {
 	_delay_us(2000);
 	cmd(0x01,1);
 	_delay_us(2000);
-	set(0,0);
+	this->_busy = 0;
 }
 
 //private:
@@ -53,6 +53,7 @@ void IHM8574::send(uint8_t d) {
 }
 
 void IHM8574::cmd(uint8_t d, uint8_t c) {
+	this->_busy = 1;
 	uint8_t _send;
     _send=d&0xF0;
     if (c) _send&=~(1<<0);
@@ -76,6 +77,7 @@ void IHM8574::cmd(uint8_t d, uint8_t c) {
     _send &= ~(1<<2);
     send(_send);
     _delay_us(37);
+    this->_busy = 0;
 }
 
 void IHM8574::_mode() {
