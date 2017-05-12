@@ -27,11 +27,12 @@ IHM8574::IHM8574(uint8_t address) {
 
 void IHM8574::init() {
 	this->_busy = 1;
-	cmd(0x03,1);
 	_delay_us(4500);
-	cmd(0x03,1);
+	cmd(0x30,1);
 	_delay_us(4500);
-	cmd(0x03,1);
+	cmd(0x30,1);
+	_delay_us(4500);
+	cmd(0x30,1);
 	_delay_us(150);
 	cmd(0x02,1);
 	_delay_us(2000);
@@ -61,10 +62,10 @@ void IHM8574::cmd(uint8_t d, uint8_t c) {
     if (_background) _send |= (1<<3);
     else _send&=~(1<<3);
     _send |= (1<<2);
-    send(_send);
+    this->send(_send);
     _delay_us(1);
     _send &= ~(1<<2);
-    send(_send);
+    this->send(_send);
     _delay_us(37);
     _send=d<<4;
     if (c) _send &= ~(1<<0);
@@ -72,89 +73,94 @@ void IHM8574::cmd(uint8_t d, uint8_t c) {
     if (_background) _send|=(1<<3);
     else _send&=~(1<<3);
     _send |= (1<<2);
-    send(_send);
+    this->send(_send);
     _delay_us(1);
     _send &= ~(1<<2);
-    send(_send);
+    this->send(_send);
     _delay_us(37);
     this->_busy = 0;
 }
 
 void IHM8574::_mode() {
-	_addressrow[0] = 0x00;
-	_addressrow[1] = 0x40;
-	_addressrow[2] = _col;
-	_addressrow[3] = _col + 0x40;
+	this->_addressrow[0] = 0x00;
+	this->_addressrow[1] = 0x40;
+	this->_addressrow[2] = this->_col;
+	this->_addressrow[3] = this->_col + 0x40;
 }
 
 //public:
 size_t IHM8574::write(uint8_t d) {
-	cmd(d,0);
+	this->cmd(d,0);
 	return 1;
 }
 
 size_t IHM8574::write(const char *s) {
 	while(*s!='\0')
-		cmd(*s++,0);
+		this->cmd(*s++,0);
 	return 1;
 }
 
 size_t IHM8574::write(const uint8_t *s, size_t l) {
 	while(l--)
-		cmd(*s++,0);
+		this->cmd(*s++,0);
 	return 1;
 }
 
 void IHM8574::clear() {
-	cmd(0x01,1);
+	this->cmd(0x01,1);
 	_delay_us(2000);
 }
 
 void IHM8574::home() {
-	cmd(0x02,1);
+	this->cmd(0x02,1);
 	_delay_us(2000);
 }
 void IHM8574::cursor(uint8_t mode) {
-	cmd(mode,1);
+	this->cmd(mode,1);
 }
 
 void IHM8574::display(uint8_t state) {
-	clear();
+	_delay_us(2000);
+	this->clear();
 	if(state) {
-		cmd(0x0C,1);
-		init();
+		this->cmd(0x0C,1);
+		_delay_us(2000);
+		this->init();
 	}
-	else cmd(0x08,1);
+	else {
+		cmd(0x08,1);
+		_delay_us(4500);
+	}
 }
 void IHM8574::set(uint8_t col, uint8_t row) {
-	size_t max_lines = sizeof(_addressrow) / sizeof(*_addressrow);
+	size_t max_lines = sizeof(this->_addressrow) / sizeof(*_addressrow);
 	if(row >= max_lines)
 		row = max_lines-1;
 	if(row >= _col)
 		row = _col - 1;
-	uint8_t aux = 0x80 | (col + _addressrow[row]);
-	cmd(aux,1);
+	uint8_t aux = 0x80 | (col + this->_addressrow[row]);
+	this->cmd(aux,1);
 	_delay_us(2000);
 
 }
 
 void IHM8574::background(uint8_t state) {
-	_background=state;
-	cmd(0x00,1);
+	this->_background=state;
+	this->cmd(0x00,1);
 }
 
 void IHM8574::create(uint8_t location, uint8_t charmap[]) {
 	location &= 0x7;
-	cmd(0x40 | (location << 3),1);
+	this->cmd(0x40 | (location << 3),1);
 	for (int i=0; i<8; i++) {
-		write(charmap[i]);
+		this->write(charmap[i]);
 	}
 }
 
 void IHM8574::create(uint8_t location, uint8_t charmap, uint8_t i) {
 	if(!i) {
 		location &= 0x7;
-		cmd(0x40 | (location << 3),1);
+		this->cmd(0x40 | (location << 3),1);
 	}
-	write(charmap);
+	this->write(charmap);
 }
