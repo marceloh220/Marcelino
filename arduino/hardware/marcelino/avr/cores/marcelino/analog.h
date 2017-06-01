@@ -25,7 +25,6 @@ private:
 public:
 	Analog();
 	Analog(uint8_t Vref);
-	~Analog() { PRR |= (1<<PRADC); }
 
 	//to config ADC
 	void reference(uint8_t ref);

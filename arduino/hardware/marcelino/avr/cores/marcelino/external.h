@@ -18,7 +18,6 @@
 #define EXTERNAL_H
 
 #include "defines.h"
-#include "digital.h"
 
 class External {
 
