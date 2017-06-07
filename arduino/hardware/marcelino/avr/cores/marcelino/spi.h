@@ -27,7 +27,6 @@ public:
 
 	//to initiate
 	SPI(uint8_t mode = MASTER, uint8_t scale = 16);
-	~SPI() { PRR |= (1<<PRSPI); }
 	
 	//to configure
 	void order(uint8_t mode);

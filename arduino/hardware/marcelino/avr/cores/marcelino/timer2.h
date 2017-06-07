@@ -27,7 +27,6 @@ private:
 	inline uint8_t update() { return ASSR&0x3F; }
 public:
 	Timer2();
-	~Timer2() { PRR |= (1<<PRTIMER2); }
 		
 	//configs of timer
 	void prescale(uint16_t scale);;

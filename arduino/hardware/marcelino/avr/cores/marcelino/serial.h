@@ -25,7 +25,6 @@ private:
 	uint8_t test_mode;
 public:
 	Serial(uint16_t baud = 9600);
-	~Serial() { PRR |= (1<<PRUSART); }
 	
 	//Tto config serial
 	void mode(uint8_t _mode);
