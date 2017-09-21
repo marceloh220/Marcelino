@@ -16,104 +16,189 @@
 
 #include "analog.h"
 
-VoidFuncPtr AnalogArray = none;
+void (*AnalogArray[2])(void) = {none,none};
 
-Analog::Analog(uint8_t Vref) {
-	PRR &= ~(1<<PRADC);
-	_Vref = Vref&0x03;
-	_prescale = 6;
+Analog::Analog() {
+	PRR &= ~bv(PRADC);
+	this->_Vref = 1;
+	this->_prescale = 6;
+	this->reference(1);
 }
 
-void Analog::aref(uint8_t Vref) {
-	_Vref = Vref&0x03;	
+Analog::Analog(uint8_t Vref) {
+	PRR &= ~bv(PRADC);
+	this->reference(Vref);
+	this->_prescale = 6;
+}
+
+void Analog::reference(uint8_t Vref) {
+	this->_Vref = Vref;
+	#ifdef ATTINY
+	ADMUX &= ~(bv(REFS2)|bv(REFS1)|bv(REFS0));
+	#else
+	ADMUX &= ~(bv(REFS1)|bv(REFS0));
+	#endif
+	switch(Vref) {
+		#ifdef ATTINY
+		case EXTERNAL:
+			ADMUX |= bv(REFS0);
+			break;
+		case DEFAULT:
+			break;
+		case INTERNAL1V1:
+			ADMUX |= bv(REFS1);
+			break;
+		case INTERNAL2V5:
+			ADMUX |= bv(REFS2)|bv(REFS1);
+			break;
+		#else
+		case EXTERNAL:
+			break;
+		case DEFAULT:
+			ADMUX |= bv(REFS0);
+			break;
+		case INTERNAL:
+			ADMUX |= bv(REFS1)|bv(REFS0);
+			break;
+		#endif
+	}
+	_delay_ms(10);
 }
 
 void Analog::prescale(uint8_t scale) {
-	if(scale==2)
-		scale=1;
-	else if(scale==4)
-		scale=2;
-	else if(scale==8)
-		scale=3;
-	else if(scale==16)
-		scale=4;
-	else if(scale==32)
-		scale=5;
-	else if(scale==64)
-		scale=6;
-	else if(scale==128)
-		scale=7;
-	_prescale = scale;
+	switch(scale) {
+		case 2:
+			this->_prescale=1;
+			break;
+		case 4:
+			this->_prescale=2;
+			break;
+		case 8:
+			this->_prescale=3;
+			break;
+		case 16:
+			this->_prescale=4;
+			break;
+		case 32:
+			this->_prescale=5;
+			break;
+		case 64:
+			this->_prescale=6;
+			break;
+		case 128:
+			this->_prescale=7;
+			break;
+		default:
+			this->_prescale=6;
+			break;
+	}
 }
 
 uint16_t Analog::read(uint8_t pin) {
-	if (pin > 5)
+	if (pin>7)
 		return 0;
-	DIDR0 |= (1<<pin);
-	ADMUX = (_Vref<<REFS0)|pin;
-    ADCSRA = (1<<ADEN)|(1<<ADSC)|_prescale;
-    while(ADCSRA & (1<<ADSC));
+	ADMUX &= ~(bv(MUX3)|bv(MUX2)|bv(MUX1)|bv(MUX0));
+	ADMUX |= pin;
+    ADCSRA = bv(ADEN)|bv(ADSC)|_prescale;
+    while(ADCSRA & bv(ADSC));
     uint16_t _adc = ADC;
-    DIDR0 &= ~(1<<pin);
     return _adc;
 }
 
 uint16_t Analog::read(uint8_t pin, uint8_t ref) {
-	ref = ref&0x03;
-	if (pin > 5 && pin != 8)
+	uint8_t SVref = this->_Vref;
+	if (pin>7)
 		return 0;
-	DIDR0 |= (1<<pin);
-	ADMUX = (ref<<REFS0)|pin;
-	_delay_ms(10);
-    ADCSRA = (1<<ADEN)|(1<<ADSC)|_prescale;
+	this->reference(ref);
+	ADMUX &= ~(bv(MUX3)|bv(MUX2)|bv(MUX1)|bv(MUX0));
+	ADMUX |= pin;
+    ADCSRA = bv(ADEN)|bv(ADSC)|_prescale;
     while(ADCSRA & (1<<ADSC));
     uint16_t _adc = ADC;
-    DIDR0 &= ~(1<<pin);
+    this->reference(SVref);
     return _adc;
 }
 
-double Analog::temp() {
-	 return ( ( read(8,INTERNAL) - 314.31 ) / 1.22);
+float Analog::temp() {
+	#ifdef ATTINY
+	return ( ( this->read(15,INTERNAL1V1) - 314.31 ) / 1.22);
+	#else
+	return ( ( this->read(8,INTERNAL) - 314.31 ) / 1.22);
+	#endif
 }
 
-void volatile Analog::attach(uint8_t mode, void (*funct)(void)) {
-	AnalogArray = funct;
-	if(mode == FALLING)
-		ACSR = (1<<ACIE)|(1<<ACIS1);
-	else if(mode == RISING)
-		ACSR = (1<<ACIE)|3;
+void Analog::attach(uint8_t interrupt, uint8_t mode, void (*funct)(void)) {
+	if(interrupt == COMP) {
+		ADCSRA&=~bv(ADEN);
+		ADCSRB &= ~bv(ACME);
+		AnalogArray[0] = funct;
+		if(mode == FALLING)
+			ACSR = bv(ACIE)|bv(ACIS1);
+		else if(mode == RISING)
+			ACSR = bv(ACIE)||bv(ACIS1)|bv(ACIS0);
+		else if(mode == TOGGLE)
+			ACSR = bv(ACIE);
+	}
+	else {
+		AnalogArray[1] = funct;
+		ADMUX &= ~(bv(MUX3)|bv(MUX2)|bv(MUX1)|bv(MUX0));
+		ADMUX |= mode;
+		ADCSRA = bv(ADEN)|bv(ADSC)|bv(ADIE)|_prescale;
+	}
 	sei();
 }
 
-void volatile Analog::attach(uint8_t mode, uint8_t reference, void (*funct)(void)) {
-	AnalogArray = funct;
-	if(mode == FALLING)
-		ACSR = (1<<ACIE)|(1<<ACIS1);
-	else if(mode == RISING)
-		ACSR = (1<<ACIE)|3;
-	if(reference == INTERNAL)
-		ACSR |= (1<<ACBG);
+void Analog::attach(uint8_t interrupt, uint8_t mode, uint8_t reference, void (*funct)(void)) {
+	if(interrupt == COMP) {
+		ADCSRA&=~bv(ADEN);
+		ADCSRB &= ~bv(ACME);
+		AnalogArray[0] = funct;
+		if(mode == FALLING)
+			ACSR = bv(ACIE)|bv(ACIS1);
+		else if(mode == RISING)
+			ACSR = bv(ACIE)|bv(ACIS1)|bv(ACIS0);
+		else if(mode == TOGGLE)
+			ACSR = bv(ACIE);
+		if(reference == INTERNAL) {
+			ACSR |= bv(ACBG);
+			_delay_ms(10);
+		}
+	}
+	else {
+		AnalogArray[1] = funct;
+		this->reference(reference);
+		ADMUX &= ~(bv(MUX3)|bv(MUX2)|bv(MUX1)|bv(MUX0));
+		ADMUX |= mode;
+		ADCSRA = bv(ADEN)|bv(ADSC)|bv(ADIE)|_prescale;
+	}
 	sei();
 }
 
-void Analog::detach() {
-	AnalogArray = none;
-	ACSR = (1<<ACD);
+void Analog::detach(uint8_t interrupt) {
+	if(interrupt == COMP) {
+		AnalogArray[0] = none;
+		ACSR = bv(ACD);
+	}
+	else {
+		AnalogArray[0] = none;
+		ADMUX &= ~(bv(MUX3)|bv(MUX2)|bv(MUX1)|bv(MUX0));
+		ADCSRA = 0;
+	}
 }
 
-uint8_t Analog::falling() {
-	 return ( ACSR &(1<<ACIS1) ) && ( !( ACSR & (1<<ACIS0) ) );
-}
-
-uint8_t Analog::rising() {
-	return ( ACSR &(1<<ACIS1) ) && ( ACSR & (1<<ACIS0) );
-}
-
-uint8_t Analog::change() {
-	return !( ACSR &(1<<ACIS1) ) && ( ACSR & (1<<ACIS0) );
-}
-
+#ifndef ATTINY
 ISR(ANALOG_COMP_vect) {
 	sregSAVE = SREG;
-	AnalogArray();
+	AnalogArray[0]();
+}
+#else
+ISR(ANA_COMP_vect) {
+	sregSAVE = SREG;
+	AnalogArray[0]();
+}
+#endif
+
+ISR(ADC_vect) {
+	sregSAVE = SREG;
+	AnalogArray[1]();
 }

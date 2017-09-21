@@ -191,19 +191,14 @@ ISR(ANALOG_COMP_vect) {
 	sregSAVE = SREG;
 	AnalogArray[0]();
 }
-
-ISR(ANALOG_ADC_vect) {
-	sregSAVE = SREG;
-	AnalogArray[1]();
-}
 #else
 ISR(ANA_COMP_vect) {
 	sregSAVE = SREG;
 	AnalogArray[0]();
 }
+#endif
 
 ISR(ADC_vect) {
 	sregSAVE = SREG;
 	AnalogArray[1]();
 }
-#endif
