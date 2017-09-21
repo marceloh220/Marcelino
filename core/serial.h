@@ -20,12 +20,13 @@
 #include "defines.h"
 #include <Print.h>
 
+#ifndef NOSERIAL
+
 class Serial : public Print {
 private:
 	uint8_t test_mode;
 public:
 	Serial(uint16_t baud = 9600);
-	~Serial() { PRR |= (1<<PRUSART); }
 	
 	//Tto config serial
 	void mode(uint8_t _mode);
@@ -45,5 +46,7 @@ public:
 	uint8_t read();
 	
 };
+
+#endif
 
 #endif

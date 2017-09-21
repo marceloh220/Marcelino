@@ -18,7 +18,6 @@
 #define TIMER0_H
 
 #include "defines.h"
-#include "digital.h"
 
 class Timer0 {
 private:
@@ -26,7 +25,7 @@ private:
 	uint8_t def_top, def_mode;
 public:
 	Timer0();
-	~Timer0() { PRR |= (1<<PRTIMER0); }
+	
 	uint32_t millis();
 	
 	//configs of timer
@@ -54,8 +53,17 @@ public:
 	void period(uint32_t micros);
 	
 	//interrupts of timer
-	void volatile attach(uint8_t interrupt, void (*funct)(void));
+	void attach(uint8_t interrupt, void (*funct)(void));
 	void detach(uint8_t interrupt);
+
+	//test interrupts attached
+	inline uint8_t attach() {
+		#ifdef TIMSK0
+		return TIMSK0;
+		#else
+		return TIMSK;
+		#endif
+	}
 	
 };
 

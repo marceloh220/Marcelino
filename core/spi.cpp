@@ -16,7 +16,9 @@
 
 #include "spi.h"
 
-VoidFuncPtr SPIArray = none;
+#ifndef NOSPI
+
+void (*SPIArray)(void) = none;
 
 //private
 void SPI::prescale(uint8_t scale) {
@@ -117,7 +119,7 @@ size_t SPI::write(const uint8_t *s, size_t l) {
 	return 1;
 }
 
-void volatile SPI::attach(void (*funct)(void)) {
+void SPI::attach(void (*funct)(void)) {
 	SPIArray = funct;
 	SPCR |= (1<<SPIE);
 	sei();
@@ -133,3 +135,5 @@ ISR(SPI_STC_vect) {
 	SPIArray();
 	SREG = sregSAVE;
 }
+
+#endif

@@ -30,18 +30,25 @@
 #include <stdarg.h>
 #include <string.h>
 #include <math.h>
+#include "pins_arduino.h"
 
+#if defined ARDUINO_AVR_MARCELINO
 #define INPUT 		0
 #define OUTPUT		1
-#define PULLUP		2
 #define INPUT_PULLUP 2
+#endif
+#define PULLUP		2
 
+#if defined ARDUINO_AVR_MARCELINO
 #define LOW 		0
+#endif
 #define CLEAR		0
 #define OFF 		0
 #define DISABLE		0
 
+#if defined ARDUINO_AVR_MARCELINO
 #define HIGH		1
+#endif
 #define SET			1
 #define ON			1
 #define ENABLE		1
@@ -55,7 +62,7 @@
 #define COMPA		1
 #define COMPB		2
 #define CAPT		3
-#define ANY			4
+#define COMP		4
 
 #define ICR			3
 #define OCRA		1
@@ -84,9 +91,13 @@
 #define RECOVERY	0
 #define SAVE		1
 
+#if defined ARDUINO_AVR_MARCELINO
 #define EXTERNAL	0
 #define DEFAULT		1
 #define INTERNAL	3
+#define INTERNAL1V1 4
+#define INTERNAL2V5 5
+#endif
 
 #define W_16MS		0
 #define W_32MS		1
@@ -111,17 +122,19 @@
 #define STANDBY		SLEEP_MODE_STANDBY
 #define STANDBYEXT	SLEEP_MODE_EXT_STANDBY
 
-#define ALL			8
-#define PRTWI		7
-#define PRTIMER2	6
-#define PRTIMER0	5
-#define PRTIMER1	3
-#define PRSPI		2
-#define PRUSART		1
-#define PRADC		0
-
+#define ALL			8		
+#ifdef PRTIM2
+#define PRTIMER2	PRTIM2
+#endif
+#define PRTIMER0	PRTIM0
+#define PRTIMER1	PRTIM1
+#ifdef PRUSART0
+#define PRUSART		PRUSART0
+#endif
+#if defined ARDUINO_AVR_MARCELINO
 #define MSBF		0
 #define LSBF		1
+#endif
 
 #define ASYNCHRON	0
 #define SYNCHRON	1
@@ -145,13 +158,16 @@
 #define NACK		0
 #define ACK			1
 
+#if defined ARDUINO_AVR_MARCELINO
 #define A0			0
 #define A1			1
 #define A2			2
 #define A3			3
 #define A4			4
 #define A5			5
+#endif
 
+#ifndef ATTINY
 #define T0			4
 #define T1			5
 #define AINP		6
@@ -165,6 +181,20 @@
 #define OC2A		11
 #define OC2B		3
 
+#else
+
+#define T0			2
+#define AINP		0
+#define AINN		1
+
+#define OC0A		0
+#define OC0B		1
+#define OC1A		1
+#define OC1B		4
+
+#endif
+
+#if defined ARDUINO_AVR_MARCELINO
 #define D0			0
 #define D1			1
 #define D2			2
@@ -206,25 +236,30 @@
 #define SQRT1_2		0.70710678118654752440
 #define SQRT3		1.73205080757
 
+#define sbi(_sfr,_bit)		(_sfr|=(1<<_bit))
+#define cbi(_sfr,_bit)		(_sfr&=~(1<<_bit))
+#define tbi(_sfr,_bit)		(_sfr^=(1<<_bit))
+
+#define is_set(_sfr,_bit)	(_sfr&(1<<_bit))
+#define is_clear(_sfr,_bit)	(!(_sfr&(1<<_bit)))
+
+#define bv(_bit)			(1<<_bit)
+#define nop() 				asm volatile ("nop")
+
+#endif
+
 #ifdef PROGMEM
 #undef PROGMEM
 #define PROGMEM __attribute__((section(".progmem.data")))
 #endif
 
-typedef void (*VoidFuncPtr)();
-
+#if defined ARDUINO_AVR_MARCELINO
 typedef uint8_t byte;
 typedef uint16_t word;
+#endif
 typedef uint32_t dword;
 
 extern uint8_t sregSAVE;
-
-extern const uint8_t digital_bit[22] PROGMEM;
-extern const uint8_t digital_sfr[22] PROGMEM;
-extern const uint8_t digital_DDR[3] PROGMEM;
-extern const uint8_t digital_PORT[3] PROGMEM;
-extern const uint8_t digital_PIN[3] PROGMEM;
-extern const uint8_t digital_PCMASK[3] PROGMEM;
 
 #define get_bit(P)		pgm_read_byte(&digital_bit[P])
 #define get_sfr(P)		pgm_read_byte(&digital_sfr[P])
@@ -244,7 +279,9 @@ extern const uint8_t digital_PCMASK[3] PROGMEM;
 #define mc2clock(m)		(m * clockMC)
 
 void none();
+#if defined ARDUINO_AVR_MARCELINO
 void setup();
 void loop();
+#endif
 
 #endif

@@ -16,7 +16,9 @@
 
 #include "twi.h"
 
-VoidFuncPtr TWIARRAY = none;
+#ifndef NOTWI
+
+void (*TWIARRAY)(void) = none;
 uint8_t mode_twi;
 
 //privete
@@ -61,7 +63,7 @@ uint8_t TWI::recive(uint8_t ack) {
     return TWDR;
 }
 
-void volatile TWI::attach(void (*funct)(void)) {
+void TWI::attach(void (*funct)(void)) {
 	TWIARRAY = funct;
 	TWCR |= (1<<TWIE);
 	sei();
@@ -83,3 +85,5 @@ ISR(TWI_vect) {
 	TWIARRAY();
 	SREG = sregSAVE;
 }
+
+#endif

@@ -19,6 +19,8 @@
 
 #include "defines.h"
 
+#ifndef NOTWI
+
 extern uint8_t mode_twi;
 
 class TWI {
@@ -28,7 +30,6 @@ private:
 public:
 	//initialize
 	TWI(uint8_t mode = MASTER, uint8_t speed = FAST);
-	~TWI() { PRR |= (1<<PRTWI); }
 	
 	//to communication
 	inline void start() {
@@ -79,10 +80,10 @@ public:
 	inline uint8_t ifwrite() { return status()==0x60;}
 
 	//to interrupts
-	void volatile attach(void (*funct)(void));
+	void attach(void (*funct)(void));
 	void detach();
 };
 
-
+#endif
 
 #endif

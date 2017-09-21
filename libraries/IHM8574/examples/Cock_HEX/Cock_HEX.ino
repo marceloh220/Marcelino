@@ -19,7 +19,7 @@ IHM8574 board(0x70);
 Timer0 timer;
 
 void setup() {
-  board.background(HIGH);
+  board.backlight(HIGH);
   board.set(5,0);
   String a = "UPTime";
   board.print(a);

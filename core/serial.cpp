@@ -16,6 +16,8 @@
 
 #include "serial.h"
 
+#ifndef NOSERIAL
+
 Serial::Serial(uint16_t rate) {
 	PRR &= ~(1<<PRUSART);
 	UBRR0H = (uint8_t)(F_CPU/16/rate-1)>>8;
@@ -27,10 +29,10 @@ Serial::Serial(uint16_t rate) {
 void Serial::mode(uint8_t _mode) {
 		UCSR0C &= ~(3<<UMSEL01);
 		UCSR0C |= (_mode<<UMSEL00);
-		test_mode = 0;
+		this->test_mode = 0;
 		if(_mode) {
 			XCLK_DDR|=(1<<XCLK_PIN);
-			test_mode = 1;
+			this->test_mode = 1;
 		}
 }
 
@@ -62,7 +64,7 @@ void Serial::parity(uint8_t _mode) {
 }
 
 void Serial::baud(uint16_t rate) {
-	if(test_mode) {
+	if(this->test_mode) {
 		UBRR0H = (uint8_t)(F_CPU/2/rate-1)>>8;
 		UBRR0L = (uint8_t)(F_CPU/2/rate-1);
 	}
@@ -99,3 +101,6 @@ uint8_t Serial::read() {
 	while(!(UCSR0A & (1<<RXC0)));
 	return UDR0;
 }
+
+
+#endif

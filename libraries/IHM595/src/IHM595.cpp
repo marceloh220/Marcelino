@@ -34,12 +34,12 @@ void IHM595::init() {
 	Digital::mode(clock,OUTPUT);
 	Digital::mode(data,OUTPUT);
 	Digital::mode(enable,OUTPUT);
-	_delay_us(10000);
-	cmd(0x03,1);
 	_delay_us(4500);
-	cmd(0x03,1);
+	cmd(0x30,1);
 	_delay_us(4500);
-	cmd(0x03,1);
+	cmd(0x30,1);
+	_delay_us(4500);
+	cmd(0x30,1);
 	_delay_us(150);
 	cmd(0x02,1);
 	_delay_us(2000);
@@ -49,7 +49,7 @@ void IHM595::init() {
 	_delay_us(2000);
 	cmd(0x01,1);
 	_delay_us(2000);
-	set(0,0);
+	this->set(0,0);
 }
 
 //private:
@@ -141,7 +141,7 @@ void IHM595::set(uint8_t col, uint8_t row) {
 
 }
 
-void IHM595::background(uint8_t state) {
+void IHM595::backlight(uint8_t state) {
 	_background=state;
 	cmd(0x00,1);
 }

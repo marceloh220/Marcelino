@@ -23,26 +23,31 @@ class WDT {
 private:
 	uint8_t _mode;
 public:
-	
-	WDT() {
-		enable();
-		_mode = RESET;
-	}
 
 	//to config
 	void config(uint8_t mode);
 	void timeout(uint8_t time);
 	
 	//to enable and disable
-	inline void enable() { WDTCSR |= (1<<WDE); }
-	inline void disable() { WDTCSR &= ~(1<<WDE); }
+	inline void enable() {
+		#ifdef WDTCSR
+		WDTCSR |= (1<<WDCE)|(1<<WDE);
+		WDTCSR |= (1<<WDE);
+		#else
+		WDTCR |= (1<<WDCE)|(1<<WDE);
+		WDTCR |= (1<<WDE);
+		#endif
+	}
+	inline void disable() { 
+		wdt_disable();
+	}
 	
 	//to reset wtd
 	inline void clear() {  wdt_reset(); }
 	inline void reset() {  wdt_reset(); }
 	
 	//to management the interrupt
-	void volatile attach(void (*funct)(void));
+	void attach(void (*funct)(void));
 	void detach();
 };
 
