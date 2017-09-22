@@ -60,7 +60,7 @@ uint8_t Digital::read(uint8_t pin) {
 	
 	uint8_t bit = get_bit(pin);
 		
-	return (*port) & bit;
+	return ((*port) & bit) ? 1 : 0;
 }
 
 void Digital::output( byte bits, ... ) {
