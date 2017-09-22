@@ -327,7 +327,6 @@ void Timer1::period(uint32_t micros) {
 	timer1_TCNT1 = 65535 - cycles;
 	TCCR1B |= scale;
 }
-<<<<<<< HEAD
 #else
 void Timer1::period(uint32_t micros) {
 	uint32_t cycles = microsecondsToClockCycles(micros)*2;
@@ -372,14 +371,11 @@ void Timer1::period(uint32_t micros) {
 	timer1_TCNT1 = 256 - cycles;
 }
 #endif
-=======
->>>>>>> origin/master
 
 void Timer1::attach(uint8_t interrupt, void (*funct)(void)) {
 	switch(interrupt) {
 		case OVF:
 			T1Array[0] = funct;
-<<<<<<< HEAD
 			#ifdef TIMSK1
 			TIMSK1 |= bv(TOIE1);
 			#else
@@ -401,28 +397,12 @@ void Timer1::attach(uint8_t interrupt, void (*funct)(void)) {
 			#else
 			TIMSK |= bv(OCIE1B);
 			#endif
-=======
-			TIMSK1 |= (1<<TOIE1);
-			break;
-		case COMPA:
-			T1Array[1] = funct;
-			TIMSK1 |= (1<<OCIE1A);
-			break;
-		case COMPB:
-			T1Array[2] = funct;
-			TIMSK1 |= (1<<OCIE1B);
-			break;
-		default:
->>>>>>> origin/master
 			break;
 	}
 	sei();
 }
 
-<<<<<<< HEAD
 #ifndef ATTINY
-=======
->>>>>>> origin/master
 void Timer1::attach(uint8_t interrupt, uint8_t mode, void (*funct)(void)) {
 	if(interrupt != CAPT)
 		return;
@@ -441,7 +421,6 @@ void Timer1::detach(uint8_t interrupt) {
 	switch(interrupt) {
 		case OVF:
 			T1Array[0] = none;
-<<<<<<< HEAD
 			#ifdef TIMSK1
 			TIMSK1 &= ~bv(TOIE1);
 			#else
@@ -471,24 +450,6 @@ void Timer1::detach(uint8_t interrupt) {
 			TCCR1B &= ~bv(ICES1);
 			break;
 		#endif
-=======
-			TIMSK1 &= ~(1<<TOIE1);
-			break;
-		case COMPA:
-			T1Array[1] = none;
-			TIMSK1 &= ~(1<<OCIE1A);
-			break;
-		case COMPB:
-			T1Array[2] = none;
-			TIMSK1 &= ~(1<<OCIE1B);
-			break;
-		case CAPT:
-			T1Array[3] = none;
-			TIMSK1 &= ~(1<<ICIE1);
-			TCCR1B &= ~(1<<ICES1);
-		default:
-			break;
->>>>>>> origin/master
 	}
 }
 

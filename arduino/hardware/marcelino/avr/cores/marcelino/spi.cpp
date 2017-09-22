@@ -16,6 +16,8 @@
 
 #include "spi.h"
 
+#ifndef NOSPI
+
 void (*SPIArray)(void) = none;
 
 //private
@@ -133,3 +135,5 @@ ISR(SPI_STC_vect) {
 	SPIArray();
 	SREG = sregSAVE;
 }
+
+#endif

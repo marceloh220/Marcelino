@@ -17,7 +17,7 @@ Timer0 timer;
 
 void setup() {
   board.config(20, 4);
-  board.background(HIGH);
+  board.backlight(HIGH);
   board.set(2, 0);
   String a = "Hello World!";
   board.print(a);

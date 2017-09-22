@@ -59,7 +59,7 @@ public:
 	inline void toleft() { cmd(0x18,1); }
 	inline void toright() { cmd(0x1C,1); }
 	void set(uint8_t col, uint8_t lin);
-	void background(uint8_t state);
+	void backlight(uint8_t state);
 };
 
 #endif

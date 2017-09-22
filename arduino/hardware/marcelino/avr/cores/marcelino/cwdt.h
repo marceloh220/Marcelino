@@ -29,9 +29,14 @@ public:
 	void timeout(uint8_t time);
 	
 	//to enable and disable
-	inline void enable() { 
+	inline void enable() {
+		#ifdef WDTCSR
 		WDTCSR |= (1<<WDCE)|(1<<WDE);
 		WDTCSR |= (1<<WDE);
+		#else
+		WDTCR |= (1<<WDCE)|(1<<WDE);
+		WDTCR |= (1<<WDE);
+		#endif
 	}
 	inline void disable() { 
 		wdt_disable();

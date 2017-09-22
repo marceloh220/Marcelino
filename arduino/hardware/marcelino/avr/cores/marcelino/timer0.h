@@ -18,7 +18,6 @@
 #define TIMER0_H
 
 #include "defines.h"
-#include "digital.h"
 
 class Timer0 {
 private:
@@ -58,7 +57,13 @@ public:
 	void detach(uint8_t interrupt);
 
 	//test interrupts attached
-	inline uint8_t attach() { return TIMSK0; }
+	inline uint8_t attach() {
+		#ifdef TIMSK0
+		return TIMSK0;
+		#else
+		return TIMSK;
+		#endif
+	}
 	
 };
 

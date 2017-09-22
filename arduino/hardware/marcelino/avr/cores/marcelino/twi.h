@@ -19,6 +19,8 @@
 
 #include "defines.h"
 
+#ifndef NOTWI
+
 extern uint8_t mode_twi;
 
 class TWI {
@@ -82,6 +84,6 @@ public:
 	void detach();
 };
 
-
+#endif
 
 #endif

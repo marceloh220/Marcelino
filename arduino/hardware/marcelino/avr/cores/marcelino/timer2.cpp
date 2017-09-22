@@ -16,6 +16,8 @@
 
 #include "timer2.h"
 
+#ifndef NOTIMER2
+
 uint8_t timer2_TCNT2;
 
 void (*T2Array[3])(void) = {none,none,none};
@@ -288,3 +290,5 @@ ISR(TIMER2_COMPB_vect) {
 	T2Array[2]();
 	SREG = sregSAVE;
 }
+
+#endif

@@ -16,7 +16,7 @@ IHM8574 board(0x70);
 Timer0 timer;
 
 void setup() {
-  board.background(HIGH);
+  board.backlight(HIGH);
   board.set(2, 0);
   String a = "Hello World!";
   board.print(a);

@@ -16,6 +16,8 @@
 
 #include "twi.h"
 
+#ifndef NOTWI
+
 void (*TWIARRAY)(void) = none;
 uint8_t mode_twi;
 
@@ -83,3 +85,5 @@ ISR(TWI_vect) {
 	TWIARRAY();
 	SREG = sregSAVE;
 }
+
+#endif

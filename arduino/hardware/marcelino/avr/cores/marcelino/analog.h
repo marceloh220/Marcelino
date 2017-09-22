@@ -33,21 +33,20 @@ public:
 	//to read analogics
 	uint16_t read(uint8_t pin);
 	uint16_t read(uint8_t pin, uint8_t ref);
-	void read(uint8_t pin, void (*funct)(void));
-	void read(uint8_t pin, uint8_t ref, void (*funct)(void));
 	inline uint16_t adc() { return ADC; }
 	inline uint8_t amux() { return ADMUX&0x0F; }
 	float temp();
 
 	//interrupt of comparator
-	void attach(uint8_t mode, void (*funct)(void));
-	void attach(uint8_t mode, uint8_t reference, void (*funct)(void));
+	void attach(uint8_t interrupt, uint8_t mode, void (*funct)(void));
+	void attach(uint8_t interrupt, uint8_t mode, uint8_t reference, void (*funct)(void));
 	void detach(uint8_t interrupt);
 	
 	//tests of comparator
-	inline uint8_t Analog::falling() { return ( ACSR &bv(ACIS1) ) && ( !( ACSR & bv(ACIS0) ) ); }
-	inline uint8_t Analog::rising() { return ( ACSR &bv(ACIS1) ) && ( ACSR & bv(ACIS0) ); }
-	inline uint8_t Analog::change() { return !( ACSR &bv(ACIS1) ) && ( ACSR & bv(ACIS0) ); }
+	inline uint8_t falling() { return ( ACSR &bv(ACIS1) ) && ( !( ACSR & bv(ACIS0) ) ); }
+	inline uint8_t rising() { return ( ACSR &bv(ACIS1) ) && ( ACSR & bv(ACIS0) ); }
+	inline uint8_t change() { return !( ACSR &bv(ACIS1) ) && ( ACSR & bv(ACIS0) ); }
+	inline uint8_t interrupt() { return (ACSR&bv(ACI)); }
 
 };
 

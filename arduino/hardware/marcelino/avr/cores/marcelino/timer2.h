@@ -19,6 +19,7 @@
 
 #include "defines.h"
 
+#ifndef NOTIMER2
 
 class Timer2 {
 private:
@@ -62,5 +63,6 @@ public:
 	
 };
 
+#endif
 
 #endif

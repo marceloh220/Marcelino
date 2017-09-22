@@ -20,6 +20,8 @@
 #include "defines.h"
 #include <Print.h>
 
+#ifndef NOSERIAL
+
 class Serial : public Print {
 private:
 	uint8_t test_mode;
@@ -44,5 +46,7 @@ public:
 	uint8_t read();
 	
 };
+
+#endif
 
 #endif

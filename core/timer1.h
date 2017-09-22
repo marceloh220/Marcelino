@@ -80,12 +80,9 @@ public:
 	inline uint8_t rising() { return (TCCR1B & (1<<ICES1)); }
 	inline uint8_t falling() { return !(TCCR1B & (1<<ICES1)); }
 	inline uint8_t attach() { return TIMSK1; }
-<<<<<<< HEAD
 	#else
 	inline uint8_t attach() { return TIMSK; }
 	#endif
-=======
->>>>>>> origin/master
 		
 };
 

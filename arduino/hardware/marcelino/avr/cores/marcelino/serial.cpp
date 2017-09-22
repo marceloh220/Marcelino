@@ -16,6 +16,8 @@
 
 #include "serial.h"
 
+#ifndef NOSERIAL
+
 Serial::Serial(uint16_t rate) {
 	PRR &= ~(1<<PRUSART);
 	UBRR0H = (uint8_t)(F_CPU/16/rate-1)>>8;
@@ -99,3 +101,6 @@ uint8_t Serial::read() {
 	while(!(UCSR0A & (1<<RXC0)));
 	return UDR0;
 }
+
+
+#endif

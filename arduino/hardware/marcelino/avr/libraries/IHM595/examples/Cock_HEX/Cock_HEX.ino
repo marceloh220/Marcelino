@@ -18,7 +18,7 @@ IHM595 board(2,3,4);
 Timer0 timer;
 
 void setup() {
-  board.background(ON);
+  board.backlight(ON);
   board.set(5,0);
   String a = "UPTime";
   board.print(a);

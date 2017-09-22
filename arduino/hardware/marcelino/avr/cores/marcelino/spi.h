@@ -20,6 +20,8 @@
 #include "defines.h"
 #include "Print.h"
 
+#ifndef NOSPI
+
 class SPI : public Print {
 private:
 	void prescale(uint8_t scale);
@@ -54,7 +56,7 @@ public:
 	
 };
 
-
+#endif
 
 
 #endif

@@ -16,11 +16,8 @@
 
 #include "twi.h"
 
-<<<<<<< HEAD
 #ifndef NOTWI
 
-=======
->>>>>>> origin/master
 void (*TWIARRAY)(void) = none;
 uint8_t mode_twi;
 
