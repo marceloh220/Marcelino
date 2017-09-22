@@ -18,7 +18,7 @@
 
 uint8_t timer2_TCNT2;
 
-VoidFuncPtr T2Array[3] = {none,none,none};
+void (*T2Array[3])(void) = {none,none,none};
 
 Timer2::Timer2() {
 	PRR &= ~(1<<PRTIMER2);
@@ -207,23 +207,65 @@ void Timer2::period(uint32_t micros) {
   sei();
 }
 
-void volatile Timer2::attach(uint8_t interrupt, void (*funct)(void)) {
-	T2Array[interrupt] = funct;
-	TIMSK2 |= (1<<interrupt);
+void Timer2::attach(uint8_t interrupt, void (*funct)(void)) {
+	switch(interrupt) {
+		case OVF:
+			T2Array[0] = funct;
+			TIMSK2 |= (1<<TOIE2);
+			break;
+		case COMPA:
+			T2Array[1] = funct;
+			TIMSK2 |= (1<<OCIE2A);
+			break;
+		case COMPB:
+			T2Array[2] = funct;
+			TIMSK2 |= (1<<OCIE2B);
+			break;
+		default:
+			break;
+	}
 	sei();
 }
 
-void volatile Timer2::attach(uint8_t interrupt, uint8_t mode, void (*funct)(void)) {
+void Timer2::attach(uint8_t interrupt, uint8_t mode, void (*funct)(void)) {
+	switch(interrupt) {
+		case OVF:
+			T2Array[0] = funct;
+			TIMSK2 |= (1<<TOIE2);
+			break;
+		case COMPA:
+			T2Array[1] = funct;
+			TIMSK2 |= (1<<OCIE2A);
+			break;
+		case COMPB:
+			T2Array[2] = funct;
+			TIMSK2 |= (1<<OCIE2B);
+			break;
+		default:
+			break;
+	}
 	if(mode == ASYNCHRON)
 		ASSR|=(1<<AS2);
-	T2Array[interrupt] = funct;
-	TIMSK2 |= (1<<interrupt);
 	sei();
 }
 
 void Timer2::detach(uint8_t interrupt) {
-	T2Array[interrupt] = none;
-	TIMSK2 &= ~(1<<interrupt);
+	switch(interrupt) {
+		case OVF:
+			T2Array[0] = none;
+			TIMSK2 &= ~(1<<TOIE2);
+			break;
+		case COMPA:
+			T2Array[1] = none;
+			TIMSK2 &= ~(1<<OCIE2A);
+			break;
+		case COMPB:
+			T2Array[2] = none;
+			TIMSK2 &= ~(1<<OCIE2B);
+			break;
+		default:
+			break;
+	}
 	if(!TIMSK2)
 		ASSR&=~(1<<AS2);
 }

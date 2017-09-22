@@ -32,21 +32,33 @@
 #include <math.h>
 #include "pins_arduino.h"
 
+<<<<<<< HEAD
 #if defined ARDUINO_AVR_MARCELINO
+=======
+#if defined ARDUINO_AVR_MARCELINO328|| defined ARDUINO_AVR_MARCELINO168
+>>>>>>> origin/master
 #define INPUT 		0
 #define OUTPUT		1
 #define INPUT_PULLUP 2
 #endif
 #define PULLUP		2
 
+<<<<<<< HEAD
 #if defined ARDUINO_AVR_MARCELINO
+=======
+#if defined ARDUINO_AVR_MARCELINO328|| defined ARDUINO_AVR_MARCELINO168
+>>>>>>> origin/master
 #define LOW 		0
 #endif
 #define CLEAR		0
 #define OFF 		0
 #define DISABLE		0
 
+<<<<<<< HEAD
 #if defined ARDUINO_AVR_MARCELINO
+=======
+#if defined ARDUINO_AVR_MARCELINO328|| defined ARDUINO_AVR_MARCELINO168
+>>>>>>> origin/master
 #define HIGH		1
 #endif
 #define SET			1
@@ -91,12 +103,19 @@
 #define RECOVERY	0
 #define SAVE		1
 
+<<<<<<< HEAD
 #if defined ARDUINO_AVR_MARCELINO
 #define EXTERNAL	0
 #define DEFAULT		1
 #define INTERNAL	3
 #define INTERNAL1V1 4
 #define INTERNAL2V5 5
+=======
+#if defined ARDUINO_AVR_MARCELINO328|| defined ARDUINO_AVR_MARCELINO168
+#define EXTERNAL	0
+#define DEFAULT		1
+#define INTERNAL	3
+>>>>>>> origin/master
 #endif
 
 #define W_16MS		0
@@ -122,6 +141,7 @@
 #define STANDBY		SLEEP_MODE_STANDBY
 #define STANDBYEXT	SLEEP_MODE_EXT_STANDBY
 
+<<<<<<< HEAD
 #define ALL			8		
 #ifdef PRTIM2
 #define PRTIMER2	PRTIM2
@@ -132,6 +152,18 @@
 #define PRUSART		PRUSART0
 #endif
 #if defined ARDUINO_AVR_MARCELINO
+=======
+#define ALL			8
+#define PRTWI		7
+#define PRTIMER2	6
+#define PRTIMER0	5
+#define PRTIMER1	3
+#define PRSPI		2
+#define PRUSART		1
+#define PRADC		0
+
+#if defined ARDUINO_AVR_MARCELINO328|| defined ARDUINO_AVR_MARCELINO168
+>>>>>>> origin/master
 #define MSBF		0
 #define LSBF		1
 #endif
@@ -158,7 +190,11 @@
 #define NACK		0
 #define ACK			1
 
+<<<<<<< HEAD
 #if defined ARDUINO_AVR_MARCELINO
+=======
+#if defined ARDUINO_AVR_MARCELINO328|| defined ARDUINO_AVR_MARCELINO168
+>>>>>>> origin/master
 #define A0			0
 #define A1			1
 #define A2			2
@@ -181,6 +217,7 @@
 #define OC2A		11
 #define OC2B		3
 
+<<<<<<< HEAD
 #else
 
 #define T0			2
@@ -195,6 +232,9 @@
 #endif
 
 #if defined ARDUINO_AVR_MARCELINO
+=======
+#if defined ARDUINO_AVR_MARCELINO328|| defined ARDUINO_AVR_MARCELINO168
+>>>>>>> origin/master
 #define D0			0
 #define D1			1
 #define D2			2
@@ -253,7 +293,11 @@
 #define PROGMEM __attribute__((section(".progmem.data")))
 #endif
 
+<<<<<<< HEAD
 #if defined ARDUINO_AVR_MARCELINO
+=======
+#if defined ARDUINO_AVR_MARCELINO328|| defined ARDUINO_AVR_MARCELINO168
+>>>>>>> origin/master
 typedef uint8_t byte;
 typedef uint16_t word;
 #endif
@@ -279,7 +323,11 @@ extern uint8_t sregSAVE;
 #define mc2clock(m)		(m * clockMC)
 
 void none();
+<<<<<<< HEAD
 #if defined ARDUINO_AVR_MARCELINO
+=======
+#if defined ARDUINO_AVR_MARCELINO328|| defined ARDUINO_AVR_MARCELINO168
+>>>>>>> origin/master
 void setup();
 void loop();
 #endif

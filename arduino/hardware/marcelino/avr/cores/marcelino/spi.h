@@ -27,7 +27,6 @@ public:
 
 	//to initiate
 	SPI(uint8_t mode = MASTER, uint8_t scale = 16);
-	~SPI() { PRR |= (1<<PRSPI); }
 	
 	//to configure
 	void order(uint8_t mode);
@@ -50,7 +49,7 @@ public:
 	using Print::write;
 	
 	//to attach or detach a function in interrupt SPI Serial Transfer Complete
-	void volatile attach(void (*funct)(void));
+	void attach(void (*funct)(void));
 	void detach();
 	
 };

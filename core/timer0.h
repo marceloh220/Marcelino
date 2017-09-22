@@ -57,6 +57,7 @@ public:
 	void detach(uint8_t interrupt);
 
 	//test interrupts attached
+<<<<<<< HEAD
 	inline uint8_t attach() {
 		#ifdef TIMSK0
 		return TIMSK0;
@@ -64,6 +65,9 @@ public:
 		return TIMSK;
 		#endif
 	}
+=======
+	inline uint8_t attach() { return TIMSK0; }
+>>>>>>> origin/master
 	
 };
 

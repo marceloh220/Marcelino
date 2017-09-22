@@ -49,7 +49,10 @@ void IHM595::init() {
 	_delay_us(2000);
 	cmd(0x01,1);
 	_delay_us(2000);
+<<<<<<< HEAD
 	this->set(0,0);
+=======
+>>>>>>> origin/master
 }
 
 //private:

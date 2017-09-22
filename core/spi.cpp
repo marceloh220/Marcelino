@@ -16,8 +16,11 @@
 
 #include "spi.h"
 
+<<<<<<< HEAD
 #ifndef NOSPI
 
+=======
+>>>>>>> origin/master
 void (*SPIArray)(void) = none;
 
 //private

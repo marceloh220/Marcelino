@@ -20,7 +20,7 @@ uint8_t timer0_TCNT0;
 
 uint32_t _millis;
 
-VoidFuncPtr T0Array[3] = {none,none,none};
+void (*T0Array[3])(void) = {none,none,none};
 
 Timer0::Timer0() {
 	PRR &= ~(1<<PRTIMER0);
@@ -140,52 +140,74 @@ void Timer0::pwmB(uint8_t value, uint8_t mode) {
 }
 
 void Timer0::frequency(uint32_t freq) {
-	
 	uint8_t factor;
-	
 	if(def_mode == FAST)
 		factor = 1;
 	else
 		factor = 2;
-	
 	if(def_top == COMPA || def_mode == CTC)
 		OCR0A = F_CPU / (factor * def_prescale * freq) - 1;
 }
 
 void Timer0::period(uint32_t micros) {
-  uint8_t scale;
-  uint32_t cycles = microsecondsToClockCycles(micros);
-  if(!micros) {
-	timer0_TCNT0 = 0;
-	return;
-  }
-  if(cycles < 256)
-	scale = 1;
-  else if((cycles /= 8) < 256)
-	scale = 2;
-  else if((cycles /= 8) < 256)
-	scale = 3;
-  else if((cycles /= 8) < 256)
-	scale = 4;
-  else {
-	cycles /= 8;
-	scale = 5;
-  }
-  TCCR0B &= ~7;
-  timer0_TCNT0 = 255 - cycles;
-  TCCR0B |= scale;
+	uint8_t scale;
+	uint32_t cycles = microsecondsToClockCycles(micros);
+	if(!micros) {
+		timer0_TCNT0 = 0;
+		return;
+	}
+	if(cycles < 256)
+		scale = 1;
+	else if((cycles /= 8) < 256)
+		scale = 2;
+	else if((cycles /= 8) < 256)
+		scale = 3;
+	else if((cycles /= 8) < 256)
+		scale = 4;
+	else {
+		cycles /= 8;
+		scale = 5;
+	}
+	TCCR0B &= ~7;
+	timer0_TCNT0 = 255 - cycles;
+	TCCR0B |= scale;
 }
 
-void volatile Timer0::attach(uint8_t interrupt, void (*funct)(void)) {
-	T0Array[interrupt] = funct;
-	TIMSK0 |= (1<<interrupt);
+void Timer0::attach(uint8_t interrupt, void (*funct)(void)) {
+	switch(interrupt) {
+		case OVF:
+			T0Array[0] = funct;
+			TIMSK0 |= (1<<TOIE0);
+			break;
+		case COMPA:
+			T0Array[1] = funct;
+			TIMSK0 |= (1<<OCIE0A);
+			break;
+		case COMPB:
+			T0Array[2] = funct;
+			TIMSK0 |= (1<<OCIE0B);
+			break;
+		default:
+			break;
+	}
 	sei();
 }
 
 void Timer0::detach(uint8_t interrupt) {
-	T0Array[interrupt] = none;
-	if(!interrupt)
-		TIMSK0 &= ~(1<<interrupt);
+	switch(interrupt) {
+		case OVF:
+			T0Array[0] = none;
+			TIMSK0 &= ~(1<<TOIE0);
+			break;
+		case COMPA:
+			T0Array[1] = none;
+			TIMSK0 &= ~(1<<OCIE0A);
+			break;
+		case COMPB:
+			T0Array[2] = none;
+			TIMSK0 &= ~(1<<OCIE0B);
+			break;
+	}
 }
 
 ISR(TIMER0_OVF_vect) {

@@ -43,7 +43,10 @@ void IHM8574::init() {
 	cmd(0x01,1);
 	_delay_us(2000);
 	this->_busy = 0;
+<<<<<<< HEAD
 	this->set(0,0);
+=======
+>>>>>>> origin/master
 }
 
 //private:
@@ -145,7 +148,11 @@ void IHM8574::set(uint8_t col, uint8_t row) {
 
 }
 
+<<<<<<< HEAD
 void IHM8574::backlight(uint8_t state) {
+=======
+void IHM8574::background(uint8_t state) {
+>>>>>>> origin/master
 	this->_background=state;
 	this->cmd(0x00,1);
 }

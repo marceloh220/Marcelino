@@ -18,6 +18,15 @@
 
 void (*INTArray[2])(void) = {none,none};
 void (*PCINTArray[3])(void) = {none,none,none};
+<<<<<<< HEAD
+=======
+
+const uint8_t digital_PCMASK[3] PROGMEM = {
+	(uint16_t)&PCMSK0,
+	(uint16_t)&PCMSK1,
+	(uint16_t)&PCMSK2,
+};
+>>>>>>> origin/master
 
 void External::attach(uint8_t pin, void (*funct)(void)) {
 	

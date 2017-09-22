@@ -19,7 +19,10 @@ void WDT::timeout(uint8_t time){
 
 void WDT::config(uint8_t mode) {
 	this->_mode = mode;
+<<<<<<< HEAD
 	#ifdef WDTCSR
+=======
+>>>>>>> origin/master
 	WDTCSR &= ~( (1<<WDE)|(1<<WDIE) );
 	if(mode==INTERRUPT)
 		WDTCSR |= (1<<WDIE);
