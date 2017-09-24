@@ -270,11 +270,11 @@ extern uint8_t sregSAVE;
 
 #define pgm_get(sfr,P)	pgm_read_byte(&sfr[P])
 
-#define clockMS			(F_CPU/1000000L)
+#define clockMS			(F_CPU/1000000UL)
 #define clock2ms(c)		(c / clockMS)
 #define ms2clock(m)		(m * clockMS)
 
-#define clockMC			(F_CPU/1000L)
+#define clockMC			(F_CPU/1000UL)
 #define clock2mc(c)		(c / clockMC)
 #define mc2clock(m)		(m * clockMC)
 
