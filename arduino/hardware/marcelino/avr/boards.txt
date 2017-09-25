@@ -32,20 +32,20 @@ marcelino328p.menu.speed.16MHz.bootloader.high_fuses=0xDE
 marcelino328p.menu.speed.16MHz.bootloader.extended_fuses=0x05
 marcelino328p.menu.speed.16MHz.bootloader.unlock_bits=0x3F
 marcelino328p.menu.speed.16MHz.bootloader.lock_bits=0x0F
-marcelino328p.menu.speed.16MHz.bootloader.file=optiboot/optiboot_marcelino_atmega328_16MHz.hex
+marcelino328p.menu.speed.16MHz.bootloader.file=marcelinoboot/optiboot_marcelino_atmega328p_16MHz.hex
 marcelino328p.menu.speed.16MHz.build.f_cpu=16000000L
 
 ###########################ATmega328P:8MHz###############################
 
 marcelino328p.menu.speed.8MHz=8MHz
-marcelino328p.menu.speed.8MHz.upload.speed=115200
+marcelino328p.menu.speed.8MHz.upload.speed=38400
 marcelino328p.menu.speed.8MHz.bootloader.tool=avrdude
 marcelino328p.menu.speed.8MHz.bootloader.low_fuses=0xE2
 marcelino328p.menu.speed.8MHz.bootloader.high_fuses=0xDE
 marcelino328p.menu.speed.8MHz.bootloader.extended_fuses=0x05
 marcelino328p.menu.speed.8MHz.bootloader.unlock_bits=0x3F
 marcelino328p.menu.speed.8MHz.bootloader.lock_bits=0x0F
-marcelino328p.menu.speed.8MHz.bootloader.file=optiboot/optiboot_marcelino_atmega328_8MHz.hex
+marcelino328p.menu.speed.8MHz.bootloader.file=marcelinoboot/optiboot_marcelino_atmega328p_8MHz.hex
 marcelino328p.menu.speed.8MHz.build.f_cpu=8000000L
 
 #############################Atmega328##################################
@@ -78,20 +78,20 @@ marcelino328.menu.speed.16MHz.bootloader.high_fuses=0xDE
 marcelino328.menu.speed.16MHz.bootloader.extended_fuses=0x05
 marcelino328.menu.speed.16MHz.bootloader.unlock_bits=0x3F
 marcelino328.menu.speed.16MHz.bootloader.lock_bits=0x0F
-marcelino328.menu.speed.16MHz.bootloader.file=optiboot/optiboot_marcelino_atmega328_16MHz.hex
+marcelino328.menu.speed.16MHz.bootloader.file=marcelinoboot/optiboot_marcelino_atmega328_16MHz.hex
 marcelino328.menu.speed.16MHz.build.f_cpu=16000000L
 
 ###########################ATmega328:8MHz###############################
 
 marcelino328.menu.speed.8MHz=8MHz
-marcelino328.menu.speed.8MHz.upload.speed=115200
+marcelino328.menu.speed.8MHz.upload.speed=38400
 marcelino328.menu.speed.8MHz.bootloader.tool=avrdude
 marcelino328.menu.speed.8MHz.bootloader.low_fuses=0xE2
 marcelino328.menu.speed.8MHz.bootloader.high_fuses=0xDE
 marcelino328.menu.speed.8MHz.bootloader.extended_fuses=0x05
 marcelino328.menu.speed.8MHz.bootloader.unlock_bits=0x3F
 marcelino328.menu.speed.8MHz.bootloader.lock_bits=0x0F
-marcelino328.menu.speed.8MHz.bootloader.file=optiboot/optiboot_marcelino_atmega328_8MHz.hex
+marcelino328.menu.speed.8MHz.bootloader.file=marcelinoboot/optiboot_marcelino_atmega328_8MHz.hex
 marcelino328.menu.speed.8MHz.build.f_cpu=8000000L
 
 
@@ -125,20 +125,20 @@ marcelino168.menu.speed.16MHz.bootloader.high_fuses=0xDE
 marcelino168.menu.speed.16MHz.bootloader.extended_fuses=0x05
 marcelino168.menu.speed.16MHz.bootloader.unlock_bits=0x3F
 marcelino168.menu.speed.16MHz.bootloader.lock_bits=0x0F
-marcelino168.menu.speed.16MHz.bootloader.file=optiboot/optiboot_marcelino_atmega168_16MHz.hex
+marcelino168.menu.speed.16MHz.bootloader.file=marcelinoboot/optiboot_marcelino_atmega168_16MHz.hex
 marcelino168.menu.speed.16MHz.build.f_cpu=16000000L
 
 ###########################ATmega168:8MHz###############################
 
 marcelino168.menu.speed.8MHz=8MHz
-marcelino168.menu.speed.8MHz.upload.speed=115200
+marcelino168.menu.speed.8MHz.upload.speed=38400
 marcelino168.menu.speed.8MHz.bootloader.tool=avrdude
 marcelino168.menu.speed.8MHz.bootloader.low_fuses=0xE2
 marcelino168.menu.speed.8MHz.bootloader.high_fuses=0xDE
 marcelino168.menu.speed.8MHz.bootloader.extended_fuses=0x05
 marcelino168.menu.speed.8MHz.bootloader.unlock_bits=0x3F
 marcelino168.menu.speed.8MHz.bootloader.lock_bits=0x0F
-marcelino168.menu.speed.8MHz.bootloader.file=optiboot/optiboot_marcelino_atmega168_8MHz.hex
+marcelino168.menu.speed.8MHz.bootloader.file=marcelinoboot/optiboot_marcelino_atmega168_8MHz.hex
 marcelino168.menu.speed.8MHz.build.f_cpu=8000000L
 
 ###########################ATtiny85###############################
@@ -171,7 +171,7 @@ marcelinot85.menu.speed.1MHz.bootloader.high_fuses=0xDD
 marcelinot85.menu.speed.1MHz.bootloader.extended_fuses=0xFF
 marcelinot85.menu.speed.1MHz.bootloader.unlock_bits=
 marcelinot85.menu.speed.1MHz.bootloader.lock_bits=
-marcelinot85.menu.speed.1MHz.bootloader.file=optiboot/attiny85_1MHz.hex
+marcelinot85.menu.speed.1MHz.bootloader.file=marcelinoboot/attiny85_1MHz.hex
 marcelinot85.menu.speed.1MHz.build.f_cpu=1000000L
 
 ###########################ATtiny85:8MHz###############################
@@ -184,5 +184,5 @@ marcelinot85.menu.speed.8MHz.bootloader.high_fuses=0xDD
 marcelinot85.menu.speed.8MHz.bootloader.extended_fuses=0xFF
 marcelinot85.menu.speed.8MHz.bootloader.unlock_bits=
 marcelinot85.menu.speed.8MHz.bootloader.lock_bits=
-marcelinot85.menu.speed.8MHz.bootloader.file=optiboot/attiny85_8MHz.hex
+marcelinot85.menu.speed.8MHz.bootloader.file=marcelinoboot/attiny85_8MHz.hex
 marcelinot85.menu.speed.8MHz.build.f_cpu=8000000L

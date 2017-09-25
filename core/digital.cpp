@@ -17,9 +17,10 @@
 #include "digital.h"
 
 void Digital::mode(uint8_t pin, uint8_t _mode) {
-
-	volatile uint8_t* ddr  = get_DDR(get_sfr(pin));
-	volatile uint8_t* port  = ddr+1;
+	
+	uint8_t _sfr = get_sfr(pin);
+	volatile uint8_t* ddr  = get_DDR(_sfr);
+	volatile uint8_t* port  = get_PORT(_sfr);
 
 	uint8_t bit = get_bit(pin);
 
