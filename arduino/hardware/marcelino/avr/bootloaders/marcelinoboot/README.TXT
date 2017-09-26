@@ -100,5 +100,9 @@ three basic 16MHz targets: atmega8, atmega16, atmega328.
 
 Marcelino Targets
 
-Is applied for Atmega328p and Atmega328 mcus
+Marcelino boot is a implementation of optboot to marcelino's core
+
+Is applied for Atmega328p and Atmega328 mcus running on:
+	8MHz internal oscilator
+	16MHz external crystal oscilator
 Bootloaders for attiny85 mcu only for presentation
