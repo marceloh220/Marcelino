@@ -161,18 +161,18 @@ marcelinot85.build.board=AVR_MARCELINO
 marcelinot85.build.core=marcelino
 marcelinot85.build.variant=tiny
 
-##########################ATtiny85:1MHz###############################
+###########################ATtiny85:16MHz###############################
 
-marcelinot85.menu.speed.1MHz=1MHz
-marcelinot85.menu.speed.1MHz.upload.speed=115200
-marcelinot85.menu.speed.1MHz.bootloader.tool=avrdude
-marcelinot85.menu.speed.1MHz.bootloader.low_fuses=0x62
-marcelinot85.menu.speed.1MHz.bootloader.high_fuses=0xDD
-marcelinot85.menu.speed.1MHz.bootloader.extended_fuses=0xFF
-marcelinot85.menu.speed.1MHz.bootloader.unlock_bits=
-marcelinot85.menu.speed.1MHz.bootloader.lock_bits=
-marcelinot85.menu.speed.1MHz.bootloader.file=marcelinoboot/attiny85_1MHz.hex
-marcelinot85.menu.speed.1MHz.build.f_cpu=1000000L
+marcelinot85.menu.speed.16MHz=16MHz (PLL)
+marcelinot85.menu.speed.16MHz.upload.speed=115200
+marcelinot85.menu.speed.16MHz.bootloader.tool=avrdude
+marcelinot85.menu.speed.16MHz.bootloader.low_fuses=0xF1
+marcelinot85.menu.speed.16MHz.bootloader.high_fuses=0xDC
+marcelinot85.menu.speed.16MHz.bootloader.extended_fuses=0xFF
+marcelinot85.menu.speed.16MHz.bootloader.unlock_bits=
+marcelinot85.menu.speed.16MHz.bootloader.lock_bits=
+marcelinot85.menu.speed.16MHz.bootloader.file=marcelinoboot/attiny85_16MHz.hex
+marcelinot85.menu.speed.16MHz.build.f_cpu=16000000L
 
 ###########################ATtiny85:8MHz###############################
 
@@ -186,3 +186,16 @@ marcelinot85.menu.speed.8MHz.bootloader.unlock_bits=
 marcelinot85.menu.speed.8MHz.bootloader.lock_bits=
 marcelinot85.menu.speed.8MHz.bootloader.file=marcelinoboot/attiny85_8MHz.hex
 marcelinot85.menu.speed.8MHz.build.f_cpu=8000000L
+
+##########################ATtiny85:1MHz###############################
+
+marcelinot85.menu.speed.1MHz=1MHz
+marcelinot85.menu.speed.1MHz.upload.speed=115200
+marcelinot85.menu.speed.1MHz.bootloader.tool=avrdude
+marcelinot85.menu.speed.1MHz.bootloader.low_fuses=0x62
+marcelinot85.menu.speed.1MHz.bootloader.high_fuses=0xDD
+marcelinot85.menu.speed.1MHz.bootloader.extended_fuses=0xFF
+marcelinot85.menu.speed.1MHz.bootloader.unlock_bits=
+marcelinot85.menu.speed.1MHz.bootloader.lock_bits=
+marcelinot85.menu.speed.1MHz.bootloader.file=marcelinoboot/attiny85_1MHz.hex
+marcelinot85.menu.speed.1MHz.build.f_cpu=1000000L

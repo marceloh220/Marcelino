@@ -29,7 +29,10 @@
 #define DEC 10
 #define HEX 16
 #define OCT 8
+//marcelino core modified
+#ifndef BIN
 #define BIN 2
+#endif
 
 class Print
 {

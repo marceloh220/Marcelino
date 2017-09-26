@@ -9,9 +9,14 @@ make marcelino_328p_16
 make marcelino_168_8
 make marcelino_168_16
 
-avr-gcc -Os -mmcu=attiny85 -DF_CPU=8000000UL attiny85_8MHz.c -o attiny85_8MHz.elf
+avr-gcc -Os -mmcu=attiny85 -DF_CPU=16000000UL attiny85.c -o attiny85_16MHz.elf
+avr-objcopy -O ihex attiny85_16MHz.elf attiny85_16MHz.hex
+rm attiny85_16MHz.elf
+
+avr-gcc -Os -mmcu=attiny85 -DF_CPU=8000000UL attiny85.c -o attiny85_8MHz.elf
 avr-objcopy -O ihex attiny85_8MHz.elf attiny85_8MHz.hex
 rm attiny85_8MHz.elf
-avr-gcc -Os -mmcu=attiny85 -DF_CPU=1000000UL attiny85_1MHz.c -o attiny85_1MHz.elf
+
+avr-gcc -Os -mmcu=attiny85 -DF_CPU=1000000UL attiny85.c -o attiny85_1MHz.elf
 avr-objcopy -O ihex attiny85_1MHz.elf attiny85_1MHz.hex
 rm attiny85_1MHz.elf

@@ -18,9 +18,10 @@
 #define SERIAL_H
 
 #include "defines.h"
-#include <Print.h>
 
 #ifndef NOSERIAL
+
+#include <Print.h>
 
 class Serial : public Print {
 private:
