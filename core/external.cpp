@@ -173,16 +173,19 @@ ISR(INT0_vect) {
 	INTArray[0]();
 }
 
+#ifndef ATTINY
 ISR(INT1_vect) {
 	sregSAVE = SREG;
 	INTArray[1]();
 }
+#endif
 
 ISR(PCINT0_vect) {
 	sregSAVE = SREG;
 	PCINTArray[0]();
 }
 
+#ifndef ATTINY
 ISR(PCINT1_vect) {
 	sregSAVE = SREG;
 	PCINTArray[1]();
@@ -192,3 +195,4 @@ ISR(PCINT2_vect) {
 	sregSAVE = SREG;
 	PCINTArray[2]();
 }
+#endif
