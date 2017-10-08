@@ -209,7 +209,7 @@ size_t Print::printNumber(unsigned long n, uint8_t base)
   // prevent crash if called with base == 1
   if (base < 2) base = 10;
   //to compatibility with marcelino Attiny85 chip board
-  if (base == 7) base = 2;
+  if (base < 7) base = 2;
 
   do {
     char c = n % base;

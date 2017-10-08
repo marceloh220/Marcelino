@@ -16,12 +16,12 @@ Timer0 	timer;				          //Module Timer0 instantiate
 
 int aux;					              //Variable for counting time
 
-void time() {
+void blink() {
 
   aux++;                        //Increased variable for counting time
 
   if (aux == 500) {		          //If passed 500ms
-    digital.write(13, TOGGLE);  //Change pin 13 status
+    digital.write(13, CHANGE);  //Change pin 13 status
     aux = 0;			              //Reset aux variable
   }
 
@@ -33,8 +33,8 @@ void time() {
 void setup() {
 
   digital.mode(13, OUTPUT);	    //Pin digital 13 as output
-  timer.prescale(64);			      //Explicit the prescale
-  timer.attach(OVF, time);		  //Attach the time function on the Overflow interrupt of the timer0
+  timer.prescale(64);			      //Configure the prescale
+  timer.attach(OVF, blink);		  //Attach the time function on the Overflow interrupt of the timer0
 
   // Timer overflow in:
   // time = 64 * 255 / 16e6 = 1ms

@@ -19,56 +19,61 @@
 
 #include "defines.h"
 
+extern uint16_t timer1_TCNT1;
+
 class Timer1 {
-private:
-	uint8_t def_top, def_mode2;
-	uint16_t def_prescale;
-	void variable(uint8_t mode, uint8_t top);
+
 public:
+
 	Timer1();
 	
 	//configs of timer
 	#ifndef ATTINY
-	void config(uint8_t mode, uint8_t mode2 = FAST, uint8_t top = CAPT);
-	#else
-	void config(uint8_t mode);
+	void configure(uint8_t mode, uint8_t top);
 	#endif
-	void prescale(uint16_t scale);
+	void configure(uint8_t mode);
+	void prescale(uint8_t scale);
 	void pinA(uint8_t mode);
 	void pinB(uint8_t mode);
 	
 	//register of timer
+	#ifndef ATTINY
+	
 	inline void timer(uint16_t value) { TCNT1 = value; }
 	inline void compA(uint16_t value) { OCR1A = value; }
 	inline void compB(uint16_t value) { OCR1B = value; }
-	#ifdef ATTINY
-	inline void compC(uint16_t value) { OCR1C = value; }
-	#else
-	inline void capt(uint16_t value) { ICR1 = value; }
-	#endif
+	inline void compC(uint16_t value) { ICR1 = value; }
+	inline void capture(uint16_t value) { ICR1 = value; }
+
 	inline uint16_t timer() { return TCNT1; }
 	inline uint16_t compA() { return OCR1A; }
 	inline uint16_t compB() { return OCR1B; }
-	#ifdef ATTINY
-	inline uint8_t compC() { return OCR1C; }
+	inline uint16_t compC() { return ICR1; }
+	inline uint16_t capture() { return ICR1; }
+	inline uint16_t period() { return timer1_TCNT1; }
+	
 	#else
-	inline uint16_t capt() { return ICR1; }
+	
+	inline void timer(uint8_t value) { TCNT1 = value; }
+	inline void compA(uint8_t value) { OCR1A = value; }
+	inline void compB(uint8_t value) { OCR1B = value; }
+	inline void compC(uint8_t value) { OCR1C = value; }
+
+	inline uint8_t timer() { return TCNT1; }
+	inline uint8_t compA() { return OCR1A; }
+	inline uint8_t compB() { return OCR1B; }
+	inline uint8_t compC() { return OCR1C; }
+
 	#endif
 	
 	//pwm generator wave
 	#ifndef ATTINY
-	void pwmA(uint16_t value);
-	void pwmA(uint16_t value, uint8_t mode);
-	void pwmB(uint16_t value);
-	void pwmB(uint16_t value, uint8_t mode);
-	#else
-	void pwmA(uint8_t value);
-	void pwmB(uint8_t value);
+	void pwmA(uint16_t value, uint8_t mode = NINVERT);
+	void pwmB(uint16_t value, uint8_t mode = NINVERT);
 	#endif
 	
 	//control generator wave
-	void frequency(uint32_t freq);
-	void period(uint32_t micros);
+	void period(uint32_t micros, uint8_t top = TIMER);
 	
 	//interrupts of timer
 	void attach(uint8_t interrupt, void (*funct)(void));

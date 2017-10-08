@@ -18,54 +18,42 @@
 
 uint8_t timer0_TCNT0;
 
-uint32_t _millis;
-
 void (*T0Array[3])(void) = {none,none,none};
 
 Timer0::Timer0() {
 	PRR &= ~bv(PRTIMER0);
-	def_prescale = 64;
-	TCCR0B = bv(CS01)|bv(CS00);
-	#ifdef TIMSK0
-	TIMSK0|=bv(TOIE0);
-	#else
-	TIMSK|=bv(TOIE0);
-	#endif
-	
-	sei();
 }
 
-uint32_t Timer0::millis() {
-#if F_CPU == 16000000UL
-	return _millis;
-#elif F_CPU == 8000000UL
-	return _millis*2;
-#endif
-	
-}
-
-void Timer0::prescale(uint16_t scale) {
-	def_prescale = scale;
+void Timer0::prescale(uint8_t scale) {
 	TCCR0B &= ~(bv(CS02)|bv(CS01)|bv(CS00));
-	if(scale == 1)
-		TCCR0B |= bv(CS00);
-	else if(scale == 8)
-		TCCR0B |= bv(CS01);
-	else if(scale == 64)
-		TCCR0B |= bv(CS01)|bv(CS00);
-	else if(scale == 256)
-		TCCR0B |= bv(CS02);
-	else if(scale == 1024)
-		TCCR0B |= bv(CS02)|bv(CS00);
-	else if(scale == FALLING)
-		TCCR0B |= bv(CS02)|bv(CS01);
-	else if(scale == RISING)
-		TCCR0B |= bv(CS02)|bv(CS01)|bv(CS00);
+	switch(scale) {
+		case P_1:
+			TCCR0B |= bv(CS00);
+			break;
+		case P_8:
+			TCCR0B |= bv(CS01);
+			break;
+		case P_64:
+			TCCR0B |= bv(CS01)|bv(CS00);
+			break;
+		case P_256:
+			TCCR0B |= bv(CS02);
+			break;
+		case P_1K:
+			TCCR0B |= bv(CS02)|bv(CS00);
+			break;
+		case FALLING:
+			TCCR0B |= bv(CS02)|bv(CS01);
+			break;
+		case RISING:
+			TCCR0B |= bv(CS02)|bv(CS01)|bv(CS00);
+			break;
+		default:
+			break;
+	}
 }
 
-void Timer0::config(uint8_t mode, uint8_t top) {
-	def_top = top;
-	def_mode = mode;
+void Timer0::configure(uint8_t mode, uint8_t top) {
 	TCCR0B &= ~bv(WGM02);
 	TCCR0A &= ~(bv(WGM01)|bv(WGM00));
 	switch(mode) {
@@ -78,6 +66,8 @@ void Timer0::config(uint8_t mode, uint8_t top) {
 		case FAST:
 			TCCR0A |= bv(WGM01)|bv(WGM00);
 			break;
+		default:
+			break;
 	}
 	if(top == COMPA)
 		TCCR0B |= bv(WGM02);
@@ -85,32 +75,34 @@ void Timer0::config(uint8_t mode, uint8_t top) {
 
 void Timer0::pinA(uint8_t mode) {
 	TCCR0A &= ~(bv(COM0A1)|bv(COM0A0));
-	if(mode == CHANGE)
-		TCCR0A |= bv(COM0A0);
-	else if(mode == CLEAR)
-		TCCR0A |= bv(COM0A0);
-	else if(mode == SET)
-		TCCR0A |= bv(COM0A1)|bv(COM0A0);
+	switch(mode) {
+		case CHANGE:
+			TCCR0A |= bv(COM0A0);
+			break;
+		case CLEAR:
+			TCCR0A |= bv(COM0A0);
+			break;
+		case SET:
+			TCCR0A |= bv(COM0A1)|bv(COM0A0);
+			break;
+		default:
+			break;
+	}
 }
 
 void Timer0::pinB(uint8_t mode) {
 	TCCR0A &= ~(bv(COM0B1)|bv(COM0B0));
-	if(mode == CHANGE)
-		TCCR0A |= bv(COM0B0);
-	else if(mode == CLEAR)
-		TCCR0A |= bv(COM0B0);
-	else if(mode == SET)
-		TCCR0A |= bv(COM0B1)|bv(COM0B0);
-}
-
-void Timer0::pwmA(uint8_t value) {
-	if(value) {
-		TCCR0A &= ~bv(COM0A0);
-		TCCR0A |= bv(COM0A1);
+	switch(mode) {
+		case CHANGE:
+			TCCR0A |= bv(COM0B0);
+			break;
+		case CLEAR:
+			TCCR0A |= bv(COM0B0);
+			break;
+		case SET:
+			TCCR0A |= bv(COM0B1)|bv(COM0B0);
+			break;
 	}
-	else
-		TCCR0A &= ~(bv(COM0A1)|bv(COM0A0));		
-	OCR0A = value;
 }
 
 void Timer0::pwmA(uint8_t value, uint8_t mode) {
@@ -127,16 +119,6 @@ void Timer0::pwmA(uint8_t value, uint8_t mode) {
 	OCR0A = value;
 }
 
-void Timer0::pwmB(uint8_t value) {
-	if(value) {
-		TCCR0A &= ~bv(COM0B0);
-		TCCR0A |= bv(COM0B1);
-	}
-	else 
-		TCCR0A &= ~(bv(COM0B1)|bv(COM0B0));
-	OCR0B = value;
-}
-
 void Timer0::pwmB(uint8_t value, uint8_t mode) {
 	if(value) {
 		if(mode==INVERT)
@@ -151,36 +133,33 @@ void Timer0::pwmB(uint8_t value, uint8_t mode) {
 	OCR0B = value;
 }
 
-void Timer0::frequency(uint32_t freq) {
-	uint8_t factor;
-	if(def_mode == FAST)
-		factor = 1;
-	else
-		factor = 2;
-	if(def_top == COMPA || def_mode == CTC)
-		OCR0A = F_CPU / (factor * def_prescale * freq) - 1;
-}
-
-void Timer0::period(uint32_t micros) {
-	uint32_t cycles = microsecondsToClockCycles(micros);
+void Timer0::period(uint32_t micros, uint8_t top) {
+	uint8_t scale;
+	uint32_t cycles;
 	TCCR0B &= ~(bv(CS02)|bv(CS01)|bv(CS00));
-	if(!micros) {
-		timer0_TCNT0 = 0;
+	timer0_TCNT0 = 0;
+	TCNT0 = 0;
+	if(micros == 0)
 		return;
-	}
+	cycles = microsecondsToClockCycles(micros);
 	if(cycles < 256)
-		TCCR0B |= bv(CS00);
+		scale = bv(CS00);
 	else if((cycles /= 8) < 256)
-		TCCR0B |= bv(CS01);
+		scale = bv(CS01);
 	else if((cycles /= 8) < 256)
-		TCCR0B |= bv(CS01)|bv(CS00);
+		scale = bv(CS01)|bv(CS00);
 	else if((cycles /= 8) < 256)
-		TCCR0B |= bv(CS02);
+		scale = bv(CS02);
+	else if((cycles /= 8) < 256)
+		scale = bv(CS02)|bv(CS00);
+	else return;
+	if(top == COMPA)
+		OCR0A = cycles;
 	else {
-		cycles /= 8;
-		TCCR0B |= bv(CS02)|bv(CS00);
+		timer0_TCNT0 = 255 - cycles;
+		TCNT0 = timer0_TCNT0;
 	}
-	timer0_TCNT0 = 255 - cycles;
+	TCCR0B |= scale;
 }
 
 void Timer0::attach(uint8_t interrupt, void (*funct)(void)) {
@@ -247,7 +226,6 @@ void Timer0::detach(uint8_t interrupt) {
 ISR(TIMER0_OVF_vect) {
 	sregSAVE = SREG;
 	TCNT0 = timer0_TCNT0;
-	_millis++;
 	T0Array[0]();
 	SREG = sregSAVE;
 }

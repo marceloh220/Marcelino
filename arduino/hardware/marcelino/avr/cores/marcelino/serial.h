@@ -24,14 +24,14 @@
 #include <Print.h>
 
 class Serial : public Print {
-private:
-	uint8_t test_mode;
+	
 public:
+
 	Serial(uint16_t baud = 9600);
 	
 	//Tto config serial
 	void mode(uint8_t _mode);
-	void bits(uint8_t bit);
+	void bit(uint8_t bits);
 	void stop(uint8_t bit);
 	void parity(uint8_t _mode);
 	void baud(uint16_t rate);
@@ -45,6 +45,12 @@ public:
 	
 	//to read serial
 	uint8_t read();
+
+	Serial operator<<(const char *s);
+	Serial operator<<(uint8_t s);
+	Serial operator<<(uint16_t s);
+	Serial operator<<(uint32_t s);
+	Serial operator<<(float s);
 	
 };
 

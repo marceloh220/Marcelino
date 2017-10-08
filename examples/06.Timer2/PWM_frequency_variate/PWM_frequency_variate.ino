@@ -13,11 +13,11 @@
 
 Digital digital;                //Module Digital instantiate
 Delay   delay;                  //Module Delay instantiate
-Timer2  timer;                  //Module Timer2 instantiate
+Timer0  timer;                  //Module Timer0 instantiate
 
 void setup() {
 
-  digital.mode(3, OUTPUT);     //Pin digital 3(OC2B) as output
+  digital.mode(5, OUTPUT);     //Pin digital 5(OC0B) as output
 
   timer.prescale(8);           //Prescale in F_CPU/8
   timer.config(CORRECT,COMPA); //The timer start in NORMAL mode, now he's is change to CORRECT mode
@@ -49,7 +49,7 @@ void loop() {
       
       //The pwm interval for this aplication is from 0 to the value in comparator A
       
-      timer.pwmB(aux);          //Generate pwm in digital pin 3
+      timer.pwmB(aux);          //Generate pwm in digital pin 5
       delay.ms(10);             //Wait a time of variation
     
     }
@@ -71,7 +71,7 @@ void loop() {
       
       //The pwm interval for this aplication is from 0 to the value in comparator A
       
-      timer.pwmB(aux);        //Generate pwm in digital pin 3
+      timer.pwmB(aux);        //Generate pwm in digital pin 5
       delay.ms(10);           //Wait a time of variation
     
     }

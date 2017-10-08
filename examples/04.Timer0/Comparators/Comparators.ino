@@ -54,7 +54,7 @@ void setup() {
   digital.mode(3, OUTPUT);      //Pin digital 3 as output
   digital.mode(4, OUTPUT);      //Pin digital 4 as output
   
-  timer.prescale(1024);			    //Prescale in F_CPU/1024
+  timer.prescale(P_1K);			    //Prescale in F_CPU/1024
 
   timer.compA(192);             //Load 192 value to comparator A
   timer.compB(98);              //Load 98 value to comparator A
@@ -64,13 +64,13 @@ void setup() {
   timer.attach(COMPB, timeB);   //Attach the timeB function on the Overflow interrupt of the timer0
 
   //And obviously, the signals from comparators A and B can be generated on pins OC0A and OC0B 
-  //(digital pins 6 and 5, correspondingly) without the need for interruptions
+  //without the need for interruptions
 
-  digital.mode(6, OUTPUT);      //Pin digital 6 (OC0A) as output
-  digital.mode(5, OUTPUT);      //Pin digital 5 (OC0B) as output
+  digital.mode(OC0A, OUTPUT);      //Pin digital OC0A as output
+  digital.mode(OC0B, OUTPUT);      //Pin digital OC0B as output
   
-  timer.pinA(CHANGE);           //Change the pin(OC0A) state when occur the match with comparator A
-  timer.pinB(CHANGE);           //Change the pin(OC0B) state when occur the match with comparator A
+  timer.pinA(CHANGE);           //Change the pin OC0A state when occur the match with comparator A
+  timer.pinB(CHANGE);           //Change the pin OC0B state when occur the match with comparator A
 
 }
 

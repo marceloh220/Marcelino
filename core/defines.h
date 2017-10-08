@@ -45,6 +45,7 @@
 #define CLEAR		0
 #define OFF 		0
 #define DISABLE		0
+#define DISCONNECT	0
 
 #if defined ARDUINO_AVR_MARCELINO
 #define HIGH		1
@@ -52,20 +53,24 @@
 #define SET			1
 #define ON			1
 #define ENABLE		1
+#define CONNECTED	1
 
 #define TOGGLE		2
 #define CHANGE		2
 
-#define DISCONNECT	3
-
 #define OVF			0
-#define COMPA		1
-#define COMPB		2
-#define CAPT		3
-#define COMP		4
 
-#define ICR			3
+#define COMPA		1
 #define OCRA		1
+
+#define COMPB		2
+
+#define COMPC		3
+#define CAPT		3
+#define ICR			3
+
+#define COMP		4
+#define TIMER		5
 
 #define	NORMAL		0
 #define CORRECT		1
@@ -77,16 +82,31 @@
 #define CORRECT8	1
 #define CORRECT9	4
 #define CORRECT10	5
+
 #define FAST8		3
 #define FAST9		6
 #define FAST10		7
-#define VARIABLE	8
 
 #define NINVERT		0
 #define INVERT		1
 
-#define FALLING		6
-#define RISING		7
+#define P_1			1
+#define P_2			2
+#define P_4			3
+#define P_8			4
+#define P_16		5
+#define P_32		6
+#define P_64		7
+#define P_128		8
+#define P_256		9
+#define P_512		10
+#define P_1K		11
+#define P_2K		12
+#define P_4K		13
+#define P_8K		14
+#define P_16K		15
+#define FALLING		16
+#define RISING		17
 
 #define RECOVERY	0
 #define SAVE		1
@@ -122,7 +142,7 @@
 #define STANDBY		SLEEP_MODE_STANDBY
 #define STANDBYEXT	SLEEP_MODE_EXT_STANDBY
 
-#define ALL			8		
+#define ALL			8
 #ifdef PRTIM2
 #define PRTIMER2	PRTIM2
 #endif
@@ -139,8 +159,8 @@
 #define ASYNCHRON	0
 #define SYNCHRON	1
 
-#define EVEN		2
-#define ODD			3
+#define EVEN		1
+#define ODD			0
 
 #define SLAVE		0
 #define MASTER		1
@@ -189,8 +209,6 @@
 
 #define OC0A		0
 #define OC0B		1
-#define OC1A		1
-#define OC1B		4
 
 #endif
 
