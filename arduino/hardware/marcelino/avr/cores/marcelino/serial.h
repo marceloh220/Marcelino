@@ -51,6 +51,8 @@ public:
 	Serial operator<<(uint16_t s);
 	Serial operator<<(uint32_t s);
 	Serial operator<<(float s);
+	Serial operator<<(int s);
+	Serial operator<<(long s);
 	
 };
 

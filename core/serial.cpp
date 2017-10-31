@@ -129,4 +129,12 @@ Serial Serial::operator<<(float s) {
 	Print::print(s);
 }
 
+Serial Serial::operator<<(int s) {
+	Print::print(s);
+}
+
+Serial Serial::operator<<(long s) {
+	Print::print(s);
+}
+
 #endif
