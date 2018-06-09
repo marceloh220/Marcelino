@@ -16,13 +16,16 @@ Serial serial;        //Module Serial instantiate
 void setup() {
   
   digital.mode(13,OUTPUT);        //Pin digital 13 as output
-  serial.print("Hello World!");   //Simple print the message
+  serial.println("Hello World!"); //Simple print the message
+  delay.ms(2000);                 //Wait to you see that print
   
 }
 
 void loop() {
-  
+  static long time;         //Only to mark time
+  serial < time++;          //Print without a change of line
+  serial << " s";           //Print with with a change of line
   digital.write(13,TOGGLE); //Change status of pin digital 13
-  delay.ms(500);            //Wait 500 milliseconds to next toggle
+  delay.ms(1000);           //Wait 1 second to next toggle
   
 }

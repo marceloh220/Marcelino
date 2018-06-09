@@ -18,7 +18,7 @@
 
 #ifndef NOSERIAL
 
-Serial::Serial(uint16_t rate) {
+Serial::Serial(uint32_t rate) {
 	PRR &= ~(1<<PRUSART);
 	UBRR0H = (uint8_t)(F_CPU/16/rate-1)>>8;
 	UBRR0L = (uint8_t)(F_CPU/16/rate-1);
@@ -70,7 +70,7 @@ void Serial::parity(uint8_t mode) {
 		UCSR0C |= bv(UPM01)|bv(UPM00);
 }
 
-void Serial::baud(uint16_t rate) {
+void Serial::baud(uint32_t rate) {
 	if(UCSR0C & bv(UMSEL00)) {
 		UBRR0H = (uint8_t)(F_CPU/2/rate-1)>>8;
 		UBRR0L = (uint8_t)(F_CPU/2/rate-1);
@@ -109,31 +109,75 @@ uint8_t Serial::read() {
 	return UDR0;
 }
 
-Serial Serial::operator<<(const char *s) {
+void Serial::operator<<(const char *s) {
+	write(s);
+	write((uint8_t)'\n');
+}
+
+void Serial::operator<<(uint8_t s) {
+	Print::print(s);
+	write((uint8_t)'\n');
+}
+
+void Serial::operator<<(uint16_t s) {
+	Print::print(s);
+	write((uint8_t)'\n');
+}
+
+void Serial::operator<<(uint32_t s) {
+	Print::print(s);
+	write((uint8_t)'\n');
+}
+
+void Serial::operator<<(float s) {
+	Print::print(s);
+	write((uint8_t)'\n');
+}
+
+void Serial::operator<<(char s) {
+	Print::print(s);
+	write((uint8_t)'\n');
+}
+
+void Serial::operator<<(int s) {
+	Print::print(s);
+	write((uint8_t)'\n');
+}
+
+void Serial::operator<<(long s) {
+	Print::print(s);
+	write((uint8_t)'\n');
+}
+
+void Serial::operator<(const char *s) {
+	write(s);
+}
+
+void Serial::operator<(uint8_t s) {
 	Print::print(s);
 }
 
-Serial Serial::operator<<(uint8_t s) {
+void Serial::operator<(uint16_t s) {
 	Print::print(s);
 }
 
-Serial Serial::operator<<(uint16_t s) {
+void Serial::operator<(uint32_t s) {
 	Print::print(s);
 }
 
-Serial Serial::operator<<(uint32_t s) {
+void Serial::operator<(float s) {
 	Print::print(s);
 }
 
-Serial Serial::operator<<(float s) {
+void Serial::operator<(char s) {
 	Print::print(s);
 }
 
-Serial Serial::operator<<(int s) {
+void Serial::operator<(int s) {
 	Print::print(s);
 }
 
-Serial Serial::operator<<(long s) {
+void Serial::operator<(long s) {
 	Print::print(s);
 }
 
