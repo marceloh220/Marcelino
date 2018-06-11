@@ -121,17 +121,10 @@
   print()			//To print anything
   println()		//to print any stuff with a end line
 
-  The "<<" operator and "<" operator can also be used to pass a data to the serial interface:
-  
-  Print with a end line, like println method:
+  And the "<<" operator can also be used to pass a data to the serial interface:
   interface << "Something to be printed!";
   even real numbers;
   interface << 123456.33;
-  
-  And Print without a end line, just print method:
-  interface < "Something to be printed without a end line!";
-  even real numbers:
-  interface < 123456.33;
 
   
   TO read the Universal Synchronous and Asynchronous serial Receiver and Transmitter (USART/UART)
