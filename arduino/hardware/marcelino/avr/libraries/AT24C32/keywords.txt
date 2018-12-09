@@ -1,8 +1,0 @@
-######################
-AT24C32	KEYWORD1
-
-######################
-device	KEYWORD2
-read	KEYWORD2
-write	KEYWORD2
-update	KEYWORD2
