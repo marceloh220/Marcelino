@@ -162,8 +162,22 @@
   This means a delay in interrupt actions that can be controlled.
  
   Or in CTC mode, this comparators can be used to generate signal with variable frequency.
- 
+
+  attach(interrupt, mode, funct);  //Attach a function in a interrupt on timer
+
+  With this method is possible use the timer in asynchronous mode.
   
+  The interrupt option can be OVF to timer overflow, COMPA to comparator A match interrupt
+  or COMPB to comparator B match interrupt.
+  The mode can be SYNCHRON (default), to use the internal clock to the timer.
+  Or ASYNCHORN, to use a external clock with a 32768Hz crystal 
+  in the pin X1 and X2 (Read the Digital module to see more about pins alternative function).
+  To use the time in this mode is necessary configure the fuses bits of microcontroller to
+  uses internal 8MHz clock, to do this is necessary load a new bootloader to CI.
+  The core Marcelino provide this bootloader in the Arduino IDE to be loaded into mcu with a
+  USBasp or ArduinoISP interface.
+  
+    
   detach(interrupt, funct);	//Detach a function of an interrupt on timer
   
   Only one function can be attached in an same interrupt each time, the new function attached will replace the older function.

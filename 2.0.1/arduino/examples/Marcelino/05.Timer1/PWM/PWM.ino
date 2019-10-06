@@ -19,7 +19,7 @@ void setup() {
   digital.mode(9, OUTPUT);     //Pin digital 9(OC1A) as output
   digital.mode(10, OUTPUT);    //Pin digital 10(OC1B) as output
 
-  //Until here there is no news
+  //To see more about pin's alterntive function, read the Digital module manual
 
 }
 
@@ -28,7 +28,7 @@ void loop() {
   //And now the news starts
   
   timer.prescale(64);                 //Select a prescaler 1/64 for this timer
-  timer.config(FAST8);                //Timer configured to FAST mode, to generate a fast pwm with 8 bits of resolution
+  timer.mode(FAST8);                  //Timer configured to FAST mode, to generate a fast pwm with 8 bits of resolution
                                       //The frequency of pwm can be calculate with:
                                       //  fpwm = 16MHz / ( prescale * 255 ) => fpwm = 16MHz / ( 64 * 255 ) = 980Hz
                                       
@@ -39,7 +39,7 @@ void loop() {
     delay.ms(10);                     //Wait a time of variation
   }
 
-  timer.config(FAST9);                //Timer configured to FAST9 mode, to generate a fast pwm with 9 bits of resolution
+  timer.mode(FAST9);                  //Timer configured to FAST9 mode, to generate a fast pwm with 9 bits of resolution
                                       //The frequency of pwm can be calculate with:
                                       //  fpwm = 16MHz / ( prescale * 511 ) => fpwm = 16MHz / ( 64 * 511 ) = 489Hz
                                       
@@ -51,7 +51,7 @@ void loop() {
   }
 
   timer.prescale(8);                  //Change prescaler of timer to 1/8
-  timer.config(FAST10);               //Timer configured to FAST10 mode, to generate a fast pwm with 10 bits of resolution
+  timer.mode(FAST10);                 //Timer configured to FAST10 mode, to generate a fast pwm with 10 bits of resolution
                                       //The frequency of pwm can be calculate with:
                                       //  fpwm = 16MHz / ( prescale * 1023 ) => fpwm = 16MHz / ( 8 * 1023 ) = 1955Hz
                                       
@@ -63,7 +63,7 @@ void loop() {
   }
 
   timer.prescale(64);                 //Change prescaler of timer to 1/64. Why? Because we can!
-  timer.config(CORRECT8);             //Timer configured to CORRECT mode, to generate a correct phase pwm with 8 bits of resolution
+  timer.mode(CORRECT8);               //Timer configured to CORRECT mode, to generate a correct phase pwm with 8 bits of resolution
                                       //The frequency of pwm can be calculate with:
                                       //  fpwm = 16MHz / ( 2 * prescale * 255 ) => fpwm = 16MHz / ( 2 * 64 * 255 ) = 490Hz
                                       
@@ -75,7 +75,7 @@ void loop() {
   }
   
   timer.prescale(8);                  //Change prescaler of timer to 1/8. Change again? Yep, is so easy, that becomes fun.
-  timer.config(CORRECT9);             //Timer configured to CORRECT9 mode, to generate a correct phase pwm with 9 bits of resolution
+  timer.mode(CORRECT9);               //Timer configured to CORRECT9 mode, to generate a correct phase pwm with 9 bits of resolution
                                       //The frequency of pwm can be calculate with:
                                       //  fpwm = 16MHz / ( 2 * prescale * 511 ) => fpwm = 16MHz / ( 2 * 8 * 511 ) = 1955Hz
                                       
@@ -87,7 +87,7 @@ void loop() {
   }
 
   timer.prescale(1);                  //Change prescaler of timer to 1/1. You know how i like that =)
-  timer.config(CORRECT10);            //Timer configured to CORRECT10 mode, to generate a correct phase pwm with 10 bits of resolution
+  timer.mode(CORRECT10);              //Timer configured to CORRECT10 mode, to generate a correct phase pwm with 10 bits of resolution
                                       //The frequency of pwm can be calculate with:
                                       //  fpwm = 16MHz / ( 2 * prescale * 1023 ) => fpwm = 16MHz / ( 2 * 1 * 1023 ) = 7820Hz
                                       

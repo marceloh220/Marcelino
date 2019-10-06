@@ -16,10 +16,11 @@ Timer0  timer;                  //Module Timer0 instantiate
 
 void setup() {
 
-  digital.mode(OC0A, OUTPUT);   //Pin OC0A as output
-  digital.mode(OC0B, OUTPUT);   //Pin OC0B as output
+  digital.mode(OC0A, OUTPUT);   //Pin OC0A (Digital pin 6) as output
+  digital.mode(OC0B, OUTPUT);   //Pin OC0B (Digital pin 5) as output
+                                //To see  more about pin's alternatives functions, read the Digital module manual
 
-  timer.configure(FAST);        //The timer start in NORMAL mode, now he's is change to FAST mode
+  timer.mode(FAST);             //The timer is configured in FAST mode
                                 //In this mode the timer will generate a fast pwm wave
                                 //The fast pwm mode is a basic  mode to use this feature, it can control various device
                                 //But for more accurate control of induction devices, such as motors, the correct phase mode can be selected with the CORRECT mode

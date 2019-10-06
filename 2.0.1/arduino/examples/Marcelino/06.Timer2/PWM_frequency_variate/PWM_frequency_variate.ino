@@ -13,16 +13,16 @@
 
 Digital digital;                //Module Digital instantiate
 Delay   delay;                  //Module Delay instantiate
-Timer0  timer;                  //Module Timer0 instantiate
+Timer2  timer;                  //Module Timer2 instantiate
 
 void setup() {
 
-  digital.mode(5, OUTPUT);     //Pin digital 5(OC0B) as output
+  digital.mode(OC2B, OUTPUT);   //Pin OC2B (Digital pin 3) as output
 
-  timer.prescale(8);           //Prescale in F_CPU/8
-  timer.config(CORRECT,COMPA); //The timer start in NORMAL mode, now he's is change to CORRECT mode
-                               //In this mode the timer will generate a pwm wave with constant phase
-                               //The top value now is the comparator A
+  timer.prescale(8);            //Prescale in F_CPU/8
+  timer.mode(CORRECT,COMPA);    //The timer is configured in CORRECT mode
+                                //In this mode the timer will generate a pwm wave with constant phase
+                                //The top value now is the comparator A
                                
   //Note for the maximum and minimum frequency supported by the prescaler, this can be calculated with:
   //        fmax = 16MHz / (2 * prescale * 1)      with comparator A equal 0
@@ -49,7 +49,7 @@ void loop() {
       
       //The pwm interval for this aplication is from 0 to the value in comparator A
       
-      timer.pwmB(aux);          //Generate pwm in digital pin 5
+      timer.pwmB(aux);          //Generate pwm in digital pin 3
       delay.ms(10);             //Wait a time of variation
     
     }
@@ -64,19 +64,19 @@ void loop() {
   
   for(int i = 4; i <= 10; i++) {
 
-    int a = 1000*i;           //The frequency will be a multiple of 1000
-    timer.frequency(a);       //The frequency will variate from 4KHz to 10KHz
+    int a = 1000*i;             //The frequency will be a multiple of 1000
+    timer.period(1/a, COMPA);   //The frequency will variate from 4KHz to 10KHz
     
     for(int aux = 0; aux < timer.compA(); aux++) {
       
       //The pwm interval for this aplication is from 0 to the value in comparator A
       
-      timer.pwmB(aux);        //Generate pwm in digital pin 5
-      delay.ms(10);           //Wait a time of variation
+      timer.pwmB(aux);          //Generate pwm in digital pin 3
+      delay.ms(10);             //Wait a time of variation
     
     }
 
-    delay.ms(500);            //Wait a time of variation, i can measure the frequencies
+    delay.ms(500);              //Wait a time of variation, i can measure the frequencies
     
   }
 

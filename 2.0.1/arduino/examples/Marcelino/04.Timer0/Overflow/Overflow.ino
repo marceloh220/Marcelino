@@ -14,10 +14,10 @@
 Digital digital;		  	        //Module Digital instantiate
 Timer0 	timer;				          //Module Timer0 instantiate
 
-int aux;					              //Variable for counting time
 
 void blink() {
-
+  
+  static int aux;               //Variable for counting time
   aux++;                        //Increased variable for counting time
 
   if (aux == 500) {		          //If passed 500ms
@@ -33,11 +33,9 @@ void blink() {
 void setup() {
 
   digital.mode(13, OUTPUT);	    //Pin digital 13 as output
-  timer.prescale(64);			      //Configure the prescale
+  timer.mode(NORMAL);           //Timer in normal mode
+  timer.period(1000);           //Adjust the periode to 1ms
   timer.attach(OVF, blink);		  //Attach the time function on the Overflow interrupt of the timer0
-
-  // Timer overflow in:
-  // time = 64 * 255 / 16e6 = 1ms
 
 }
 

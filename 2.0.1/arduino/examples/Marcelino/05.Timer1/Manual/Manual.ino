@@ -94,12 +94,12 @@
   timer(value);			//to recharg value in timer
   compA(value);			//to recharg value in comparator A
   compB(value);			//to recharg value in comparator B
-  capt(value);			//to recharg value in capture register
+  capture(value);	  //to recharg value in capture register
   
   char a = timer();		//to get value from timer
   char a = compA();		//to get value from comparator A
   char a = compB();		//to get value from comparator B
-  char a = capt();		//to get value from capture register
+  char a = capture();	//to get value from capture register
   
   
   

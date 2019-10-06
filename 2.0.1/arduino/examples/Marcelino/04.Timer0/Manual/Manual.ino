@@ -30,11 +30,11 @@
   
   Accepted prescaler for this timer are:
   
-  1 to CPU_CLOCK/1
-  8 to CPU_CLOCK/8
-  64 to CPU_CLOCK/64
-  256 to CPU_CLOCK/256
-  1024 to CPU_CLOCK/1024
+  P_1 to CPU_CLOCK/1
+  P_8 to CPU_CLOCK/8
+  P_64 to CPU_CLOCK/64
+  P_256 to CPU_CLOCK/256
+  P_1024 to CPU_CLOCK/1024
   FALLING to detect falling edge in pin T0 (Digital pin 4)
   RISING to detect rising edge in pin T0 (Digital pin 4)
   
