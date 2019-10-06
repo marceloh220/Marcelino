@@ -26,17 +26,18 @@ void blink() {
 
 void setup() {
 
-  digital.mode(OC0A, OUTPUT);  //Pin OC0A as output
+  digital.mode(OC0A, OUTPUT);   //Pin OC0A (Digital pin 6) as output
+                                //To see more about pin's alternative functions, read the Digital module manual
 
-  timer.configure(CTC);        //The timer start in NORMAL mode, now he's is change to CTC mode
-  //In this mode the timer will be clean with comparison
+  timer.mode(CTC);              //Configure the timer in CTC mode
+                                //In this mode the timer will be clean with comparison
 
-  timer.pinA(CHANGE);          //Change the pin(OC0A) state when occur the match with comparator A
+  timer.pinA(CHANGE);           //Change the pin OC0A state when occur the match with comparator A
 
   //And naturally, any pin can be used to generate this frequency using the interrupt COMPA of the timer
 
-  digital.mode(13, OUTPUT);    //A pin without any link with the timer is be used like output
-  timer.attach(COMPA, blink);  //Jump to blink function when occur a match
+  digital.mode(13, OUTPUT);     //A pin without any link with the timer is be used like output
+  timer.attach(COMPA, blink);   //Jump to blink function when occur a match
 
 }
 
@@ -51,7 +52,7 @@ void loop() {
 
   for (int aux = minP; aux < maxP; aux++) {
     timer.period(aux, COMPA);   //Here the period will be variable in the range
-    delay.ms(10);               //Wait a time of variation
+    delay.ms(10);               //Wait a time
   }
 
 }

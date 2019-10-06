@@ -38,50 +38,35 @@
   FALLING to detect falling edge in pin T1 (Digital pin 10)
   RISING to detect rising edge in pin T1 (Digital pin 10)
   
-  config(mode, top);		//configure the mode of timer
+  mode(mode, top);		//configure the mode of timer
   
   Accept modes for this timer are:
   NORMAL to normal mode timer/counter
   CTC to clear timer when compare, generally used to generete waves forms in pins OC1A (Digital pin 9) and OC1B (Digital pin 10)
-  FAST to generate a fast 8-bit pwm in pins OC1A (Digital pin 9) and OC1B (Digital pin 10)
+  FAST to generate a fast 8-bit os variable pwm in pins OC1A (Digital pin 9) and OC1B (Digital pin 10)
   FAST9 to generate a fast 9-bit pwm in pins OC1A (Digital pin 9) and OC1B (Digital pin 10)
   FAST10 to generate a fast 10-bit pwm in pins OC1A (Digital pin 9) and OC1B (Digital pin 10)
-  CORRECT to generete 8-bit pwm with correct phase in pins OC1A (Digital pin 9) and OC1B (Digital pin 10)
+  CORRECT to generete 8-bit or variable pwm with correct phase in pins OC1A (Digital pin 9) and OC1B (Digital pin 10)
   CORRECT9 to generete 9-bit pwm with correct phase in pins OC1A (Digital pin 9) and OC1B (Digital pin 10)
   CORRECT10 to generete 10-bit pwm with correct phase in pins OC1A (Digital pin 9) and OC1B (Digital pin 10)
-  VARIABLE to generate pwm with a variable frequency in pins OC1A (Digital pin 9) and OC1B (Digital pin 10) 
   
   This timer has several top options for generating the fixed pwm signal at 8, 9 or 10 bit resolutions.
   Or top variables with comparator A or capture register.
   
-  When the timer is configured in CTC mode, the top of timer are determined for the camparator A.
+  When the timer is configured in CTC mode, the top of timer are determined by the comparator A.
 
-  But when configured for VARIABLE PWM wave generator the top can be configured like CAPT and defined by capture register,
-  default, or like COMPA defined by comparator A.
-  
-  In VARIABLE mode, we can yet configure the mode of pwm in FAST or CORRECT.
-  
-  Exemple:
-	Timer1 timer;
-	
-	void setup() {
-		
-		timer.config(VARIABLE,FAST,CAPT);
-		
-	}
-	
-  In this case, the pwm is configured with frequency variable (VARIABLE), in mode fast pwm and frequency defined by capture register. 
-  
-  The pwm cam be configured like FAST to fast pwm, default, or CORRECT to correct phase pwm. 
+  But when configured with FAST or CORRECT mode, the PWM wave generator top can be configured like CAPT and defined by capture register,
+  default, or like COMPA and defined by comparator A register.
   
   When the top are configured by comparator A,
   naturely the PWM in OC1A (Digital pin 9) will be disabled,
-  but the PWM in OC1B (Digital pin 10) can have its varied frequency with the method "frequency(freq)".
+  and the frequency can be modified by the value in comparator A register.
   
   When the top are configured by capture register,
-  both pwm pins, digital pin OC1A (Digital pin 9) and OC1B (Digital pin 10) can have its varied frequency with the method "frequency(freq)".
+  both pwm pins, digital pin OC1A (Digital pin 9) and OC1B (Digital pin 10) are avaliable to generate the signal,
+  and the frequency can be modified by the value in capture register.
   
-  When top is not passed, for default the top value in variable mode is the capture register, CAPT.
+  When top is not passed, for default the top value is fixed in 8-bit.
   
   
   pinA(mode);			//Configure action for pin OC1A (Digital pin 9) when happens timer value match with value in comparator A
@@ -109,12 +94,12 @@
   timer(value);			//to recharg value in timer
   compA(value);			//to recharg value in comparator A
   compB(value);			//to recharg value in comparator B
-  capt(value);			//to recharg value in capture register
+  capture(value);		//to recharg value in capture register
   
   char a = timer();		//to get value from timer
   char a = compA();		//to get value from comparator A
   char a = compB();		//to get value from comparator B
-  char a = capt();		//to get value from capture register
+  char a = capture();	//to get value from capture register
   
   
   
@@ -137,11 +122,7 @@
   For generate PWM waves, the pin OC1A/OC1B (Digital pin 9/Digital pin5) 
   need be configured like output with "mode(pin,mode)" method of Digital module.
  
-  
-  
-  TO Control frequency wave
-  
-  frequency(freq);			//Configure comparator to generate the frequency required
+  Calculation frequency for PWM wave
   
   The frequency is calculate with:
   
@@ -250,11 +231,11 @@
 
 	In 8MHz
 	minimal 1 Microsecond
-	maximum 8404992 Microseconds
+	maximum 8.388 Seconds
 
 	In 16MHz
 	minimal 1 Microsecond
-	maximum 4202496 Microseconds
+	maximum 4.194 Seconds
   
  
 	And this is the END.

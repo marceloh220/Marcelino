@@ -54,6 +54,7 @@ void setup() {
   digital.mode(3, OUTPUT);      //Pin digital 3 as output
   digital.mode(4, OUTPUT);      //Pin digital 4 as output
   
+  timer.mode(NORMAL);           //Timer0 in normal operation mode
   timer.prescale(P_1K);			    //Prescale in F_CPU/1024
 
   timer.compA(192);             //Load 192 value to comparator A
@@ -63,8 +64,9 @@ void setup() {
   timer.attach(COMPA, timeA);   //Attach the timeA function on the Overflow interrupt of the timer0
   timer.attach(COMPB, timeB);   //Attach the timeB function on the Overflow interrupt of the timer0
 
-  //And obviously, the signals from comparators A and B can be generated on pins OC0A and OC0B 
-  //without the need for interruptions
+  //And obviously, the signals from comparators A and B can be generated on pins 
+  //OC0A (Digital pin 6) and OC0B (Digital pin 5) without the need for interruptions
+  //To see more about pins alternative functions, read the Digital module manual
 
   digital.mode(OC0A, OUTPUT);      //Pin digital OC0A as output
   digital.mode(OC0B, OUTPUT);      //Pin digital OC0B as output

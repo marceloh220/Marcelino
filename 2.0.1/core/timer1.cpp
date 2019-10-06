@@ -25,7 +25,7 @@ Timer1::Timer1() {
 }
 
 #ifndef ATTINY
-void Timer1::configure(uint8_t mode) {
+void Timer1::mode(uint8_t mode) {
 	TCCR1A &= ~(bv(WGM11)|bv(WGM10));
 	TCCR1B &= ~bv(WGM12);
 	switch(mode) {
@@ -57,7 +57,7 @@ void Timer1::configure(uint8_t mode) {
 	}
 }
 
-void Timer1::configure(uint8_t mode, uint8_t top) {
+void Timer1::mode(uint8_t mode, uint8_t top) {
 	TCCR1A &= ~(bv(WGM11)|bv(WGM10));
 	TCCR1B &= ~bv(WGM12);
 	if(mode == FAST) {
@@ -138,7 +138,7 @@ void Timer1::pwmB(uint16_t value, uint8_t mode) {
 }
 #else
 
-void Timer1::configure(uint8_t mode) {
+void Timer1::mode(uint8_t mode) {
 	switch (mode) {
 		case NORMAL:
 			TCCR1 &= ~(bv(CTC1)|bv(PWM1A));

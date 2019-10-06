@@ -35,12 +35,14 @@ void time() {
 void setup() {
 
   digital.mode(13, OUTPUT);	    //Pin digital 13 as output
-  timer.prescale(64);			      //Explicit the prescale
+  timer.mode(NORMAL);           //Timer in normal mode
+  timer.prescale(P_64);			    //Prescale of timer in 1/64
   timer.timer(65535-25000);     //Load the timer to made overflow ever 25000 cycles
   timer.attach(OVF, time);		  //Attach the time function on the Overflow interrupt of the timer1
 
   // Timer overflow in:
   // time = 64 * (65536 - 25000) / 16e6 = 100ms
+  // another way to do this could be using the period method, they make the same thing
 
 }
 

@@ -12,7 +12,7 @@
 */
 
 Digital digital;		  	        //Module Digital instantiate
-Timer0 	timer;				          //Module Timer0 instantiate
+Timer2	timer;				          //Module Timer2 instantiate
 
 int aux;					              //Variable for counting time
 
@@ -33,7 +33,7 @@ void blink() {
 void setup() {
 
   digital.mode(13, OUTPUT);	    //Pin digital 13 as output
-  timer.prescale(64);			      //Configure the prescale
+  timer.prescale(P_64);			      //Configure the prescale
   timer.attach(OVF, blink);		  //Attach the time function on the Overflow interrupt of the timer0
 
   // Timer overflow in:

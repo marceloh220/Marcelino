@@ -35,7 +35,7 @@ public:
 		
 	//configs of timer
 	void prescale(uint8_t scale);
-	void configure(uint8_t mode, uint8_t top = TIMER);
+	void mode(uint8_t mode, uint8_t top = TIMER);
 	void pinA(uint8_t mode);
 	void pinB(uint8_t mode);
 	

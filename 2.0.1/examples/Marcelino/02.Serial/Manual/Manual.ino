@@ -15,7 +15,7 @@
   
   
   The Universal Synchronous and Asynchronous serial Receiver and Transmitter 
-  (USART/UART) is a highly flexible serial communication device.
+  (USART) is a highly flexible serial communication device.
   
   Module Serial is a very useful module with method to offer the
   programmer several easy tools to control the USART of microcontroller.
@@ -23,7 +23,7 @@
   This module provides...
   
     
-  TO Config the Universal Synchronous and Asynchronous serial Receiver and Transmitter (USART/UART)
+  TO Config the Universal Synchronous and Asynchronous serial Receiver and Transmitter (USART)
   
   mode(mode)			//select the mode of operation
   
@@ -68,17 +68,17 @@
   
   
 		In 8MHz
-	BAUD	  |	ERROR
-			    |
-	2400	  |	0.2%
-	4800	  |	0.2%
-	9600	  |	0.2%
-	14400	  |	-0.8%
-	19200	  |	0.2%
-	28800	  |	2.1%
-	38400	  |	0.2%
-	57600	  |	-3.5%
-	76800	  |	-7.0%
+	BAUD	|	ERROR
+			|
+	2400	|	0.2%
+	4800	|	0.2%
+	9600	|	0.2%
+	14400	|	-0.8%
+	19200	|	0.2%
+	28800	|	2.1%
+	38400	|	0.2%
+	57600	|	-3.5%
+	76800	|	-7.0%
 	115200	|	8.5%
 	230400	|	8.5%
 	250000	|	0.0%
@@ -86,17 +86,17 @@
 	
 	
 		In 16MHz
-	BAUD	  |	ERROR
-			    |
-	2400	  |	-0.1%
-	4800	  |	0.2%
-	9600	  |	0.2%
-	14400	  |	0.6%
-	19200	  |	0.2%
-	28800	  |	-0.8%
-	38400	  |	0.2%
-	57600	  |	2.1%
-	76800	  |	0.2%
+	BAUD	|	ERROR
+			|
+	2400	|	-0.1%
+	4800	|	0.2%
+	9600	|	0.2%
+	14400	|	0.6%
+	19200	|	0.2%
+	28800	|	-0.8%
+	38400	|	0.2%
+	57600	|	2.1%
+	76800	|	0.2%
 	115200	|	-3.5%
 	230400	|	8.5%
 	250000	|	0.0%
@@ -107,28 +107,30 @@
   And if baund rate is not passed, the default baund rate of 9600 will be selected.
   This caracteristics can be changed any time in application by the configurations methods.
   So in that way, the USART accepts all 30 combinations of the following as valid frame formats:
-	 1 start bit
-	 5, 6, 7, 8, or 9 data bits
-	 no, even or odd parity bit
-  1 or 2 stop bits
+  1 start bit
+  5, 6, 7, 8, or 9 data bits
+	no, even or odd parity bit
+ 	1 or 2 stop bits
   
   To print a information using the USART hardware can be used the method;
   write(char)				    //to print direct char information
   write(string)				  //to print a completely string
-  write(string,lenght)	//to print a string with the length determined
+  write(string,lenght)  //to print a string with the length determined
   
-  The print methods can also be used from the Print class:
-  print()			//To print anything
-  println()		//to print any stuff with a end line
+  And print methods can also be used from the Print class:
+  print()					//To print anything
+  println()				//to print any stuff with a end line
 
-  And the "<<" operator can also be used to pass a data to the serial interface:
-  interface << "Something to be printed!";
-  even real numbers;
-  interface << 123456.33;
+  Also can be used some operators to write a data in serial interface
+  module < data    //to print a data without line change
+  module << data   //to print a data with line change
+
+  The data send to module serial can be a char, strig, int or any other primitive type of data from C language
+  
 
   
-  TO read the Universal Synchronous and Asynchronous serial Receiver and Transmitter (USART/UART)
+  TO read the Universal Synchronous and Asynchronous serial Receiver and Transmitter (USART)
   
   read()					//return a char received
   
-
+	And this is the END.

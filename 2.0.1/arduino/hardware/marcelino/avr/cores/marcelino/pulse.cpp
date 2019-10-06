@@ -41,7 +41,7 @@ uint32_t Pulse::in(uint8_t pin, uint8_t state, uint32_t timeout) {
 	uint32_t maxloops = microsecondsToClockCycles(timeout)/16;
 	//uint32_t width = this->count(GPIO, bit, stateMask, maxloops);
 	//asm function, more presicion
-	uint32_t width = countPulseASM(GPIO->PIN, bit, stateMask, maxloops);
+	uint32_t width = countPulseASM((sfr_type)GPIO, bit, stateMask, maxloops);
 	if (width)
 		return clockCyclesToMicroseconds(width * 16 + 16);
 	else

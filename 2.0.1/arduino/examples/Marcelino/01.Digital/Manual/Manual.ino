@@ -16,38 +16,38 @@
    write(pin,state);	//To determine the digital state of pin
   
    State accepted:
-   LOW or CLEAR to turn off the pin
-   HIGH or SET to turn on the pin
+   LOW or CLEAR to put the pin in low state
+   HIGH or SET to put the pin in high state
    TOGGLE or CHANGE to alternate the pin state
   
    read(pin);			//Read state of pin
    Return HIGH (1) or LOW (0), depending on the state of the pin.
-   
+
    
    Methods to atomics access:
    Configure and manipulate various digital pins in the same function.
    
-   input(n, pins...);		//Configures pins is like input
+   input(n, pins...);		  //Configures pins is like input
    output(n, pins...);		//Configures pins is like output
    pullup(n, pins...);		//Configures pins is like input INPUT with internal pullup resistor
    
-   set(n, pins...);			//Set the pins
-   clear(n, pins...);		//Clear the pins
+   set(n, pins...);			  //Set the pins
+   clear(n, pins...);		  //Clear the pins
    toggle(n, pins...);		//Toggle the pins
    
-   "n" is the number of pins to configure in same instruction, example:
+   "n" is the number of pins to configure in same instruction, e.g.:
    
    /****************************************************************************************
    Digital digital;					//Load digital module with name digital
    
    void setup() {
-	   digital.output(3,5,6,13);	//In same time configure 3 pins like output
-									//The digital pin 5, digital pin 6 and digital pin 13
+	   digital.output(3,5,6,13);	//In same time are configured 3 pins in output mode
+									              //The digital pin 5, digital pin 6 and digital pin 13
    }
    ****************************************************************************************/
    
-   ifset(pin)			//Test if pin is set
-   ifclear(pin)			//Test if pin is clear
+   ifset(pin)			  //Test if pin is set
+   ifclear(pin)			//Test if pin is clear 
   
    ATmega328/p:
    

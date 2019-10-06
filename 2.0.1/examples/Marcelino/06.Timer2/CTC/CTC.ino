@@ -12,7 +12,7 @@
 
 Digital digital;                //Module Digital instantiate
 Delay   delay;                  //Module Delay instantiate
-Timer0  timer;                  //Module Timer0 instantiate
+Timer2  timer;                  //Module Timer2 instantiate
 
 void blink() {
 
@@ -26,14 +26,14 @@ void blink() {
 
 void setup() {
 
-  digital.mode(OC0A, OUTPUT);  //Pin OC0A as output
+  digital.mode(OC2A, OUTPUT);  //Pin OC2A (Digital pin 11) as output
 
-  timer.configure(CTC);        //The timer start in NORMAL mode, now he's is change to CTC mode
-  //In this mode the timer will be clean with comparison
+  timer.mode(CTC);        //The timer is configured in CTC mode
+  //In this mode the timer will be clean with the comparator A match
 
-  timer.pinA(CHANGE);          //Change the pin(OC0A) state when occur the match with comparator A
+  timer.pinA(CHANGE);          //Change the pin OC2A state when occur the match with comparator A
 
-  //And naturally, any pin can be used to generate this frequency using the interrupt COMPA of the timer
+  //And naturally, any pin can be used to generate this wave using the interrupt COMPA of the timer
 
   digital.mode(13, OUTPUT);    //A pin without any link with the timer is be used like output
   timer.attach(COMPA, blink);  //Jump to blink function when occur a match

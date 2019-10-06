@@ -12,14 +12,15 @@
 
 Digital digital;                //Module Digital instantiate
 Delay   delay;                  //Module Delay instantiate
-Timer0  timer;                  //Module Timer0 instantiate
+Timer2  timer;                  //Module Timer2 instantiate
 
 void setup() {
 
-  digital.mode(OC0A, OUTPUT);   //Pin OC0A as output
-  digital.mode(OC0B, OUTPUT);   //Pin OC0B as output
+  digital.mode(OC2A, OUTPUT);   //Pin OC2A (Digital pin 11) as output
+  digital.mode(OC2B, OUTPUT);   //Pin OC2B (Digital pin 3) as output
+  //To see more about pin's alternate functions, read the Digital module manual
 
-  timer.configure(FAST);        //The timer start in NORMAL mode, now he's is change to FAST mode
+  timer.mode(FAST);             //The is configured in FAST mode
                                 //In this mode the timer will generate a fast pwm wave
                                 //The fast pwm mode is a basic  mode to use this feature, it can control various device
                                 //But for more accurate control of induction devices, such as motors, the correct phase mode can be selected with the CORRECT mode

@@ -61,7 +61,7 @@ void Timer2::prescale(uint8_t scale) {
 	sei();
 }
 
-void Timer2::configure(uint8_t mode, uint8_t top) {
+void Timer2::mode(uint8_t mode, uint8_t top) {
 	cli();
 	while(update());
 	TCCR2B &= ~bv(WGM22);

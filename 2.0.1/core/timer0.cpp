@@ -53,7 +53,7 @@ void Timer0::prescale(uint8_t scale) {
 	}
 }
 
-void Timer0::configure(uint8_t mode, uint8_t top) {
+void Timer0::mode(uint8_t mode, uint8_t top) {
 	TCCR0B &= ~bv(WGM02);
 	TCCR0A &= ~(bv(WGM01)|bv(WGM00));
 	switch(mode) {

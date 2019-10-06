@@ -29,9 +29,9 @@ public:
 	
 	//configs of timer
 	#ifndef ATTINY
-	void configure(uint8_t mode, uint8_t top);
+	void mode(uint8_t mode, uint8_t top);
 	#endif
-	void configure(uint8_t mode);
+	void mode(uint8_t mode);
 	void prescale(uint8_t scale);
 	void pinA(uint8_t mode);
 	void pinB(uint8_t mode);
